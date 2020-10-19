@@ -15,19 +15,15 @@
 
 package uniandes.isis2304.parranderos.persistencia;
 
+import java.sql.Timestamp;
+
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
-import uniandes.isis2304.parranderos.negocio.LOCAL_COMERCIAL;
+import uniandes.isis2304.parranderos.negocio.ESPACIO;
 
-/**
- * Clase que encapsula los métodos que hacen acceso a la base de datos para el concepto SIRVEN de Parranderos
- * Nótese que es una clase que es sólo conocida en el paquete de persistencia
- * 
- * @author Germán Bravo
- */
 class SQLESPACIO 
 {
 	/* ****************************************************************
@@ -59,62 +55,40 @@ class SQLESPACIO
 		this.pp = pp;
 	}
 	
-	/**
-	 * Crea y ejecuta la sentencia SQL para adicionar un SIRVEN a la base de datos de Parranderos
-	 * @param pm - El manejador de persistencia
-	 * @param idBar - El identificador del bar
-	 * @param idBebida - El identificador de la bebida
-	 * @param horario - El horario en que el bar sirve la bebida (DIURNO, NOCTURNO, TDOOS)
-	 * @return EL número de tuplas insertadas
-	 */
-	public long adicionarSirven (PersistenceManager pm, long idBar, long idBebida, String horario) 
+	public long adicionarEspacio(PersistenceManager pm, long idEspacio, Timestamp horarioAperturaEmpleados, Timestamp horarioAperturaClientes,
+			Timestamp horarioCierreClientes, int aforoActual, int aforoTotal) 
 	{
-        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaSirven () + "(idbar, idbebida, horario) values (?, ?, ?)");
-        q.setParameters(idBar, idBebida, horario);
+        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaESPACIO() + "(ID_ESPACIO, HORARIO_APERTURA_EMPLEADOS, "
+        		+ "HORARIO_APERTURA_CLIENTES, HORARIO_CIERRE_CLIENTES, AFORO_ACTUAL, AFORO_TOTAL) values (?, ?, ?, ?, ?, ?)");
+        q.setParameters(idEspacio, horarioAperturaEmpleados, horarioAperturaClientes, horarioCierreClientes,
+        		aforoActual, aforoTotal);
         return (long)q.executeUnique();            
 	}
-
-	/**
-	 * Crea y ejecuta la sentencia SQL para eliminar UN SIRVEN de la base de datos de Parranderos, por sus identificador
-	 * @param pm - El manejador de persistencia
-	 * @param idBar - El identificador del bar
-	 * @param idBebida - El identificador de la bebida
-	 * @return EL número de tuplas eliminadas
-	 */
-	public long eliminarSirven (PersistenceManager pm, long idBar, long idBebida) 
+	
+	public long eliminarEspacioPorId(PersistenceManager pm, long idEspacio) 
 	{
-        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaSirven () + " WHERE idbar = ? AND idbebida = ?");
-        q.setParameters(idBar, idBebida);
+        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaESPACIO () + " WHERE ID_ESPACIO = ?");
+        q.setParameters(idEspacio);
         return (long) q.executeUnique();            
 	}
 
-	/**
-	 * Crea y ejecuta la sentencia SQL para encontrar la información de los SIRVEN de la 
-	 * base de datos de Parranderos
-	 * @param pm - El manejador de persistencia
-	 * @return Una lista de objetos SIRVEN
-	 */
-	public List<LOCAL_COMERCIAL> darSirven (PersistenceManager pm)
+	public List<ESPACIO> darEspacios(PersistenceManager pm)
 	{
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaSirven ());
-		q.setResultClass(LOCAL_COMERCIAL.class);
-		return (List<LOCAL_COMERCIAL>) q.execute();
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaESPACIO());
+		q.setResultClass(ESPACIO.class);
+		return (List<ESPACIO>) q.execute();
 	}
- 
-	/**
-	 * Crea y ejecuta la sentencia SQL para encontrar el identificador y el número de bebidas que sirven los bares de la 
-	 * base de datos de Parranderos
-	 * @param pm - El manejador de persistencia
-	 * @return Una lista de parejas de objetos, el primer elemento de cada pareja representa el identificador de un bar,
-	 * 	el segundo elemento representa el número de bebidas que sirve (Una bebida que se sirve en dos horarios cuenta dos veces)
-	 */
-	public List<Object []> darBaresYCantidadBebidasSirven (PersistenceManager pm)
+	public long aumentarAforoEnElEspacio(PersistenceManager pm, long idEspacio)
 	{
-        String sql = "SELECT idBar, count (*) as numBebidas";
-        sql += " FROM " + pp.darTablaSirven ();
-       	sql	+= " GROUP BY idBar";
-		Query q = pm.newQuery(SQL, sql);
-		return q.executeList();
+        Query q = pm.newQuery(SQL, "UPDATE " + pp.darTablaCENTRO_COMERCIAL()+ " SET AFORO = AFORO + 1 WHERE ID_ESPACIO=?");
+        q.setParameters(idEspacio);
+        return (long) q.executeUnique();
 	}
-
+	public List<ESPACIO> darEspaciosPorAforo(PersistenceManager pm, int aforoTotal)
+	{
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaESPACIO()+" WHERE AFORO_TOTAL=?");
+		q.setParameters(aforoTotal);
+		q.setResultClass(ESPACIO.class);
+		return (List<ESPACIO>) q.execute();
+	}
 }

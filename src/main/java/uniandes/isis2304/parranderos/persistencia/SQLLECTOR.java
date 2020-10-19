@@ -20,14 +20,9 @@ import java.util.List;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
+import uniandes.isis2304.parranderos.negocio.LECTOR;
 import uniandes.isis2304.parranderos.negocio.PARQUEADERO;
 
-/**
- * Clase que encapsula los métodos que hacen acceso a la base de datos para el concepto TIPO DE BEBIDA de Parranderos
- * Nótese que es una clase que es sólo conocida en el paquete de persistencia
- * 
- * @author Germán Bravo
- */
 class SQLLECTOR 
 {
 	/* ****************************************************************
@@ -59,87 +54,30 @@ class SQLLECTOR
 		this.pp = pp;
 	}
 	
-	/**
-	 * Crea y ejecuta la sentencia SQL para adicionar un TIPOBEBIDA a la base de datos de Parranderos
-	 * @param pm - El manejador de persistencia
-	 * @param idTipoBebida - El identificador del tipo de bebida
-	 * @param nombre - El nombre del tipo de bebida
-	 * @return EL número de tuplas insertadas
-	 */
-	public long adicionarTipoBebida (PersistenceManager pm, long idTipoBebida, String nombre) 
+	public long adicionarLector(PersistenceManager pm, long idLector, long idEspacio) 
 	{
-        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaTipoBebida  () + "(id, nombre) values (?, ?)");
-        q.setParameters(idTipoBebida, nombre);
+        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaLECTOR()+ "(ID_LECTOR, IDESPACIO) values (?, ?)");
+        q.setParameters(idLector, idEspacio);
         return (long) q.executeUnique();            
 	}
 
-	/**
-	 * Crea y ejecuta la sentencia SQL para eliminar TIPOS DE BEBIDA de la base de datos de Parranderos, por su nombre
-	 * @param pm - El manejador de persistencia
-	 * @param nombreTipoBebida - El nombre del tipo de bebida
-	 * @return EL número de tuplas eliminadas
-	 */
-	public long eliminarTipoBebidaPorNombre (PersistenceManager pm, String nombreTipoBebida)
+	public long eliminarLector(PersistenceManager pm, long idLector)
 	{
-        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaTipoBebida  () + " WHERE nombre = ?");
-        q.setParameters(nombreTipoBebida);
+        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaLECTOR() + " WHERE ID_LECTOR= ?");
+        q.setParameters(idLector);
         return (long) q.executeUnique();            
 	}
-
-	/**
-	 * Crea y ejecuta la sentencia SQL para eliminar TIPOS DE BEBIDA de la base de datos de Parranderos, por su identificador
-	 * @param pm - El manejador de persistencia
-	 * @param idTipoBebida - El identificador del tipo de bebida
-	 * @return EL número de tuplas eliminadas
-	 */
-	public long eliminarTipoBebidaPorId (PersistenceManager pm, long idTipoBebida)
+	public PARQUEADERO darLectorPorId (PersistenceManager pm, long idLector) 
 	{
-        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaTipoBebida  () + " WHERE id = ?");
-        q.setParameters(idTipoBebida);
-        return (long) q.executeUnique();            
-	}
-
-	/**
-	 * Crea y ejecuta la sentencia SQL para encontrar la información de UN TIPO DE BEBIDA de la 
-	 * base de datos de Parranderos, por su identificador
-	 * @param pm - El manejador de persistencia
-	 * @param idTipoBebida - El identificador del tipo de bebida
-	 * @return El objeto TIPOBEBIDA que tiene el identificador dado
-	 */
-	public PARQUEADERO darTipoBebidaPorId (PersistenceManager pm, long idTipoBebida) 
-	{
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaTipoBebida  () + " WHERE id = ?");
-		q.setResultClass(PARQUEADERO.class);
-		q.setParameters(idTipoBebida);
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaLECTOR() + " WHERE id = ?");
+		q.setResultClass(LECTOR.class);
+		q.setParameters(idLector);
 		return (PARQUEADERO) q.executeUnique();
 	}
-
-	/**
-	 * Crea y ejecuta la sentencia SQL para encontrar la información de UN TIPO DE BEBIDA de la 
-	 * base de datos de Parranderos, por su nombre
-	 * @param pm - El manejador de persistencia
-	 * @param nombreTipoBebida - El nombre del tipo de bebida
-	 * @return El objeto TIPOBEBIDA que tiene el nombre dado
-	 */
-	public List<PARQUEADERO> darTiposBebidaPorNombre (PersistenceManager pm, String nombreTipoBebida) 
+	public List<LECTOR> darLECTORES(PersistenceManager pm) 
 	{
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaTipoBebida  () + " WHERE nombre = ?");
-		q.setResultClass(PARQUEADERO.class);
-		q.setParameters(nombreTipoBebida);
-		return (List<PARQUEADERO>) q.executeList();
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaLECTOR());
+		q.setResultClass(LECTOR.class);
+		return (List<LECTOR>) q.executeList();
 	}
-
-	/**
-	 * Crea y ejecuta la sentencia SQL para encontrar la información de LOS TIPOS DE BEBIDA de la 
-	 * base de datos de Parranderos
-	 * @param pm - El manejador de persistencia
-	 * @return Una lista de objetos TIPOBEBIDA
-	 */
-	public List<PARQUEADERO> darTiposBebida (PersistenceManager pm)
-	{
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaTipoBebida  ());
-		q.setResultClass(PARQUEADERO.class);
-		return (List<PARQUEADERO>) q.executeList();
-	}
-
 }
