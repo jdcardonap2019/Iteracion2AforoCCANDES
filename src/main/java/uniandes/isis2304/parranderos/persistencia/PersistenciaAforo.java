@@ -94,39 +94,43 @@ public class PersistenciaAforo
 	private SQLPARQUEADERO sqlParqueadero;
 	
 	/**
-	 * Atributo para el acceso a la tabla TIPOBEBIDA de la base de datos
+	 * Atributo para el acceso a la tabla LECTOR de la base de datos
 	 */
-	private SQLLECTOR sqlTipoBebida;
+	private SQLLECTOR sqlLector;
 	
 	/**
-	 * Atributo para el acceso a la tabla BEBIDA de la base de datos
+	 * Atributo para el acceso a la tabla LOCALCOMERCIAL de la base de datos
 	 */
-	private SQLLOCAL_COMERCIAL sqlBebida;
+	private SQLLOCAL_COMERCIAL sqlLocalComercial;
 	
 	/**
-	 * Atributo para el acceso a la tabla BAR de la base de datos
+	 * Atributo para el acceso a la tabla BAÑO de la base de datos
 	 */
-	private SQLBAÑO sqlBar;
+	private SQLBAÑO sqlBaño;
+
+	/**
+	 * Atributo para el acceso a la tabla CARNET de la base de datos
+	 */
+	private SQLCARNET sqlCarnet;
 	
 	/**
-	 * Atributo para el acceso a la tabla BEBIDA de la base de datos
+	 * Atributo para el acceso a la tabla CENTRO_COMERCIAL de la base de datos
 	 */
-	private SQLCARNET sqlBebedor;
+	private SQLCENTRO_COMERCIAL sqlCentroComercial;
 	
 	/**
-	 * Atributo para el acceso a la tabla GUSTAN de la base de datos
+	 * Atributo para el acceso a la tabla ESPACIO de la base de datos
 	 */
-	private SQLCENTRO_COMERCIAL sqlGustan;
+	private SQLESPACIO sqlEspacio;
 	
 	/**
-	 * Atributo para el acceso a la tabla SIRVEN de la base de datos
+	 * Atributo para el acceso a la tabla VISITA de la base de datos
 	 */
-	private SQLESPACIO sqlSirven;
-	
+	private SQLVISITA sqlVisita;
 	/**
-	 * Atributo para el acceso a la tabla VISITAN de la base de datos
+	 * Atributo para el acceso a la tabla VISITANTE de la base de datos
 	 */
-	private SQLVISITA sqlVisitan;
+	private SQLVISITANTE sqlVisitantes;
 	
 	/* ****************************************************************
 	 * 			Métodos del MANEJADOR DE PERSISTENCIA
@@ -142,14 +146,16 @@ public class PersistenciaAforo
 		
 		// Define los nombres por defecto de las tablas de la base de datos
 		tablas = new LinkedList<String> ();
-		tablas.add ("Parranderos_sequence");
-		tablas.add ("TIPOBEBIDA");
-		tablas.add ("BEBIDA");
-		tablas.add ("BAR");
-		tablas.add ("BEBEDOR");
-		tablas.add ("GUSTAN");
-		tablas.add ("SIRVEN");
-		tablas.add ("VISITAN");
+		tablas.add ("AforoCCAndes_sequence");
+		tablas.add ("BAÑO");
+		tablas.add ("CARNET");
+		tablas.add ("CENTRO_COMERCIAL");
+		tablas.add ("ESPACIO");
+		tablas.add ("LECTOR");
+		tablas.add ("LOCAL_COMERCIAL");
+		tablas.add ("PARQUEADERO");
+		tablas.add ("VISITA");
+		tablas.add ("VISITANTE");
 }
 
 	/**
@@ -224,84 +230,100 @@ public class PersistenciaAforo
 	 */
 	private void crearClasesSQL ()
 	{
-		sqlTipoBebida = new SQLLECTOR(this);
-		sqlBebida = new SQLLOCAL_COMERCIAL(this);
-		sqlBar = new SQLBAÑO(this);
-		sqlBebedor = new SQLCARNET(this);
-		sqlGustan = new SQLCENTRO_COMERCIAL(this);
-		sqlSirven = new SQLESPACIO (this);
-		sqlVisitan = new SQLVISITA(this);		
+		sqlLector= new SQLLECTOR(this);
+		sqlLocalComercial = new SQLLOCAL_COMERCIAL(this);
+		sqlBaño = new SQLBAÑO(this);
+		sqlCarnet = new SQLCARNET(this);
+		sqlCentroComercial = new SQLCENTRO_COMERCIAL(this);
+		sqlEspacio = new SQLESPACIO (this);
+		sqlVisita = new SQLVISITA(this);	
+		sqlParqueadero= new SQLPARQUEADERO(this);
+		sqlVisitantes=new SQLVISITANTE(this);
 		sqlUtil = new SQLUtil(this);
 	}
 
 	/**
 	 * @return La cadena de caracteres con el nombre del secuenciador de parranderos
 	 */
-	public String darSeqParranderos ()
+	public String darSeqAforo()
 	{
 		return tablas.get (0);
 	}
 
 	/**
-	 * @return La cadena de caracteres con el nombre de la tabla de TipoBebida de parranderos
+	 * @return La cadena de caracteres con el nombre de la tabla de BAÑO de Aforo
 	 */
-	public String darTablaTipoBebida ()
+	public String darTablaBAÑO ()
 	{
 		return tablas.get (1);
 	}
 
 	/**
-	 * @return La cadena de caracteres con el nombre de la tabla de Bebida de parranderos
+	 * @return La cadena de caracteres con el nombre de la tabla de CARNET de Aforo
 	 */
-	public String darTablaBebida ()
+	public String darTablaCARNET()
 	{
 		return tablas.get (2);
 	}
 
 	/**
-	 * @return La cadena de caracteres con el nombre de la tabla de Bar de parranderos
+	 * @return La cadena de caracteres con el nombre de la tabla de CENTRO_COMERCIAL de Aforo
 	 */
-	public String darTablaBar ()
+	public String darTablaCENTRO_COMERCIAL ()
 	{
 		return tablas.get (3);
 	}
 
 	/**
-	 * @return La cadena de caracteres con el nombre de la tabla de Bebedor de parranderos
+	 * @return La cadena de caracteres con el nombre de la tabla de ESPACIO de Aforo
 	 */
-	public String darTablaBebedor ()
+	public String darTablaESPACIO()
 	{
 		return tablas.get (4);
 	}
 
 	/**
-	 * @return La cadena de caracteres con el nombre de la tabla de Gustan de parranderos
+	 * @return La cadena de caracteres con el nombre de la tabla de LECTOR de Aforo
 	 */
-	public String darTablaGustan ()
+	public String darTablaLECTOR ()
 	{
 		return tablas.get (5);
 	}
 
 	/**
-	 * @return La cadena de caracteres con el nombre de la tabla de Sirven de parranderos
+	 * @return La cadena de caracteres con el nombre de la tabla de LOCAL_COMERCIAL de Aforo
 	 */
-	public String darTablaSirven ()
+	public String darTablaLOCAL_COMERCIAL ()
 	{
 		return tablas.get (6);
 	}
 
 	/**
-	 * @return La cadena de caracteres con el nombre de la tabla de Visitan de parranderos
+	 * @return La cadena de caracteres con el nombre de la tabla de PARQUEADERO de Aforo
 	 */
-	public String darTablaVisitan ()
+	public String darTablaPARQUEADERO ()
 	{
 		return tablas.get (7);
 	}
+	/**
+	 * @return La cadena de caracteres con el nombre de la tabla de VISITA de Aforo
+	 */
+	public String darTablaVISITA()
+	{
+		return tablas.get (8);
+	}
+	/**
+	 * @return La cadena de caracteres con el nombre de la tabla de VISITANTE de Aforo
+	 */
+	public String darTablaVISITANTE()
+	{
+		return tablas.get (9);
+	}
 	
 	/**
-	 * Transacción para el generador de secuencia de Parranderos
+	 * Transacción para el generador de secuencia de Aforo
 	 * Adiciona entradas al log de la aplicación
-	 * @return El siguiente número del secuenciador de Parranderos
+	 * @return El siguiente número del secuenciador de Aforo
 	 */
 	private long nextval ()
 	{

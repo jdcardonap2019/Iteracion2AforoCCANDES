@@ -15,9 +15,7 @@
 
 package uniandes.isis2304.parranderos.persistencia;
 
-import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
@@ -140,33 +138,6 @@ class SQLVISITA
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaVisitan ());
 		q.setResultClass(VISITA.class);
 		return (List<VISITA>) q.execute();
-	}
-
-	/* ****************************************************************
-	 * 			Versión larga, a lo JDBC
-	 *****************************************************************/
-  	
-	/**
-	 * Crea y ejecuta la sentencia SQL para encontrar la información de los VISITAN de la 
-	 * base de datos de Parranderos
-	 * @param pm - El manejador de persistencia
-	 * @return Una lista de objetos VISITAN
-	 */
-	private List<VISITA> darVisitan_V2 (PersistenceManager pm)
-	{
-		Query q = pm.newQuery(SQL, "SELECT idBebedor, idBar, fechaVisita, horario FROM " + pp.darTablaVisitan ());
-		List<VISITA> resp = new LinkedList<>();
-		List results = q.executeList();
-		for (Object obj : results)
-		{
-			Object [] datos = (Object []) obj;
-			long idBebedor =  ((BigDecimal) datos [0]).longValue ();
-			long idBar = ((BigDecimal) datos [1]).longValue();
-			Timestamp fecha = (Timestamp) datos [2];
-			String horario = (String) datos [3];
-			resp.add (new VISITA (idBebedor, idBar, fecha, horario));
-		}
-		return resp;		
 	}
 		 	
 }
