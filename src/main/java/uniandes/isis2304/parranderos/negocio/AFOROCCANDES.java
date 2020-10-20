@@ -115,7 +115,6 @@ public class AFOROCCANDES
 	 * Adiciona entradas al log de la aplicación
 	 * @return Una lista de objetos VOTipoBebida con todos los tipos de bebida que conoce la aplicación, llenos con su información básica
 	 */
-
 	public List<VOPARQUEADERO> darVOPARQUEADEROS()
 	{
 		log.info ("Generando los VO de Parqueaderos:");        
@@ -126,7 +125,15 @@ public class AFOROCCANDES
         }
         log.info ("Generando los VO de Parqueaderos: " + voTipos.size() + " existentes");
         return voTipos;
-	}	
+	}
+	public PARQUEADERO darParqueaderoPorId (long idParqueadero)
+	{
+        log.info ("Dar información de un bebedor por id: " + idParqueadero);
+        PARQUEADERO parqueadero = pp.darParqueaderoPorId(idParqueadero);
+        log.info ("Buscando baño por Id: " + parqueadero!= null ? parqueadero: "NO EXISTE");
+        return parqueadero;
+	}
+	
 	/* ****************************************************************
 	 * 			Métodos para manejar los BANIO
 	 *****************************************************************/
@@ -138,11 +145,11 @@ public class AFOROCCANDES
 	 * @param gradoAlcohol - El grado de alcohol de la bebida (Mayor que 0)
 	 * @return El objeto Bebida adicionado. null si ocurre alguna Excepción
 	 */
-	public BAÑO adicionarBaño (long idEspacio, long idBaño, int numeroSanitarios)
+	public BAÑO adicionarBaño (long idEspacio, int numeroSanitarios)
 	{
-		log.info ("Adicionando Baño " + idBaño);
-		BAÑO baño = pp.adicionarBaño (idEspacio, idBaño, numeroSanitarios);
-        log.info ("Adicionando Baño: " + idBaño);
+		log.info ("Adicionando Baño con Id espacio" + idEspacio);
+		BAÑO baño = pp.adicionarBaño (idEspacio, numeroSanitarios);
+        log.info ("Adicionando Baño: " + idEspacio);
         return baño;
 	}
 	
@@ -183,18 +190,24 @@ public class AFOROCCANDES
         log.info ("Generando los VO de las bebidas: " + voBaños.size() + " existentes");
         return voBaños;
 	}
-
+	public BAÑO darBañoPorId (long idBaño)
+	{
+        log.info ("Dar información de un bebedor por id: " + idBaño);
+        BAÑO baño = pp.darBañoPorId(idBaño);
+        log.info ("Buscando baño por Id: " + baño!= null ? baño: "NO EXISTE");
+        return baño;
+	}
 
 	/* ****************************************************************
 	 * 			Métodos para manejar los CARNETS
 	 *****************************************************************/
 
 
-	public CARNET adicionarCarnet (Long idCarnet, float cedula)
+	public CARNET adicionarCarnet (float cedula)
 	{
-        log.info ("Adicionando Carnet: " + idCarnet);
-        CARNET bebedor = pp.adicionarCarnet (idCarnet, cedula);
-        log.info ("Adicionando carnet: " + idCarnet);
+        log.info ("Adicionando Carnet: " + cedula);
+        CARNET bebedor = pp.adicionarCarnet (cedula);
+        log.info ("Adicionando carnet: " + cedula);
         return bebedor;
 	}
 
@@ -237,13 +250,17 @@ public class AFOROCCANDES
         log.info ("Generando los VO de Carnets: " + voBebedores.size() + " Carnets existentes");
        return voBebedores;
 	}
-	
-	
+	public CARNET cambiarCedulaCarnet(long idCarnet, float cedula)
+	{
+        log.info ("Cambiando cedula de carnet: " + idCarnet);
+        CARNET cambios = pp.cambiarCedulaCarnet(idCarnet, cedula);
+        return cambios;
+	}
 	/**
 	 * Dado el nombre de una ciudad, encuentra el número de bebedores de esa ciudad que han realizado por lo menos una visita a un bar
 	 * Adiciona entradas al log de la aplicación
 	 * @param ciudad - La ciudad de interés
-
+	 */
 	/* ****************************************************************
 	 * 			Métodos para manejar los ESPACIOS
 	 *****************************************************************/
@@ -301,6 +318,7 @@ public class AFOROCCANDES
 	}
 
 
+
 	/* ****************************************************************
 	 * 			Métodos para manejar la relación LECTOR
 	 *****************************************************************/
@@ -312,10 +330,10 @@ public class AFOROCCANDES
 	 * @param idBebida - El identificador de la bebida
 	 * @return Un objeto Gustan con los valores dados
 	 */
-	public LECTOR adicionarLector (long idLector, long idEspacio)
+	public LECTOR adicionarLector (long idEspacio)
 	{
-        log.info ("Adicionando Lector [" + idLector + ", " + idEspacio + "]");
-        LECTOR resp = pp.adicionarLector (idLector, idEspacio);
+        log.info ("Adicionando Lector ["+ idEspacio + "]");
+        LECTOR resp = pp.adicionarLector (idEspacio);
         log.info ("Adicionando Lector: " + resp + " tuplas insertadas");
         return resp;
 	}
@@ -353,7 +371,13 @@ public class AFOROCCANDES
 		log.info ("Generando los VO de Gustan: " + voLector.size () + " Gustan existentes");
 		return voLector;
 	}
-
+	public LECTOR darLectorPorId (long idLector)
+	{
+        log.info ("Dar información de un bebedor por id: " + idLector);
+        LECTOR bebedor = pp.darLectorPorId(idLector);
+        log.info ("Buscando bebedor por Id: " + bebedor != null ? bebedor : "NO EXISTE");
+        return bebedor;
+	}
 	/* ****************************************************************
 	 * 			Métodos para manejar la relación LOCAL_COMERCIAL
 	 *****************************************************************/
@@ -366,10 +390,10 @@ public class AFOROCCANDES
 	 * @param horario - El horario en el que se sirve la bebida (DIURNO, NOCTURNO, TODOS)
 	 * @return Un objeto Sirven con los valores dados
 	 */
-	public LOCAL_COMERCIAL adicionarLocalComercial (long idEspacio,long id_local, String nombre, String nombre_empresa, float area, String tipo_establecimiento)
+	public LOCAL_COMERCIAL adicionarLocalComercial (long idEspacio,String nombre, String nombre_empresa, float area, String tipo_establecimiento)
 	{
-        log.info ("Adicionando Local Comercial:"+ id_local);
-        LOCAL_COMERCIAL resp = pp.adicionarLocalComercial (idEspacio, id_local,  nombre,  nombre_empresa,  area,  tipo_establecimiento);
+        log.info ("Adicionando Local Comercial:"+ nombre);
+        LOCAL_COMERCIAL resp = pp.adicionarLocalComercial (idEspacio,nombre,  nombre_empresa,  area,  tipo_establecimiento);
         log.info ("Adicionando Local Comercial: " + resp + " tuplas insertadas");
         return resp;
 	}
@@ -403,7 +427,7 @@ public class AFOROCCANDES
         log.info ("Listando Locales Comerciales: " + sirven.size() + " Locales Comerciales existentes");
         return sirven;
 	}
-
+	
 	/**
 	 * Encuentra todos los sirven en Parranderos y los devuelve como VO
 	 * Adiciona entradas al log de la aplicación
@@ -420,7 +444,24 @@ public class AFOROCCANDES
 		log.info ("Generando los VO de local comercial: " + voLocalComercial.size () + " local comerciales existentes");
 		return voLocalComercial;
 	}
-
+	public LOCAL_COMERCIAL darLocalPorId (long idLocal)
+	{
+        log.info ("Dar información de local por id: " + idLocal);
+        LOCAL_COMERCIAL local= pp.darLocalComercialPorId(idLocal);
+        log.info ("Buscando local por Id: " + local!= null ? local: "NO EXISTE");
+        return local;
+	}
+	public List<VOLOCAL_COMERCIAL> darLocalPorNombre(String nombre)
+	{
+		log.info ("Generando los VO de Sirven");
+		List<VOLOCAL_COMERCIAL> voLocalComercial = new LinkedList<VOLOCAL_COMERCIAL> ();
+		for (VOLOCAL_COMERCIAL sirven: pp.darLocalComercialPorNombre(nombre))
+		{
+			voLocalComercial.add (sirven);
+		}
+		log.info ("Generando los VO de local comercial: " + voLocalComercial.size () + " local comerciales existentes");
+		return voLocalComercial;
+	}
 	/* ****************************************************************
 	 * 			Métodos para manejar la relación VISITA
 	 *****************************************************************/

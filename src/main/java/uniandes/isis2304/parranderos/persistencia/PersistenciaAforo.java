@@ -478,14 +478,14 @@ public class PersistenciaAforo
 	/* ****************************************************************
 	 * 			Métodos para manejar los CARNET
 	 *****************************************************************/
-	public CARNET adicionarCarnet(long idCarnet, float cedula) 
+	public CARNET adicionarCarnet(float cedula) 
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
         Transaction tx=pm.currentTransaction();
         try
         {
             tx.begin();
-            long idBebedor = nextval ();
+            long idCarnet = nextval ();
             long tuplasInsertadas = sqlCarnet.adicionarCarnet(pm, idCarnet, cedula);
             tx.commit();
 
@@ -542,18 +542,44 @@ public class PersistenciaAforo
 	{
 		return sqlCarnet.darCarnets(pmf.getPersistenceManager());
 	}
-	/* ****************************************************************
-	 * 			Métodos para manejar los BAÑOS
-	 *****************************************************************/
-
-	public BAÑO adicionarBaño(long idEspacio, long idBaño, int numSanitarios) 
+	public CARNET cambiarCedulaCarnet(long idCarnet, float cedula)
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
         Transaction tx=pm.currentTransaction();
         try
         {
             tx.begin();
-            long idBar = nextval ();
+            CARNET resp = sqlCarnet.cambiarCedula(pm, idCarnet, cedula);
+            tx.commit();
+            return resp;
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+            return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+	/* ****************************************************************
+	 * 			Métodos para manejar los BAÑOS
+	 *****************************************************************/
+
+	public BAÑO adicionarBaño(long idEspacio, int numSanitarios) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long idBaño = nextval ();
             long tuplasInsertadas = sqlBaño.adicionarBaño(pm, idEspacio, idBaño, numSanitarios);
             tx.commit();
 
@@ -750,13 +776,14 @@ public class PersistenciaAforo
 	/* ****************************************************************
 	 * 			Métodos para manejar la relación LOCAL COMERCIAL
 	 *****************************************************************/
-	public LOCAL_COMERCIAL adicionarLocalComercial(long idEspacio,long id_local, String nombre, String nombre_empresa, float area, String tipo_establecimiento) 
+	public LOCAL_COMERCIAL adicionarLocalComercial(long idEspacio, String nombre, String nombre_empresa, float area, String tipo_establecimiento) 
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
         Transaction tx=pm.currentTransaction();
         try
         {
             tx.begin();
+            long id_local=nextval();
             long tuplasInsertadas = sqlLocalComercial.adicionarLocalComercial(pm, idEspacio, id_local, nombre, nombre_empresa, area, tipo_establecimiento);
     		tx.commit();
 
@@ -1069,17 +1096,18 @@ public class PersistenciaAforo
 	/* ****************************************************************
 	 * 			Métodos para manejar la relación LECTOR
 	 *****************************************************************/
-	public LECTOR adicionarLector(long idLector, long idEspacio) 
+	public LECTOR adicionarLector(long idEspacio) 
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
         Transaction tx=pm.currentTransaction();
         try
         {
             tx.begin();
+            long idLector = nextval ();
             long tuplasInsertadas = sqlLector.adicionarLector(pm, idLector, idEspacio);
             tx.commit();
 
-            log.trace ("Inserción de visitante: [" + idLector+ ", " 
+            log.trace ("Inserción de lector: [" + idLector+ ", " 
             		+ idEspacio+"]. " 
             		+ tuplasInsertadas + " tuplas insertadas");
 
@@ -1161,6 +1189,5 @@ public class PersistenciaAforo
             }
             pm.close();
         }
-		
 	}
  }

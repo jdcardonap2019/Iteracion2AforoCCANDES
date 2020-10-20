@@ -52,8 +52,12 @@ import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
 
 import uniandes.isis2304.parranderos.negocio.AFOROCCANDES;
+import uniandes.isis2304.parranderos.negocio.CARNET;
 import uniandes.isis2304.parranderos.negocio.VOBAÑO;
+import uniandes.isis2304.parranderos.negocio.VOCARNET;
 import uniandes.isis2304.parranderos.negocio.VOESPACIO;
+import uniandes.isis2304.parranderos.negocio.VOLECTOR;
+import uniandes.isis2304.parranderos.negocio.VOLOCAL_COMERCIAL;
 import uniandes.isis2304.parranderos.negocio.VOPARQUEADERO;
 import uniandes.isis2304.parranderos.negocio.VOVISITA;
 import uniandes.isis2304.parranderos.negocio.VOVISITANTE;
@@ -245,28 +249,26 @@ public class InterfazAforoApp extends JFrame implements ActionListener
         setJMenuBar ( menuBar );	
     }
     
-	/* ****************************************************************
+    /* ****************************************************************
 	 * 			CRUD DE BAÑO
 	 *****************************************************************/
     public void adicionarBaño( )
     {
     	try 
     	{
-    		String id = JOptionPane.showInputDialog (this, "Digite el id del espacio, id del baño y el número de sanitarios separado por comas",
+    		String id = JOptionPane.showInputDialog (this, "Digite el id del espacio y el número de sanitarios separado por comas",
     				"Adicionar baño", JOptionPane.QUESTION_MESSAGE);
     		if (id!= null)
     		{
     			String[] datos=id.split(",");
     			String idEspacio=datos[0];
-    			String idBaño=datos[1];
-    			String numSanitarios=datos[2];
-    			long idRealEspacio=Long.valueOf(idEspacio);
-    			long idRealBaño=Long.valueOf(idBaño);
+    			String numSanitarios=datos[1];
+    			long idRealEspacio=Long.valueOf(idEspacio);;
     			int numSanitarios2=Integer.parseInt(numSanitarios);
-        		VOBAÑO tb = aforo.adicionarBaño(idRealEspacio, idRealBaño, numSanitarios2);
+        		VOBAÑO tb = aforo.adicionarBaño(idRealEspacio, numSanitarios2);
         		if (tb == null)
         		{
-        			throw new Exception ("No se pudo crear un parqueadero con id: " + idRealBaño);
+        			throw new Exception ("No se pudo crear un baño con id: " + idEspacio);
         		}
         		String resultado = "En adicionarBaño\n\n";
         		resultado += "Baño adicionado exitosamente: " + tb;
@@ -330,7 +332,40 @@ public class InterfazAforoApp extends JFrame implements ActionListener
 			panelDatos.actualizarInterfaz(resultado);
 		}
     }
-   
+    public void buscarBañoPorId( )
+    {
+    	try 
+    	{
+    		String idBaño = JOptionPane.showInputDialog (this, "Id del baño?", "Buscar baño por Id", JOptionPane.QUESTION_MESSAGE);
+    		if (idBaño!= null)
+    		{
+    			Long idRealBaño=Long.getLong(idBaño);
+    			VOBAÑO baño = aforo.darBañoPorId(idRealBaño);
+    			String resultado = "En buscar Baño por Id\n\n";
+    			if (baño!= null)
+    			{
+        			resultado += "El tipo de bebida es: " + baño;
+    			}
+    			else
+    			{
+        			resultado += "Un baño con id: " + idRealBaño + " NO EXISTE\n";    				
+    			}
+    			resultado += "\n Operación terminada";
+    			panelDatos.actualizarInterfaz(resultado);
+    		}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+    }
+
     
     /* ****************************************************************
 	 * 			CRUD DE PARQUEADERO
@@ -415,7 +450,39 @@ public class InterfazAforoApp extends JFrame implements ActionListener
 			panelDatos.actualizarInterfaz(resultado);
 		}
     }
-    
+    public void buscarParqueaderoPorId( )
+    {
+    	try 
+    	{
+    		String idParqueadero= JOptionPane.showInputDialog (this, "Id del parqueadero?", "Buscar parqueadero por Id", JOptionPane.QUESTION_MESSAGE);
+    		if (idParqueadero!= null)
+    		{
+    			Long idRealParqueadero=Long.getLong(idParqueadero);
+    			VOPARQUEADERO parqueadero = aforo.darParqueaderoPorId(idRealParqueadero);
+    			String resultado = "En buscar Parqueadero por Id\n\n";
+    			if (parqueadero!= null)
+    			{
+        			resultado += "El parqueadero es: " + parqueadero;
+    			}
+    			else
+    			{
+        			resultado += "Un parqueadero con id: " + idRealParqueadero+ " NO EXISTE\n";    				
+    			}
+    			resultado += "\n Operación terminada";
+    			panelDatos.actualizarInterfaz(resultado);
+    		}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+    }
     /* ****************************************************************
 	 * 			CRUD DE ESPACIO
 	 *****************************************************************/
@@ -749,6 +816,439 @@ public class InterfazAforoApp extends JFrame implements ActionListener
       			panelDatos.actualizarInterfaz(resultado);
       		}
           }
+          /* ****************************************************************
+      	 * 			CRUD DE CARNET
+      	 *****************************************************************/
+          public void adicionarCarnet( )
+          {
+          	try 
+          	{
+          		String cedula = JOptionPane.showInputDialog (this, "Digite la cedula.",
+          				"Adicionar Carnet", JOptionPane.QUESTION_MESSAGE);
+          		if (cedula!= null)
+          		{
+          			float cedulaReal=Float.parseFloat(cedula);
+              		VOCARNET carnet=aforo.adicionarCarnet(cedulaReal);
+              		if (carnet == null)
+              		{
+              			throw new Exception ("No se pudo crear un carnet con la cedula: " + cedulaReal);
+              		}
+              		String resultado = "En adicionarBaño\n\n";
+              		resultado += "Baño adicionado exitosamente: " + carnet;
+          			resultado += "\n Operación terminada";
+          			panelDatos.actualizarInterfaz(resultado);
+          		}
+          		else
+          		{
+          			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+          		}
+      		} 
+          	catch (Exception e) 
+          	{
+//      			e.printStackTrace();
+      			String resultado = generarMensajeError(e);
+      			panelDatos.actualizarInterfaz(resultado);
+      		}
+          }
+          public void darCarnets( )
+          {
+          	try 
+          	{
+      			List <VOCARNET> lista = aforo.darVOCarnets();
+
+      			String resultado = "En listar CARNETS";
+      			resultado +=  "\n" + listarCarnets(lista);
+      			panelDatos.actualizarInterfaz(resultado);
+      			resultado += "\n Operación terminada";
+      		} 
+          	catch (Exception e) 
+          	{
+//      			e.printStackTrace();
+      			String resultado = generarMensajeError(e);
+      			panelDatos.actualizarInterfaz(resultado);
+      		}
+          }
+          public void eliminarCarnetPorId( )
+          {
+          	try 
+          	{
+          		String idTipoStr = JOptionPane.showInputDialog (this, "Id del carnet?", "Borrar carnet por Id", JOptionPane.QUESTION_MESSAGE);
+          		if (idTipoStr != null)
+          		{
+          			long idTipo = Long.valueOf (idTipoStr);
+          			long tbEliminados = aforo.eliminarCarnetPorId(idTipo);
+
+          			String resultado = "En eliminar Carnet\n\n";
+          			resultado += tbEliminados + " Carnet eliminado\n";
+          			resultado += "\n Operación terminada";
+          			panelDatos.actualizarInterfaz(resultado);
+          		}
+          		else
+          		{
+          			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+          		}
+      		} 
+          	catch (Exception e) 
+          	{
+//      			e.printStackTrace();
+      			String resultado = generarMensajeError(e);
+      			panelDatos.actualizarInterfaz(resultado);
+      		}
+          }
+          public void buscarCarnetPorId( )
+          {
+          	try 
+          	{
+          		String idCarnet = JOptionPane.showInputDialog (this, "Id del Carnet?", "Buscar carnet por Id", JOptionPane.QUESTION_MESSAGE);
+          		if (idCarnet!= null)
+          		{
+          			Long idRealCarnet=Long.getLong(idCarnet);
+          			VOCARNET carnet= aforo.darCarnetPorId(idRealCarnet);
+          			String resultado = "En buscar Baño por Id\n\n";
+          			if (carnet!= null)
+          			{
+              			resultado += "El tipo de bebida es: " + carnet;
+          			}
+          			else
+          			{
+              			resultado += "Un carnet con id: " + idRealCarnet + " NO EXISTE\n";    				
+          			}
+          			resultado += "\n Operación terminada";
+          			panelDatos.actualizarInterfaz(resultado);
+          		}
+          		else
+          		{
+          			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+          		}
+      		} 
+          	catch (Exception e) 
+          	{
+//      			e.printStackTrace();
+      			String resultado = generarMensajeError(e);
+      			panelDatos.actualizarInterfaz(resultado);
+      		}
+          }
+          public void cambiarCedulaCarnet( )
+          {
+          	try 
+          	{
+          		String carnet = JOptionPane.showInputDialog (this, "Digite el IdCarnet y la cedula", "Cambiar cedula de carnet", JOptionPane.QUESTION_MESSAGE);
+          		if (carnet!= null)
+          		{
+          			String[] datos=carnet.split(",");
+          			String idCarnet=datos[0];
+          			String cedula=datos[1];
+          			Long idCarnetReal=Long.getLong(idCarnet);
+          			float cedulaReal=Float.parseFloat(cedula);
+          			CARNET carnetBuscado=aforo.cambiarCedulaCarnet(idCarnetReal, cedulaReal);
+          			String resultado = "En cambiar cedula carnet\n\n";
+          			if (carnetBuscado!= null)
+          			{
+              			resultado += "El carnet cambiado es: " + carnetBuscado;
+          			}
+          			else
+          			{
+              			resultado += "Un carnet con id: " + idCarnet + " NO EXISTE\n";    				
+          			}
+          			resultado += "\n Operación terminada";
+          			panelDatos.actualizarInterfaz(resultado);
+          		}
+          		else
+          		{
+          			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+          		}
+      		} 
+          	catch (Exception e) 
+          	{
+//      			e.printStackTrace();
+      			String resultado = generarMensajeError(e);
+      			panelDatos.actualizarInterfaz(resultado);
+      		}
+          }
+          /* ****************************************************************
+      	 * 			CRUD DE LECTOR
+      	 *****************************************************************/
+          public void adicionarLector( )
+          {
+          	try 
+          	{
+          		String id = JOptionPane.showInputDialog (this, "Digite el id del espacio.",
+          				"Adicionar baño", JOptionPane.QUESTION_MESSAGE);
+          		if (id!= null)
+          		{
+          			long idRealEspacio=Long.valueOf(id);
+              		VOLECTOR tb = aforo.adicionarLector(idRealEspacio);
+              		if (tb == null)
+              		{
+              			throw new Exception ("No se pudo crear un lector con idEspacio: " + id);
+              		}
+              		String resultado = "En adicionarBaño\n\n";
+              		resultado += "Baño adicionado exitosamente: " + tb;
+          			resultado += "\n Operación terminada";
+          			panelDatos.actualizarInterfaz(resultado);
+          		}
+          		else
+          		{
+          			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+          		}
+      		} 
+          	catch (Exception e) 
+          	{
+//      			e.printStackTrace();
+      			String resultado = generarMensajeError(e);
+      			panelDatos.actualizarInterfaz(resultado);
+      		}
+          }
+          public void darLectores( )
+          {
+          	try 
+          	{
+      			List <VOLECTOR> lista = aforo.darVOLector();
+
+      			String resultado = "En listar Lectores";
+      			resultado +=  "\n" + listarLectores(lista);
+      			panelDatos.actualizarInterfaz(resultado);
+      			resultado += "\n Operación terminada";
+      		} 
+          	catch (Exception e) 
+          	{
+//      			e.printStackTrace();
+      			String resultado = generarMensajeError(e);
+      			panelDatos.actualizarInterfaz(resultado);
+      		}
+          }
+          public void eliminarLectorPorId( )
+          {
+          	try 
+          	{
+          		String idTipoStr = JOptionPane.showInputDialog (this, "Id del lector?", "Borrar lector por Id", JOptionPane.QUESTION_MESSAGE);
+          		if (idTipoStr != null)
+          		{
+          			long idTipo = Long.valueOf (idTipoStr);
+          			long tbEliminados = aforo.eliminarLector(idTipo);
+
+          			String resultado = "En eliminar Lector\n\n";
+          			resultado += tbEliminados + " Lectores eliminados\n";
+          			resultado += "\n Operación terminada";
+          			panelDatos.actualizarInterfaz(resultado);
+          		}
+          		else
+          		{
+          			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+          		}
+      		} 
+          	catch (Exception e) 
+          	{
+//      			e.printStackTrace();
+      			String resultado = generarMensajeError(e);
+      			panelDatos.actualizarInterfaz(resultado);
+      		}
+          }
+          public void buscarLectorPorId( )
+          {
+          	try 
+          	{
+          		String idLector= JOptionPane.showInputDialog (this, "Id del lector?", "Buscar lector por Id", JOptionPane.QUESTION_MESSAGE);
+          		if (idLector!= null)
+          		{
+          			long idRealLector=Long.getLong(idLector);
+          			VOLECTOR lector = aforo.darLectorPorId(idRealLector);
+          			String resultado = "En buscar Baño por Id\n\n";
+          			if (lector!= null)
+          			{
+              			resultado += "El tipo de bebida es: " + lector;
+          			}
+          			else
+          			{
+              			resultado += "Un baño con id: " + idLector + " NO EXISTE\n";    				
+          			}
+          			resultado += "\n Operación terminada";
+          			panelDatos.actualizarInterfaz(resultado);
+          		}
+          		else
+          		{
+          			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+          		}
+      		} 
+          	catch (Exception e) 
+          	{
+//      			e.printStackTrace();
+      			String resultado = generarMensajeError(e);
+      			panelDatos.actualizarInterfaz(resultado);
+      		}
+          }
+          /* ****************************************************************
+      	 * 			CRUD DE LOCAL COMERCIAL
+      	 *****************************************************************/
+          public void adicionarLocalComercial( )
+          {
+          	try 
+          	{
+          		String id = JOptionPane.showInputDialog (this, "Digite el id del espacio, nombre, nombre de la empresa, area y el tipo de establecimiento.",
+          				"Adicionar Local Comercial", JOptionPane.QUESTION_MESSAGE);
+          		if (id!= null)
+          		{
+          			String[] datos=id.split(",");
+          			String idEspacio=datos[0];
+          			String nombre=datos[1];
+          			String nombreEmpresa=datos[2];
+          			String area=datos[3];
+          			String tipoEstablecimiento=datos[4];
+          			long idRealEspacio=Long.valueOf(idEspacio);
+          			float areaReal=Float.parseFloat(area);
+              		VOLOCAL_COMERCIAL tb = aforo.adicionarLocalComercial(idRealEspacio, nombreEmpresa, nombreEmpresa, areaReal, tipoEstablecimiento);
+              		if (tb == null)
+              		{
+              			throw new Exception ("No se pudo crear un local comercial con nombre: " + nombre);
+              		}
+              		String resultado = "En adicionar Local Comercial\n\n";
+              		resultado += "Local comercial adicionado exitosamente: " + tb;
+          			resultado += "\n Operación terminada";
+          			panelDatos.actualizarInterfaz(resultado);
+          		}
+          		else
+          		{
+          			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+          		}
+      		} 
+          	catch (Exception e) 
+          	{
+//      			e.printStackTrace();
+      			String resultado = generarMensajeError(e);
+      			panelDatos.actualizarInterfaz(resultado);
+      		}
+          }
+          public void darLocalesComerciales( )
+          {
+          	try 
+          	{
+      			List <VOLOCAL_COMERCIAL> lista = aforo.darVOLOCAL_COMERCIAL();
+      			String resultado = "En listar locales comerciales";
+      			resultado +=  "\n" + listarLocalesComerciales(lista);
+      			panelDatos.actualizarInterfaz(resultado);
+      			resultado += "\n Operación terminada";
+      		} 
+          	catch (Exception e) 
+          	{
+//      			e.printStackTrace();
+      			String resultado = generarMensajeError(e);
+      			panelDatos.actualizarInterfaz(resultado);
+      		}
+          }
+          public void eliminarLocalComercialPorId( )
+          {
+          	try 
+          	{
+          		String idTipoStr = JOptionPane.showInputDialog (this, "Id del local comercial?", "Borrar local comercial por Id", JOptionPane.QUESTION_MESSAGE);
+          		if (idTipoStr != null)
+          		{
+          			long idTipo = Long.valueOf (idTipoStr);
+          			long tbEliminados = aforo.eliminarLocalComercialPorId(idTipo);
+
+          			String resultado = "En eliminar local comercial por Id\n\n";
+          			resultado += tbEliminados + " Locales comerciales eliminados\n";
+          			resultado += "\n Operación terminada";
+          			panelDatos.actualizarInterfaz(resultado);
+          		}
+          		else
+          		{
+          			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+          		}
+      		} 
+          	catch (Exception e) 
+          	{
+//      			e.printStackTrace();
+      			String resultado = generarMensajeError(e);
+      			panelDatos.actualizarInterfaz(resultado);
+      		}
+          }
+          public void eliminarLocalComercialPorNombre( )
+          {
+          	try 
+          	{
+          		String idTipoStr = JOptionPane.showInputDialog (this, "Nombre del local comercial?", "Borrar local comercial por nombre", JOptionPane.QUESTION_MESSAGE);
+          		if (idTipoStr != null)
+          		{
+          			long tbEliminados = aforo.eliminarLocalComercialPorNombre(idTipoStr);
+          			String resultado = "En eliminar local comercial por nombre\n\n";
+          			resultado += tbEliminados + " Locales comerciales eliminados\n";
+          			resultado += "\n Operación terminada";
+          			panelDatos.actualizarInterfaz(resultado);
+          		}
+          		else
+          		{
+          			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+          		}
+      		} 
+          	catch (Exception e) 
+          	{
+//      			e.printStackTrace();
+      			String resultado = generarMensajeError(e);
+      			panelDatos.actualizarInterfaz(resultado);
+      		}
+          }
+          public void buscarLocalComercialPorId( )
+          {
+          	try 
+          	{
+          		String idLocal= JOptionPane.showInputDialog (this, "Id del local comercial?", "Buscar local comercial por Id", JOptionPane.QUESTION_MESSAGE);
+          		if (idLocal!= null)
+          		{
+          			Long idRealLocal=Long.getLong(idLocal);
+          			VOLOCAL_COMERCIAL local= aforo.darLocalPorId(idRealLocal);
+          			String resultado = "En buscar Baño por Id\n\n";
+          			if (local!= null)
+          			{
+              			resultado += "El tipo de bebida es: " + local;
+          			}
+          			else
+          			{
+              			resultado += "Un baño con id: " + idLocal + " NO EXISTE\n";    				
+          			}
+          			resultado += "\n Operación terminada";
+          			panelDatos.actualizarInterfaz(resultado);
+          		}
+          		else
+          		{
+          			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+          		}
+      		} 
+          	catch (Exception e) 
+          	{
+//      			e.printStackTrace();
+      			String resultado = generarMensajeError(e);
+      			panelDatos.actualizarInterfaz(resultado);
+      		}
+          }
+          public void darLocalComercialesPorNombre( )
+          {
+          	try 
+          	{
+          		String nombre= JOptionPane.showInputDialog (this, "Nombre del local comercial?", "Buscar local comercial por nombre", JOptionPane.QUESTION_MESSAGE);
+          		if (nombre!= null)
+      	    		{
+      				List <VOLOCAL_COMERCIAL> lista = aforo.darLocalPorNombre(nombre);
+      				String resultado = "En listar locales comerciales";
+      				if(lista.size()!=0)
+      				{
+      					resultado +=  "\n" + listarLocalesComerciales(lista);
+      					panelDatos.actualizarInterfaz(resultado);
+      					resultado += "\n Operación terminada";
+      				}else{
+      					resultado += "Un local con nombre: " + nombre + " NO EXISTE\n"; 
+      				}
+          		}
+          		else{
+          			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+          		}
+      		} 
+          	catch (Exception e) 
+          	{
+//      			e.printStackTrace();
+      			String resultado = generarMensajeError(e);
+      			panelDatos.actualizarInterfaz(resultado);
+      		}
+          }
 	/* ****************************************************************
 	 * 			Métodos administrativos
 	 *****************************************************************/
@@ -923,6 +1423,26 @@ public class InterfazAforoApp extends JFrame implements ActionListener
         }
         return resp;
 	}
+    private String listarLocalesComerciales(List<VOLOCAL_COMERCIAL> lista) 
+    {
+    	String resp = "Los locales existentes son:\n";
+    	int i = 1;
+        for (VOLOCAL_COMERCIAL tb : lista)
+        {
+        	resp += i++ + ". " + tb.toString() + "\n";
+        }
+        return resp;
+	}
+    private String listarLectores(List<VOLECTOR> lista) 
+    {
+    	String resp = "Los parqueaderos existentes son:\n";
+    	int i = 1;
+        for (VOLECTOR tb : lista)
+        {
+        	resp += i++ + ". " + tb.toString() + "\n";
+        }
+        return resp;
+	}
     private String listarBaños(List<VOBAÑO> lista) 
     {
     	String resp = "Los baños existentes son:\n";
@@ -933,7 +1453,16 @@ public class InterfazAforoApp extends JFrame implements ActionListener
         }
         return resp;
 	}
-   
+    private String listarCarnets(List<VOCARNET> lista) 
+    {
+    	String resp = "Los Carnets existentes son:\n";
+    	int i = 1;
+        for (VOCARNET tb : lista)
+        {
+        	resp += i++ + ". " + tb.toString() + "\n";
+        }
+        return resp;
+	}
     private String listarEspacios(List<VOESPACIO> lista) 
     {
     	String resp = "Los espacios existentes son:\n";

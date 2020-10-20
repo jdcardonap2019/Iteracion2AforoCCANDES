@@ -81,5 +81,10 @@ class SQLCARNET
 		q.setResultClass(CARNET.class);
 		return (List<CARNET>) q.executeList();
 	}
-
+	public CARNET cambiarCedula(PersistenceManager pm,long idCarnet, float cedula) 
+	{
+		 Query q = pm.newQuery(SQL, "UPDATE " + pp.darTablaCARNET()+ " SET NOMBRE = ? WHERE ID_CARNET= ?");
+		 q.setParameters(idCarnet, cedula);
+		 return (CARNET) q.executeUnique();
+	}
 }
