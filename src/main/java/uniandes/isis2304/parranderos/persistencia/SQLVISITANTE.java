@@ -1,14 +1,11 @@
 package uniandes.isis2304.parranderos.persistencia;
 
-import java.math.BigDecimal;
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
-import uniandes.isis2304.parranderos.negocio.CARNET;
 import uniandes.isis2304.parranderos.negocio.VISITANTE;
 
 public class SQLVISITANTE {
@@ -66,7 +63,7 @@ public class SQLVISITANTE {
 	}
 
 
-	public VISITANTE darBebedorPorCEDULA (PersistenceManager pm, float cedula) 
+	public VISITANTE darVisitantePorCEDULA (PersistenceManager pm, float cedula) 
 	{
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaVISITANTE () + " WHERE CEDULA = ?");
 		q.setResultClass(VISITANTE.class);
@@ -75,7 +72,7 @@ public class SQLVISITANTE {
 	}
 
 
-	public List<VISITANTE> darVisitantesPorNombre (PersistenceManager pm, String nombreBebedor) 
+	public List<VISITANTE> darVisitantePorNombre (PersistenceManager pm, String nombreBebedor) 
 	{
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaVISITANTE () + " WHERE NOMBRE = ?");
 		q.setResultClass(VISITANTE.class);
@@ -100,7 +97,7 @@ public class SQLVISITANTE {
 	 * los bares visitados y los datos propios de la visita:
 	 * 		(id, nombre, ciudad, presupuesto, cantsedes) de los bares y (fechavisita, horario) de las visitas
 	 */
-	public List<Object []> darVisitasRealizadas (PersistenceManager pm, long idBebedor)
+	/*public List<Object []> darVisitasRealizadas (PersistenceManager pm, long idBebedor)
 	{
         String sql = "SELECT bar.id, bar.nombre, bar.ciudad, bar.presupuesto, bar.cantsedes, vis.fechavisita, vis.horario";
         sql += " FROM ";
@@ -115,7 +112,7 @@ public class SQLVISITANTE {
 		q.setParameters(idBebedor);
 		return q.executeList();
 	}
-
+	*/
 
 
 

@@ -17,12 +17,11 @@ package uniandes.isis2304.parranderos.persistencia;
 
 import java.util.List;
 
+
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
-import uniandes.isis2304.parranderos.negocio.CENTRO_COMERCIAL;
 import uniandes.isis2304.parranderos.negocio.LOCAL_COMERCIAL;
-import uniandes.isis2304.parranderos.negocio.PARQUEADERO;
 
 
 class SQLLOCAL_COMERCIAL 
@@ -64,12 +63,6 @@ class SQLLOCAL_COMERCIAL
         return (long) q.executeUnique();            
 	}
 
-	/**
-	 * Crea y ejecuta la sentencia SQL para eliminar BEBIDAS de la base de datos de Parranderos, por su nombre
-	 * @param pm - El manejador de persistencia
-	 * @param nombreBebida - El nombre de la bebida
-	 * @return EL número de tuplas eliminadas
-	 */
 	public long eliminarLocalComercialPorNombre (PersistenceManager pm, String nombreLocal)
 	{
         Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaLOCAL_COMERCIAL() + " WHERE NOMBRE = ?");

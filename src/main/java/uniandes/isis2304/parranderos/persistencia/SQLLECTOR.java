@@ -67,12 +67,12 @@ class SQLLECTOR
         q.setParameters(idLector);
         return (long) q.executeUnique();            
 	}
-	public PARQUEADERO darLectorPorId (PersistenceManager pm, long idLector) 
+	public LECTOR darLectorPorId (PersistenceManager pm, long idLector) 
 	{
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaLECTOR() + " WHERE id = ?");
 		q.setResultClass(LECTOR.class);
 		q.setParameters(idLector);
-		return (PARQUEADERO) q.executeUnique();
+		return (LECTOR) q.executeUnique();
 	}
 	public List<LECTOR> darLECTORES(PersistenceManager pm) 
 	{

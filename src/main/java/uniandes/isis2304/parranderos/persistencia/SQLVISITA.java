@@ -66,35 +66,27 @@ class SQLVISITA
         q.setParameters(fechaYHora_op ,  tipo_op,  horafin_op,IDCARNET,  IDLECTOR, IDESPACIO);
         return (long) q.executeUnique();
 	}
-
-	/**
-	 * Crea y ejecuta la sentencia SQL para eliminar TODAS LAS VISITAS de la base de datos de Parranderos
-	 * @param pm - El manejador de persistencia
-	 * @return EL número de tuplas eliminadas
-	 */
-	public long eliminarVisitas (PersistenceManager pm) 
-	{
-        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaVISITA ());
-        return (long) q.executeUnique();
-	}
-
-	/**
-	 * Crea y ejecuta la sentencia SQL para eliminar UN VISITAN de la base de datos de Parranderos, por sus identificadores
-	 * @param pm - El manejador de persistencia
-	 * @param idBebedor - El identificador del bebedor
-	 * @param idBar - El identificador del bar
-	 * @return EL número de tuplas eliminadas
-	 */
 	public long eliminarVisita (PersistenceManager pm, long idCarnet, long idLector, long idEspacio) 
 	{
         Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaVISITA () + " WHERE IDCARNET = ? AND IDLECTOR = ? AND IDESPACIO=?");
         q.setParameters(idCarnet, idLector,idEspacio);
         return (long) q.executeUnique();
 	}
-
+	public long eliminarVisitasPorIdLector (PersistenceManager pm, long idLector) 
+	{
+        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaVISITA () + " WHERE IDLECTOR = ?");
+        q.setParameters(idLector);
+        return (long) q.executeUnique();
+	}
+	public long eliminarVisitasPorIdEspacio (PersistenceManager pm, long idEspacio) 
+	{
+        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaVISITA () + " WHERE IDESPACIO = ?");
+        q.setParameters(idEspacio);
+        return (long) q.executeUnique();
+	}
 
 	
-	public List<VISITA> darVisita (PersistenceManager pm)
+	public List<VISITA> darVisitas (PersistenceManager pm)
 	{
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaVISITA ());
 		q.setResultClass(VISITA.class);
