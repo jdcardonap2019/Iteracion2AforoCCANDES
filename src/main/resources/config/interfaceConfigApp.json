@@ -39,6 +39,45 @@
 				  }
 			  ]
 		  },
+		  { "menuTitle": "Visita",
+			"options":
+			  [
+				  {
+					  "label": "Adicionar Visita",
+					  "event": "adicionarVisita"
+				  },
+				  {
+					  "label": "Listar visitas",
+					  "event": "darVisitas"
+				  },
+				  {
+					  "label": "Borrar por Id",
+					  "event": "eliminarVisitaPorId"
+				  }
+			  ]
+		  },
+		  { "menuTitle": "Visitante",
+			"options":
+			  [
+				  {
+					  "label": "Adicionar Visitante",
+					  "event": "adicionarVisitante"
+				  },
+				  {
+					  "label": "Listar visitantes",
+					  "event": "darVisitantes"
+				  },
+				  {
+					  "label": "Borrar visitante por Cedula",
+					  "event": "eliminarVisitantePorCedula"
+				  },
+				  {
+					  "label": "Borrar visitante por Nombre",
+					  "event": "eliminarVisitantesPorNombre"
+				  }
+			  ]
+		  },
+		  
 		{ "menuTitle": "Mantenimiento",
 		  "options":
 			[

@@ -288,10 +288,9 @@ public class AFOROCCANDES
         return espacios;
 	}
 
-
 	public List<VOESPACIO> darVOBEspacios ()
 	{
-		log.info ("Generando los VO de Bares");
+		log.info ("Generando los VO de Espacio");
 		List<VOESPACIO> voEspacios = new LinkedList<VOESPACIO> ();
 		for (ESPACIO bar: pp.darEspacios ())
 		{

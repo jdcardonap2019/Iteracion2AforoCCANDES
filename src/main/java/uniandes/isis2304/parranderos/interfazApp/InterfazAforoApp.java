@@ -55,6 +55,8 @@ import uniandes.isis2304.parranderos.negocio.AFOROCCANDES;
 import uniandes.isis2304.parranderos.negocio.VOBAÑO;
 import uniandes.isis2304.parranderos.negocio.VOESPACIO;
 import uniandes.isis2304.parranderos.negocio.VOPARQUEADERO;
+import uniandes.isis2304.parranderos.negocio.VOVISITA;
+import uniandes.isis2304.parranderos.negocio.VOVISITANTE;
 
 /**
  * Clase principal de la interfaz
@@ -422,7 +424,7 @@ public class InterfazAforoApp extends JFrame implements ActionListener
     	try 
     	{
     		String id = JOptionPane.showInputDialog (this, "Digite el horario apertura para empleados, el horario apertura para clientes, horario cierre, aforo total y aforo actual separado por comas",
-    				"Adicionar Espacio (Fecha en formato yyyy-MM-dd HH:mm:ss.SSS)", JOptionPane.QUESTION_MESSAGE);
+    				"Adicionar Espacio (Insertar Fechas en formato yyyy-MM-dd HH:mm:ss.SSS)", JOptionPane.QUESTION_MESSAGE);
     		if (id!= null)
     		{
     			String[] datos=id.split(",");
@@ -473,7 +475,7 @@ public class InterfazAforoApp extends JFrame implements ActionListener
     	{
 			List <VOESPACIO> lista = aforo.darVOBEspacios();
 
-			String resultado = "En listar Parqueaderos";
+			String resultado = "En listar Espacios";
 			resultado +=  "\n" + listarEspacios(lista);
 			panelDatos.actualizarInterfaz(resultado);
 			resultado += "\n Operación terminada";
@@ -512,7 +514,241 @@ public class InterfazAforoApp extends JFrame implements ActionListener
 			panelDatos.actualizarInterfaz(resultado);
 		}
     }
-   
+    /* ****************************************************************
+   	 * 			CRUD DE VISITA
+   	 *****************************************************************/
+       public void adicionarVisita( )
+       {
+       	try 
+       	{
+       		String id = JOptionPane.showInputDialog (this, "Digite la fecha y hora operacion, el tipo de operacion, horario fin operacion, id lector, id espacio e id carnet actual separado por comas",
+       				"Adicionar Visitas (Insertar Fechas/Horario en formato yyyy-MM-dd HH:mm:ss.SSS)", JOptionPane.QUESTION_MESSAGE);
+       		if (id!= null)
+       		{
+       			String[] datos=id.split(",");
+       			String fechaYHoraOp=datos[0];
+       			String tipoOp=datos[1];
+       			String horaFin = datos[2];
+       			String idLector = datos[3];
+       			String idEspacio = datos[4];
+       			String idCarnet = datos[5];
+       			int idLector1=Integer.parseInt(idLector);
+       			int idEspacio1=Integer.parseInt(idEspacio);
+       			int idCarnet1 = Integer.parseInt(idCarnet);
+       			
+       			final String FORMAT = "yyyy-MM-dd HH:mm:ss.SSS";
+       			DateFormat formatter = new SimpleDateFormat(FORMAT);
+       			
+                   Date hOp = formatter.parse(fechaYHoraOp);
+                   Date hFin= formatter.parse(horaFin);
+       			
+                   Timestamp  ts1 = new Timestamp(hOp.getTime());
+                   Timestamp  ts2 = new Timestamp(hFin.getTime());
+                   
+           		VOVISITA tb = aforo.adicionarVisita(ts1,tipoOp,ts2,idLector1,idEspacio1,idCarnet1);
+           		if (tb == null)
+           		{
+           			throw new Exception ("No se pudo crear Visita con idLector: " +idLector+",idEspacio: "+idEspacio+"e idCarnet: "+idCarnet);
+           		}
+           		String resultado = "En adicionarVisita\n\n";
+           		resultado += "Parqueadero adicionado exitosamente: " + tb;
+       			resultado += "\n Operación terminada";
+       			panelDatos.actualizarInterfaz(resultado);
+       		}
+       		else
+       		{
+       			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+       		}
+   		} 
+       	catch (Exception e) 
+       	{
+//   			e.printStackTrace();
+   			String resultado = generarMensajeError(e);
+   			panelDatos.actualizarInterfaz(resultado);
+   		}
+       }
+       public void darVisitas( )
+       {
+       	try 
+       	{
+   			List <VOVISITA> lista = aforo.darVOVisita();
+
+   			String resultado = "En listar visitas";
+   			resultado +=  "\n" + listarVisitas(lista);
+   			panelDatos.actualizarInterfaz(resultado);
+   			resultado += "\n Operación terminada";
+   		} 
+       	catch (Exception e) 
+       	{
+//   			e.printStackTrace();
+   			String resultado = generarMensajeError(e);
+   			panelDatos.actualizarInterfaz(resultado);
+   		}
+       }
+       public void eliminarVisitaPorId()
+       {
+       	try 
+       	{
+       		String idTipoStr = JOptionPane.showInputDialog (this, "Id del tipo del Espacio, Lector y Carnet?", "Borrar visita por Id", JOptionPane.QUESTION_MESSAGE);
+       		if (idTipoStr != null)
+       		{
+       			String[] datos=idTipoStr.split(",");
+       			String idEspacio1=datos[0];
+       			String idLector2=datos[1];
+       			String idCarnet3= datos[2];
+       			
+       			long idEspacio = Long.valueOf(idEspacio1);
+       			long idLector = Long.valueOf(idLector2);
+       			long idCarnet = Long.valueOf(idCarnet3);
+       			
+       			long tbEliminados = aforo.eliminarVisita(idCarnet, idLector, idEspacio);
+
+       			String resultado = "En eliminar Visita\n\n";
+       			resultado += tbEliminados + " Visita eliminados\n";
+       			resultado += "\n Operación terminada";
+       			panelDatos.actualizarInterfaz(resultado);
+       		}
+       		else
+       		{
+       			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+       		}
+   		} 
+       	catch (Exception e) 
+       	{
+//   			e.printStackTrace();
+   			String resultado = generarMensajeError(e);
+   			panelDatos.actualizarInterfaz(resultado);
+   		}
+       }
+       /* ****************************************************************
+      	 * 			CRUD DE VISITANTE
+      	 *****************************************************************/
+          public void adicionarVisitante( )
+          {
+          	try 
+          	{
+          		String id = JOptionPane.showInputDialog (this, "Digite la cedula, nombre,telefono, nombre contacto, telefono contacto, codigoQR, correo, horarioDisponibilidad, tipo de visitante e id espacio separado por comas",
+          				"Adicionar Visitante (Insertar Fechas/Horario en formato yyyy-MM-dd HH:mm:ss.SSS) y tipoVisitante acorde a los tipos de la documentacion", JOptionPane.QUESTION_MESSAGE);
+          		if (id!= null)
+          		{
+          			String[] datos=id.split(",");
+          			String cedula1=datos[0];
+          			String nombre=datos[1];
+          			String telefono1 = datos[2];
+          			String nombreContacto = datos[3];
+          			String telefonoContacto1 = datos[4];
+          			String codigoQr = datos[5];
+          			String correo=datos[6];
+          			String horarioDisponibilidad=datos[7];
+          			String tipoVisitante = datos[8];
+          			String idEspacio1 = datos[9];
+
+          			long cedula = Long.valueOf(cedula1);
+          			long idEspacio= Long.valueOf(idEspacio1);
+                         
+          			float telefono = Float.valueOf(telefono1);
+          			float telefonoContacto = Float.valueOf(telefonoContacto1);
+          			
+          			final String FORMAT = "yyyy-MM-dd HH:mm:ss.SSS";
+          			DateFormat formatter = new SimpleDateFormat(FORMAT);
+          			
+                    Date hOp = formatter.parse(horarioDisponibilidad);
+         			
+                     Timestamp  ts1 = new Timestamp(hOp.getTime());
+                      
+              		VOVISITANTE tb = aforo.adicionarVisitante(cedula,nombre,telefono,nombreContacto,telefonoContacto,codigoQr,correo,ts1,tipoVisitante,idEspacio);
+              		if (tb == null)
+              		{
+              			throw new Exception ("No se pudo crear Visitante con cedula:"+cedula);
+              		}
+              		String resultado = "En adicionarVisitante\n\n";
+              		resultado += "Parqueadero adicionado exitosamente: " + tb;
+          			resultado += "\n Operación terminada";
+          			panelDatos.actualizarInterfaz(resultado);
+          		}
+          		else
+          		{
+          			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+          		}
+      		} 
+          	catch (Exception e) 
+          	{
+//      			e.printStackTrace();
+      			String resultado = generarMensajeError(e);
+      			panelDatos.actualizarInterfaz(resultado);
+      		}
+          }
+          public void darVisitantes( )
+          {
+          	try 
+          	{
+      			List <VOVISITANTE> lista = aforo.darVOBeVisitantes();
+
+      			String resultado = "En listar Visitante";
+      			resultado +=  "\n" + listarVisitantes(lista);
+      			panelDatos.actualizarInterfaz(resultado);
+      			resultado += "\n Operación terminada";
+      		} 
+          	catch (Exception e) 
+          	{
+//      			e.printStackTrace();
+      			String resultado = generarMensajeError(e);
+      			panelDatos.actualizarInterfaz(resultado);
+      		}
+          }
+          public void eliminarVisitantePorCedula()
+          {
+          	try 
+          	{
+          		String idTipoStr = JOptionPane.showInputDialog (this, "Cedula del visitante?", "Borrar visitante por Cedula", JOptionPane.QUESTION_MESSAGE);
+          		if (idTipoStr != null)
+          		{
+          			float id = Float.valueOf(idTipoStr);
+          			
+          			long tbEliminados = aforo.eliminarVisitantePorCedula(id);
+
+          			String resultado = "En eliminar Visitante\n\n";
+          			resultado += tbEliminados + " Visitante eliminados\n";
+          			resultado += "\n Operación terminada";
+          			panelDatos.actualizarInterfaz(resultado);
+          		}
+          		else
+          		{
+          			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+          		}
+      		} 
+          	catch (Exception e) 
+          	{
+//      			e.printStackTrace();
+      			String resultado = generarMensajeError(e);
+      			panelDatos.actualizarInterfaz(resultado);
+      		}
+          }
+          public void eliminarVisitantesPorNombre()
+          {
+          	try 
+          	{
+          		String idTipoStr = JOptionPane.showInputDialog (this, "Nombre del visitante a borrar?", "Borrar visitante por nombre", JOptionPane.QUESTION_MESSAGE);
+          		if (idTipoStr != null)
+          		{      		
+          			long tbEliminados = aforo.eliminarVisitantePorNombre(idTipoStr);
+          			String resultado = "En eliminar Visitante\n\n";
+          			resultado += tbEliminados + " Visitante eliminados\n";
+          			resultado += "\n Operación terminada";
+          			panelDatos.actualizarInterfaz(resultado);
+          		}
+          		else
+          		{
+          			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+          		}
+      		} 
+          	catch (Exception e) 
+          	{
+//      			e.printStackTrace();
+      			String resultado = generarMensajeError(e);
+      			panelDatos.actualizarInterfaz(resultado);
+      		}
+          }
 	/* ****************************************************************
 	 * 			Métodos administrativos
 	 *****************************************************************/
@@ -703,6 +939,27 @@ public class InterfazAforoApp extends JFrame implements ActionListener
     	String resp = "Los espacios existentes son:\n";
     	int i = 1;
         for (VOESPACIO tb : lista)
+        {
+        	resp += i++ + ". " + tb.toString() + "\n";
+        }
+        return resp;
+    }
+    
+    private String listarVisitas(List<VOVISITA> lista) 
+    {
+    	String resp = "Los espacios existentes son:\n";
+    	int i = 1;
+        for (VOVISITA tb : lista)
+        {
+        	resp += i++ + ". " + tb.toString() + "\n";
+        }
+        return resp;
+    }
+    private String listarVisitantes(List<VOVISITANTE> lista) 
+    {
+    	String resp = "Los espacios existentes son:\n";
+    	int i = 1;
+        for (VOVISITANTE tb : lista)
         {
         	resp += i++ + ". " + tb.toString() + "\n";
         }
