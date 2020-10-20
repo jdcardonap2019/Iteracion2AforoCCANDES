@@ -21,14 +21,10 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
 import uniandes.isis2304.parranderos.negocio.CENTRO_COMERCIAL;
+import uniandes.isis2304.parranderos.negocio.LOCAL_COMERCIAL;
 import uniandes.isis2304.parranderos.negocio.PARQUEADERO;
 
-/**
- * Clase que encapsula los métodos que hacen acceso a la base de datos para el concepto BEBIDA de Parranderos
- * Nótese que es una clase que es sólo conocida en el paquete de persistencia
- * 
- * @author Germán Bravo
- */
+
 class SQLLOCAL_COMERCIAL 
 {
 	/* ****************************************************************
@@ -60,19 +56,11 @@ class SQLLOCAL_COMERCIAL
 		this.pp = pp;
 	}
 	
-	/**
-	 * Crea y ejecuta la sentencia SQL para adicionar una BEBIDA a la base de datos de Parranderos
-	 * @param pm - El manejador de persistencia
-	 * @param idBebida - El identificador de la bebida
-	 * @param nombre - El nombre de la bebida
-	 * @param idTipoBebida - El identificador del tipo de bebida de la bebida
-	 * @param gradoAlcohol - El grado de alcohol de la bebida (Mayor que 0)
-	 * @return EL número de tuplas insertadas
-	 */
-	public long adicionarBebida (PersistenceManager pm, long idBebida, String nombre, long idTipoBebida, int gradoAlcohol) 
+
+	public long adicionarLocalComercial (PersistenceManager pm, long idEspacio,long id_local, String nombre, String nombre_empresa, float area, String tipo_establecimiento) 
 	{
-        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaBebida () + "(id, nombre, idTipoBebida, gradoalcohol) values (?, ?, ?, ?)");
-        q.setParameters(idBebida, nombre, idTipoBebida, gradoAlcohol);
+        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaLOCAL_COMERCIAL() + "(IDESPACIO, ID_LOCAL, NOMBRE, NOMBRE_EMPRESA,AREA,TIPO_ESTABLECIMIENTO) values (?,?,?,?,?,?)");
+        q.setParameters(idEspacio,id_local, nombre,nombre_empresa,area,tipo_establecimiento);
         return (long) q.executeUnique();            
 	}
 
@@ -82,80 +70,46 @@ class SQLLOCAL_COMERCIAL
 	 * @param nombreBebida - El nombre de la bebida
 	 * @return EL número de tuplas eliminadas
 	 */
-	public long eliminarBebidaPorNombre (PersistenceManager pm, String nombreBebida)
+	public long eliminarLocalComercialPorNombre (PersistenceManager pm, String nombreLocal)
 	{
-        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaBebida () + " WHERE nombre = ?");
-        q.setParameters(nombreBebida);
+        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaLOCAL_COMERCIAL() + " WHERE NOMBRE = ?");
+        q.setParameters(nombreLocal);
         return (long) q.executeUnique();            
 	}
 
-	/**
-	 * Crea y ejecuta la sentencia SQL para eliminar BEBIDAS de la base de datos de Parranderos, por su identificador
-	 * @param pm - El manejador de persistencia
-	 * @param idBebida - El identificador de la bebida
-	 * @return EL número de tuplas eliminadas
-	 */
-	public long eliminarBebidaPorId (PersistenceManager pm, long idBebida)
+
+	public long eliminarLocalComercialPorId (PersistenceManager pm, long idLocal)
 	{
-        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaBebida () + " WHERE id = ?");
-        q.setParameters(idBebida);
+        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaLOCAL_COMERCIAL() + " WHERE ID_LOCAL = ?");
+        q.setParameters(idLocal);
         return (long) q.executeUnique();            
 	}
 
-	/**
-	 * Crea y ejecuta la sentencia SQL para encontrar la información de UNA BEBIDA de la 
-	 * base de datos de Parranderos, por su identificador
-	 * @param pm - El manejador de persistencia
-	 * @param idBebida - El identificador de la bebida
-	 * @return El objeto BEBIDA que tiene el identificador dado
-	 */
-	public CENTRO_COMERCIAL darTipoBebidaPorId (PersistenceManager pm, long idBebida) 
+
+	public LOCAL_COMERCIAL darLocalComercialPorId (PersistenceManager pm, long idLocal) 
 	{
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaBebida () + " WHERE id = ?");
-		q.setResultClass(PARQUEADERO.class);
-		q.setParameters(idBebida);
-		return (CENTRO_COMERCIAL) q.executeUnique();
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaLOCAL_COMERCIAL() + " WHERE ID_LOCAL = ?");
+		q.setResultClass(LOCAL_COMERCIAL.class);
+		q.setParameters(idLocal);
+		return (LOCAL_COMERCIAL) q.executeUnique();
 	}
 
-	/**
-	 * Crea y ejecuta la sentencia SQL para encontrar la información de BEBIDAS de la 
-	 * base de datos de Parranderos, por su nombre
-	 * @param pm - El manejador de persistencia
-	 * @param nombreBebida - El nombre de la bebida
-	 * @return Una lista de objetos BEBIDA que tienen el nombre dado
-	 */
-	public List<CENTRO_COMERCIAL> darBebidasPorNombre (PersistenceManager pm, String nombreBebida) 
+	
+	public List<LOCAL_COMERCIAL> darLocalComercialPorNombre (PersistenceManager pm, String nombreLocal) 
 	{
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaBebida () + " WHERE nombre = ?");
-		q.setResultClass(CENTRO_COMERCIAL.class);
-		q.setParameters(nombreBebida);
-		return (List<CENTRO_COMERCIAL>) q.executeList();
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaLOCAL_COMERCIAL() + " WHERE NOMBRE = ?");
+		q.setResultClass(LOCAL_COMERCIAL.class);
+		q.setParameters(nombreLocal);
+		return (List<LOCAL_COMERCIAL>) q.executeList();
 	}
 
-	/**
-	 * Crea y ejecuta la sentencia SQL para encontrar la información de LAS BEBIDAS de la 
-	 * base de datos de Parranderos
-	 * @param pm - El manejador de persistencia
-	 * @return Una lista de objetos BEBIDA
-	 */
-	public List<CENTRO_COMERCIAL> darBebidas (PersistenceManager pm)
+
+	public List<LOCAL_COMERCIAL> darLocalesComerciales (PersistenceManager pm)
 	{
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaBebida ());
-		q.setResultClass(CENTRO_COMERCIAL.class);
-		return (List<CENTRO_COMERCIAL>) q.executeList();
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaLOCAL_COMERCIAL ());
+		q.setResultClass(LOCAL_COMERCIAL.class);
+		return (List<LOCAL_COMERCIAL>) q.executeList();
 	}
 
-	/**
-	 * Crea y ejecuta la sentencia SQL para eliminar LAS BEBIDAS que no son servidas de la 
-	 * base de datos de Parranderos
-	 * @param pm - El manejador de persistencia
-	 * @return El número de tuplas eliminadas
-	 */
-	public long eliminarBebidasNoServidas (PersistenceManager pm)
-	{
-        String q2Str = "SELECT idBebida FROM " + pp.darTablaSirven ();
-        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaBebida () + " WHERE id NOT IN (" + q2Str + ")");
-        return (long) q.executeUnique();            
-    }
 
 }

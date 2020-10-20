@@ -63,7 +63,7 @@ class SQLUtil
 	 */
 	public long nextval (PersistenceManager pm)
 	{
-        Query q = pm.newQuery(SQL, "SELECT "+ pp.darSeqParranderos () + ".nextval FROM DUAL");
+        Query q = pm.newQuery(SQL, "SELECT "+ pp.darSeqAforo() + ".nextval FROM DUAL");
         q.setResultClass(Long.class);
         long resp = (long) q.executeUnique();
         return resp;
@@ -77,23 +77,24 @@ class SQLUtil
 	 */
 	public long [] limpiarParranderos (PersistenceManager pm)
 	{
-        Query qGustan = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaGustan ());          
-        Query qSirven = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaSirven ());
-        Query qVisitan = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaVisitan ());
-        Query qBebida = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaBebida ());
-        Query qTipoBebida = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaTipoBebida ());
-        Query qBebedor = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaBebedor ());
-        Query qBar = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaBar ());
+        Query qBanio = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaBAÑO());          
+        Query qCentro_Comercial = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaCENTRO_COMERCIAL ());
+        Query qEspacio = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaESPACIO ());
+        Query qLector = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaLECTOR ());
+        Query qParqueadero = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaPARQUEADERO ());
+        Query qVisita = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaVISITA ());
+        Query qVisitante = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaVISITANTE ());
+        Query qLocal_comercial = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaVISITANTE ());
 
-        long gustanEliminados = (long) qGustan.executeUnique ();
-        long sirvenEliminados = (long) qSirven.executeUnique ();
-        long visitanEliminadas = (long) qVisitan.executeUnique ();
-        long bebidasEliminadas = (long) qBebida.executeUnique ();
-        long tiposBebidaEliminados = (long) qTipoBebida.executeUnique ();
-        long bebedoresEliminados = (long) qBebedor.executeUnique ();
-        long baresEliminados = (long) qBar.executeUnique ();
-        return new long[] {gustanEliminados, sirvenEliminados, visitanEliminadas, bebidasEliminadas, 
-        		tiposBebidaEliminados, bebedoresEliminados, baresEliminados};
+        long baniosEliminados = (long) qBanio.executeUnique ();
+        long centro_comercialEliminados = (long) qCentro_Comercial.executeUnique ();
+        long espaciosEliminadas = (long) qEspacio.executeUnique ();
+        long lectoresEliminadas = (long) qLector.executeUnique ();
+        long parqueaderosEliminados = (long) qParqueadero.executeUnique ();
+        long visitasEliminados = (long) qVisita.executeUnique ();
+        long visitantesEliminados = (long) qVisitante.executeUnique ();
+        long localesEliminados= (Long)qLocal_comercial.executeUnique();
+        return new long[] {baniosEliminados, centro_comercialEliminados,espaciosEliminadas,lectoresEliminadas,parqueaderosEliminados,visitasEliminados,visitantesEliminados,localesEliminados};
 	}
 
 }
