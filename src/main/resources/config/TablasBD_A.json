@@ -3,7 +3,7 @@
 	"unidadPersistencia": "AforoCCAndes",
 	"tablas":
 	[
-		"AforoCCAndes_sequence",
+		"centro_comercial_sequence",
 		"BAÑO",
 		"CARNET",
 		"CENTRO_COMERCIAL",

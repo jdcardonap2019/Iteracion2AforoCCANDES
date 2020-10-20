@@ -332,21 +332,19 @@ public class InterfazAforoApp extends JFrame implements ActionListener
     {
     	try 
     	{
-    		String id = JOptionPane.showInputDialog (this, "Digite el id del espacio, id del parqueadero y la capacidad separado por comas",
+    		String id = JOptionPane.showInputDialog (this, "Digite el id del espacio y la capacidad separado por comas",
     				"Adicionar parqueadero", JOptionPane.QUESTION_MESSAGE);
     		if (id!= null)
     		{
     			String[] datos=id.split(",");
     			String idEspacio=datos[0];
-    			String idParqueadero=datos[1];
-    			String capacidad=datos[2];
+    			String capacidad=datos[1];
     			long idRealEspacio=Long.valueOf(idEspacio);
-    			long idRealParqueadero=Long.valueOf(idParqueadero);
     			int capacidadReal=Integer.parseInt(capacidad);
-        		VOPARQUEDAERO tb = aforo.adicionarParqueadero(idRealEspacio, idRealParqueadero, capacidadReal);
+        		VOPARQUEDAERO tb = aforo.adicionarParqueadero(idRealEspacio, capacidadReal);
         		if (tb == null)
         		{
-        			throw new Exception ("No se pudo crear un parqueadero con id: " + idRealParqueadero);
+        			throw new Exception ("No se pudo crear un parqueadero con id espacio: " + idEspacio);
         		}
         		String resultado = "En adicionarParqueadero\n\n";
         		resultado += "Parqueadero adicionado exitosamente: " + tb;
@@ -419,7 +417,7 @@ public class InterfazAforoApp extends JFrame implements ActionListener
 	 */
 	public void mostrarLogParranderos ()
 	{
-		mostrarArchivo ("aforo.log");
+		mostrarArchivo ("parranderos.log");
 	}
 	
 	/**
@@ -477,13 +475,14 @@ public class InterfazAforoApp extends JFrame implements ActionListener
 			
 			// Generación de la cadena de caracteres con la traza de la ejecución de la demo
 			String resultado = "\n\n************ Limpiando la base de datos ************ \n";
-			resultado += eliminados [0] + " Gustan eliminados\n";
-			resultado += eliminados [1] + " Sirven eliminados\n";
-			resultado += eliminados [2] + " Visitan eliminados\n";
-			resultado += eliminados [3] + " Bebidas eliminadas\n";
-			resultado += eliminados [4] + " Tipos de bebida eliminados\n";
-			resultado += eliminados [5] + " Bebedores eliminados\n";
-			resultado += eliminados [6] + " Bares eliminados\n";
+			resultado += eliminados [0] + " Banios eliminados\n";
+			resultado += eliminados [1] + " Centro_comercial eliminados\n";
+			resultado += eliminados [2] + " Espacio eliminados\n";
+			resultado += eliminados [3] + " Lector eliminadas\n";
+			resultado += eliminados [4] + " Parqueadero eliminados\n";
+			resultado += eliminados [5] + " Visita eliminados\n";
+			resultado += eliminados [6] + " Visitantes eliminados\n";
+			resultado += eliminados [6] + " Local_comercial eliminados\n";
 			resultado += "\nLimpieza terminada";
    
 			panelDatos.actualizarInterfaz(resultado);
@@ -555,12 +554,11 @@ public class InterfazAforoApp extends JFrame implements ActionListener
 		resultado += " * Licenciado	bajo	el	esquema	Academic Free License versión 2.1\n";
 		resultado += " * \n";		
 		resultado += " * Curso: isis2304 - Sistemas Transaccionales\n";
-		resultado += " * Proyecto: Parranderos Uniandes\n";
+		resultado += " * Proyecto: AforoCC Uniandes\n";
 		resultado += " * @version 1.0\n";
-		resultado += " * @author Germán Bravo\n";
-		resultado += " * Julio de 2018\n";
+		resultado += " * @author Juan David Cardona y Nicolas Quintero\n";
+		resultado += " * 2020 RealGMusic\n";
 		resultado += " * \n";
-		resultado += " * Revisado por: Claudia Jiménez, Christian Ariza\n";
 		resultado += "\n ************************************\n\n";
 
 		panelDatos.actualizarInterfaz(resultado);		

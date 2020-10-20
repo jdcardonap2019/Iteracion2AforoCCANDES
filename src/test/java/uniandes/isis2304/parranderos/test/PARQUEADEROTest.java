@@ -45,7 +45,10 @@ public class PARQUEADEROTest
 	
     /* ****************************************************************
 	 * 			Métodos de prueba para la tabla PARQUEADEROS - Creación y borrado
+	
 	 *****************************************************************/
+    /**
+     * 
     @Test
 	public void CRDPARQUEADERO() 
 	{
@@ -129,7 +132,7 @@ public class PARQUEADEROTest
 
     /**
      * Método de prueba de la restricción de unicidad sobre el nombre de TipoBebida
-     */
+ 
 	@Test
 	public void unicidadPARQUEADEROTest() 
 	{
@@ -196,7 +199,7 @@ public class PARQUEADEROTest
      * @param archConfig - Archivo Json que contiene la configuración
      * @return Un objeto JSON con la configuración del tipo especificado
      * 			NULL si hay un error en el archivo.
-     */
+
     private JsonObject openConfig (String archConfig)
     {
     	JsonObject config = null;
@@ -210,10 +213,11 @@ public class PARQUEADEROTest
 		} 
 		catch (Exception e)
 		{
-//			e.printStackTrace ();
+			e.printStackTrace ();
 			log.info ("NO se encontró un archivo de configuración válido");			
 			JOptionPane.showMessageDialog(null, "No se encontró un archivo de configuración de tablas válido: ", "TipoBebidaTest", JOptionPane.ERROR_MESSAGE);
 		}	
         return config;
     }	
+    */
 }

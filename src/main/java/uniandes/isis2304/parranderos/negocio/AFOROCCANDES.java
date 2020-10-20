@@ -84,11 +84,11 @@ public class AFOROCCANDES
 	 * @param nombre - El nombre del tipo de bebida
 	 * @return El objeto TipoBebida adicionado. null si ocurre alguna Excepción
 	 */
-	public PARQUEADERO adicionarParqueadero (long idEspacio,long id_parqueadero, float capacidad)
+	public PARQUEADERO adicionarParqueadero (long idEspacio, float capacidad)
 	{
-        log.info ("Adicionando Parqueadero: " + id_parqueadero);
-        PARQUEADERO tipoBebida = pp.adicionarParqueadero(idEspacio, id_parqueadero, capacidad);		
-        log.info ("Adicionando Tipo de bebida: " + tipoBebida);
+        log.info ("Adicionando Parqueadero con idEspacio: " + idEspacio);
+        PARQUEADERO tipoBebida = pp.adicionarParqueadero(idEspacio, capacidad);		
+        log.info ("Adicionando Parqueadero con idEspacio: " + tipoBebida);
         return tipoBebida;
 	}
 	

@@ -148,7 +148,7 @@ public class PersistenciaAforo
 		
 		// Define los nombres por defecto de las tablas de la base de datos
 		tablas = new LinkedList<String> ();
-		tablas.add ("AforoCCAndes_sequence");
+		tablas.add ("centro_comercial_sequence");
 		tablas.add ("BAÑO");
 		tablas.add ("CARNET");
 		tablas.add ("CENTRO_COMERCIAL");
@@ -353,20 +353,20 @@ public class PersistenciaAforo
 	/* ****************************************************************
 	 * 			Métodos para manejar los PARQUEADEROS
 	 *****************************************************************/
-	public PARQUEADERO adicionarParqueadero(long idEspacio,long id_parqueadero, float capacidad)
+	public PARQUEADERO adicionarParqueadero(long idEspacio,float capacidad)
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
         Transaction tx=pm.currentTransaction();
         try
         {
             tx.begin();
-            long idTipoBebida = nextval ();
-            long tuplasInsertadas = sqlParqueadero.adicionarParqueadero(pm, idEspacio, id_parqueadero, capacidad);
+            long idParqueadero = nextval ();
+            long tuplasInsertadas = sqlParqueadero.adicionarParqueadero(pm, idEspacio, idParqueadero, capacidad);
             tx.commit();
-            log.trace ("Inserción de parqueadero: " + idEspacio+ ","+id_parqueadero+": " 
+            log.trace ("Inserción de parqueadero: " + idEspacio+ ","+idParqueadero+": " 
             + tuplasInsertadas + " tuplas insertadas");
             
-            return new PARQUEADERO (idEspacio,id_parqueadero,capacidad);
+            return new PARQUEADERO (idEspacio,idParqueadero,capacidad);
         }
         catch (Exception e)
         {
