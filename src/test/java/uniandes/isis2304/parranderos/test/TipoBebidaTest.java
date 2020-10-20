@@ -99,7 +99,7 @@ public class TipoBebidaTest
     	try
 		{
 			// Lectura de los tipos de bebida con la tabla vacía
-			List <VOPARQUEDAERO> lista = parranderos.darVOTiposBebida();
+			List <VOPARQUEADERO> lista = parranderos.darVOTiposBebida();
 			assertEquals ("No debe haber tipos de bebida creados!!", 0, lista.size ());
 
 			// Lectura de los tipos de bebida con un tipo de bebida adicionado

@@ -75,7 +75,7 @@ class SQLUtil
 	 * @return Un arreglo con 7 números que indican el número de tuplas borradas en las tablas GUSTAN, SIRVEN, VISITAN, BEBIDA,
 	 * TIPOBEBIDA, BEBEDOR y BAR, respectivamente
 	 */
-	public long [] limpiarParranderos (PersistenceManager pm)
+	public long [] limpiarAforo (PersistenceManager pm)
 	{
         Query qBanio = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaBAÑO());          
         Query qCentro_Comercial = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaCENTRO_COMERCIAL ());

@@ -75,7 +75,7 @@ public class SQLVISITANTE {
 	}
 
 
-	public List<VISITANTE> darBebedoresPorNombre (PersistenceManager pm, String nombreBebedor) 
+	public List<VISITANTE> darVisitantesPorNombre (PersistenceManager pm, String nombreBebedor) 
 	{
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaVISITANTE () + " WHERE NOMBRE = ?");
 		q.setResultClass(VISITANTE.class);

@@ -72,7 +72,7 @@ class SQLVISITA
 	 * @param pm - El manejador de persistencia
 	 * @return EL número de tuplas eliminadas
 	 */
-	public long eliminarVisita (PersistenceManager pm) 
+	public long eliminarVisitas (PersistenceManager pm) 
 	{
         Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaVISITA ());
         return (long) q.executeUnique();
@@ -92,21 +92,6 @@ class SQLVISITA
         return (long) q.executeUnique();
 	}
 
-
-	public long eliminarVisitaPorIdLector (PersistenceManager pm, long idLector) 
-	{
-        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaVISITA () + " WHERE IDLECTOR = ?");
-        q.setParameters(idLector);
-        return (long) q.executeUnique();
-	}
-
-	
-	public long eliminarVisitaPorIdEspacio (PersistenceManager pm, long idEspacio) 
-	{
-        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaVISITA () + " WHERE IDESPACIO = ?");
-        q.setParameters(idEspacio);
-        return (long) q.executeUnique();
-	}
 
 	
 	public List<VISITA> darVisita (PersistenceManager pm)
