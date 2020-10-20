@@ -16,6 +16,7 @@
 package uniandes.isis2304.parranderos.interfazApp;
 
 import java.awt.BorderLayout;
+
 import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;
@@ -47,6 +48,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
 
 import uniandes.isis2304.parranderos.negocio.AFOROCCANDES;
+import uniandes.isis2304.parranderos.negocio.VOBAÑO;
 import uniandes.isis2304.parranderos.negocio.VOPARQUEDAERO;
 
 /**
@@ -237,6 +239,93 @@ public class InterfazAforoApp extends JFrame implements ActionListener
     }
     
 	/* ****************************************************************
+	 * 			CRUD DE BAÑO
+	 *****************************************************************/
+    public void adicionarBaño( )
+    {
+    	try 
+    	{
+    		String id = JOptionPane.showInputDialog (this, "Digite el id del espacio, id del baño y el número de sanitarios separado por comas",
+    				"Adicionar baño", JOptionPane.QUESTION_MESSAGE);
+    		if (id!= null)
+    		{
+    			String[] datos=id.split(",");
+    			String idEspacio=datos[0];
+    			String idBaño=datos[1];
+    			String numSanitarios=datos[2];
+    			long idRealEspacio=Long.valueOf(idEspacio);
+    			long idRealBaño=Long.valueOf(idBaño);
+    			int numSanitarios2=Integer.parseInt(numSanitarios);
+        		VOBAÑO tb = aforo.adicionarBaño(idRealEspacio, idRealBaño, numSanitarios2);
+        		if (tb == null)
+        		{
+        			throw new Exception ("No se pudo crear un parqueadero con id: " + idRealBaño);
+        		}
+        		String resultado = "En adicionarBaño\n\n";
+        		resultado += "Baño adicionado exitosamente: " + tb;
+    			resultado += "\n Operación terminada";
+    			panelDatos.actualizarInterfaz(resultado);
+    		}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+    }
+    public void darBaños( )
+    {
+    	try 
+    	{
+			List <VOBAÑO> lista = aforo.darVOBaños();
+
+			String resultado = "En listar Baños";
+			resultado +=  "\n" + listarBaños(lista);
+			panelDatos.actualizarInterfaz(resultado);
+			resultado += "\n Operación terminada";
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+    }
+    public void eliminarBañoPorId( )
+    {
+    	try 
+    	{
+    		String idTipoStr = JOptionPane.showInputDialog (this, "Id del baño?", "Borrar baño por Id", JOptionPane.QUESTION_MESSAGE);
+    		if (idTipoStr != null)
+    		{
+    			long idTipo = Long.valueOf (idTipoStr);
+    			long tbEliminados = aforo.eliminarBañoPorId(idTipo);
+
+    			String resultado = "En eliminar Baño\n\n";
+    			resultado += tbEliminados + " Baños eliminados\n";
+    			resultado += "\n Operación terminada";
+    			panelDatos.actualizarInterfaz(resultado);
+    		}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+    }
+   
+    
+    /* ****************************************************************
 	 * 			CRUD DE PARQUEADERO
 	 *****************************************************************/
     public void adicionarParqueadero( )
@@ -283,7 +372,7 @@ public class InterfazAforoApp extends JFrame implements ActionListener
 			List <VOPARQUEDAERO> lista = aforo.darVOPARQUEADEROS();
 
 			String resultado = "En listar Parqueaderos";
-			resultado +=  "\n" + listarTiposBebida (lista);
+			resultado +=  "\n" + listarParqueaderos(lista);
 			panelDatos.actualizarInterfaz(resultado);
 			resultado += "\n Operación terminada";
 		} 
@@ -294,7 +383,7 @@ public class InterfazAforoApp extends JFrame implements ActionListener
 			panelDatos.actualizarInterfaz(resultado);
 		}
     }
-    public void eliminarParqueaderoPorId( )
+    public void eliminarParqueaderoPorId()
     {
     	try 
     	{
@@ -321,6 +410,7 @@ public class InterfazAforoApp extends JFrame implements ActionListener
 			panelDatos.actualizarInterfaz(resultado);
 		}
     }
+   
 	/* ****************************************************************
 	 * 			Métodos administrativos
 	 *****************************************************************/
@@ -485,11 +575,21 @@ public class InterfazAforoApp extends JFrame implements ActionListener
      * @param lista - La lista con los tipos de bebida
      * @return La cadena con una líea para cada tipo de bebida recibido
      */
-    private String listarTiposBebida(List<VOPARQUEDAERO> lista) 
+    private String listarParqueaderos(List<VOPARQUEDAERO> lista) 
     {
-    	String resp = "Los tipos de bebida existentes son:\n";
+    	String resp = "Los parqueaderos existentes son:\n";
     	int i = 1;
         for (VOPARQUEDAERO tb : lista)
+        {
+        	resp += i++ + ". " + tb.toString() + "\n";
+        }
+        return resp;
+	}
+    private String listarBaños(List<VOBAÑO> lista) 
+    {
+    	String resp = "Los baños existentes son:\n";
+    	int i = 1;
+        for (VOBAÑO tb : lista)
         {
         	resp += i++ + ". " + tb.toString() + "\n";
         }

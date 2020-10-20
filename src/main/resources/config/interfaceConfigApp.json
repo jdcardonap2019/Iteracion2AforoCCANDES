@@ -5,24 +5,20 @@
 	"bannerPath": "./src/main/resources/config/logo.png",
 	"menuBar":
 	[
-		{ "menuTitle": "TipoBebida",
+		{ "menuTitle": "Parqueaderos",
 		  "options":
 			[
 				{
-					"label": "Adicionar",
-					"event": "adicionarTipoBebida"
+					"label": "Adicionar parqueadero",
+					"event": "adicionarParqueadero"
 				},
 				{
-					"label": "Listar",
-					"event": "listarTipoBebida"
+					"label": "Listar parqueaderos",
+					"event": "listarParqueaderos"
 				},
 				{
 					"label": "Borrar por Id",
-					"event": "eliminarTipoBebidaPorId"
-				},
-				{
-					"label": "Buscar por Nombre",
-					"event": "buscarTipoBebidaPorNombre"
+					"event": "eliminarParqueaderoPorId"
 				}
 			]
 		},
