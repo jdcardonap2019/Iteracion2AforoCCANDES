@@ -1,18 +1,3 @@
-/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- * Universidad	de	los	Andes	(Bogotá	- Colombia)
- * Departamento	de	Ingeniería	de	Sistemas	y	Computación
- * Licenciado	bajo	el	esquema	Academic Free License versión 2.1
- * 		
- * Curso: isis2304 - Sistemas Transaccionales
- * Proyecto: Parranderos Uniandes
- * @version 1.0
- * @author Germán Bravo
- * Julio de 2018
- * 
- * Revisado por: Claudia Jiménez, Christian Ariza
- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- */
-
 package uniandes.isis2304.parranderos.test;
 
 import static org.junit.Assert.assertEquals;
@@ -30,13 +15,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
 import uniandes.isis2304.parranderos.negocio.AFOROCCANDES;
 import uniandes.isis2304.parranderos.negocio.VOPARQUEDAERO;
-
-/**
- * Clase con los métdos de prueba de funcionalidad sobre TIPOBEBIDA
- * @author Germán Bravo
- *
- */
-public class TipoBebidaTest
+public class PARQUEADEROTest
 {
 	/* ****************************************************************
 	 * 			Constantes
@@ -44,7 +23,7 @@ public class TipoBebidaTest
 	/**
 	 * Logger para escribir la traza de la ejecución
 	 */
-	private static Logger log = Logger.getLogger(TipoBebidaTest.class.getName());
+	private static Logger log = Logger.getLogger(PARQUEADEROTest.class.getName());
 	
 	/**
 	 * Ruta al archivo de configuración de los nombres de tablas de la base de datos: La unidad de persistencia existe y el esquema de la BD también
@@ -62,34 +41,27 @@ public class TipoBebidaTest
 	/**
 	 * La clase que se quiere probar
 	 */
-    private AFOROCCANDES parranderos;
+    private AFOROCCANDES aforo;
 	
     /* ****************************************************************
-	 * 			Métodos de prueba para la tabla TipoBebida - Creación y borrado
+	 * 			Métodos de prueba para la tabla PARQUEADEROS - Creación y borrado
 	 *****************************************************************/
-	/**
-	 * Método que prueba las operaciones sobre la tabla TipoBebida
-	 * 1. Adicionar un tipo de bebida
-	 * 2. Listar el contenido de la tabla con 0, 1 y 2 registros insertados
-	 * 3. Borrar un tipo de bebida por su identificador
-	 * 4. Borrar un tipo de bebida por su nombre
-	 */
     @Test
-	public void CRDTipoBebidaTest() 
+	public void CRDPARQUEADERO() 
 	{
     	// Probar primero la conexión a la base de datos
 		try
 		{
-			log.info ("Probando las operaciones CRD sobre TipoBebida");
-			parranderos = new AFOROCCANDES (openConfig (CONFIG_TABLAS_A));
+			log.info ("Probando las operaciones CRD sobre PARQUEADERO");
+			aforo = new AFOROCCANDES (openConfig (CONFIG_TABLAS_A));
 		}
 		catch (Exception e)
 		{
 //			e.printStackTrace();
-			log.info ("Prueba de CRD de Tipobebida incompleta. No se pudo conectar a la base de datos !!. La excepción generada es: " + e.getClass ().getName ());
+			log.info ("Prueba de CRD de PARQUEADERO incompleta. No se pudo conectar a la base de datos !!. La excepción generada es: " + e.getClass ().getName ());
 			log.info ("La causa es: " + e.getCause ().toString ());
 
-			String msg = "Prueba de CRD de Tipobebida incompleta. No se pudo conectar a la base de datos !!.\n";
+			String msg = "Prueba de CRD de PARQUEADERO incompleta. No se pudo conectar a la base de datos !!.\n";
 			msg += "Revise el log de parranderos y el de datanucleus para conocer el detalle de la excepción";
 			System.out.println (msg);
 			fail (msg);
@@ -99,36 +71,44 @@ public class TipoBebidaTest
     	try
 		{
 			// Lectura de los tipos de bebida con la tabla vacía
-			List <VOPARQUEADERO> lista = parranderos.darVOTiposBebida();
+			List <VOPARQUEDAERO> lista = aforo.darVOPARQUEADEROS();
 			assertEquals ("No debe haber tipos de bebida creados!!", 0, lista.size ());
 
 			// Lectura de los tipos de bebida con un tipo de bebida adicionado
-			String nombreTipoBebida1 = "Vino tinto";
-			VOPARQUEDAERO tipoBebida1 = parranderos.adicionarTipoBebida (nombreTipoBebida1);
-			lista = parranderos.darVOTiposBebida();
+			String idEspacio="23";
+			String idParqueadero="1";
+			int capacidad=1;
+			Long idRealEspacio=Long.getLong(idEspacio);
+			Long idRealParqueadero=Long.getLong(idParqueadero);
+			VOPARQUEDAERO parqueadero1 = aforo.adicionarParqueadero(idRealEspacio, idRealParqueadero, capacidad);
+			lista = aforo.darVOPARQUEADEROS();
 			assertEquals ("Debe haber un tipo de bebida creado !!", 1, lista.size ());
-			assertEquals ("El objeto creado y el traido de la BD deben ser iguales !!", tipoBebida1, lista.get (0));
+			assertEquals ("El objeto creado y el traido de la BD deben ser iguales !!", parqueadero1, lista.get (0));
 
 			// Lectura de los tipos de bebida con dos tipos de bebida adicionados
-			String nombreTipoBebida2 = "Cerveza";
-			VOPARQUEDAERO tipoBebida2 = parranderos.adicionarTipoBebida (nombreTipoBebida2);
-			lista = parranderos.darVOTiposBebida();
+			String idEspacio2="24";
+			String idParqueadero2="2";
+			int capacidad2=1;
+			Long idRealEspacio2=Long.getLong(idEspacio2);
+			Long idRealParqueadero2=Long.getLong(idParqueadero2);
+			VOPARQUEDAERO parqueadero2 = aforo.adicionarParqueadero(idRealEspacio2, idRealParqueadero2, capacidad2);
+			lista = aforo.darVOPARQUEADEROS();
 			assertEquals ("Debe haber dos tipos de bebida creados !!", 2, lista.size ());
-			assertTrue ("El primer tipo de bebida adicionado debe estar en la tabla", tipoBebida1.equals (lista.get (0)) || tipoBebida1.equals (lista.get (1)));
-			assertTrue ("El segundo tipo de bebida adicionado debe estar en la tabla", tipoBebida2.equals (lista.get (0)) || tipoBebida2.equals (lista.get (1)));
+			assertTrue ("El primer tipo de bebida adicionado debe estar en la tabla", parqueadero1.equals (lista.get (0)) || parqueadero1.equals (lista.get (1)));
+			assertTrue ("El segundo tipo de bebida adicionado debe estar en la tabla", parqueadero2.equals (lista.get (0)) || parqueadero2.equals (lista.get (1)));
 
 			// Prueba de eliminación de un tipo de bebida, dado su identificador
-			long tbEliminados = parranderos.eliminarTipoBebidaPorId (tipoBebida1.getId ());
+			long tbEliminados = aforo.eliminarParqueaderoPorId(parqueadero1.getID_PARQUEADERO());
 			assertEquals ("Debe haberse eliminado un tipo de bebida !!", 1, tbEliminados);
-			lista = parranderos.darVOTiposBebida();
+			lista = aforo.darVOPARQUEADEROS();
 			assertEquals ("Debe haber un solo tipo de bebida !!", 1, lista.size ());
-			assertFalse ("El primer tipo de bebida adicionado NO debe estar en la tabla", tipoBebida1.equals (lista.get (0)));
-			assertTrue ("El segundo tipo de bebida adicionado debe estar en la tabla", tipoBebida2.equals (lista.get (0)));
+			assertFalse ("El primer tipo de bebida adicionado NO debe estar en la tabla", parqueadero1.equals (lista.get (0)));
+			assertTrue ("El segundo tipo de bebida adicionado debe estar en la tabla", parqueadero2.equals (lista.get (0)));
 			
 			// Prueba de eliminación de un tipo de bebida, dado su identificador
-			tbEliminados = parranderos.eliminarTipoBebidaPorNombre (nombreTipoBebida2);
+			tbEliminados = aforo.eliminarParqueaderoPorId(parqueadero2.getID_PARQUEADERO());
 			assertEquals ("Debe haberse eliminado un tipo de bebida !!", 1, tbEliminados);
-			lista = parranderos.darVOTiposBebida();
+			lista = aforo.darVOPARQUEADEROS();
 			assertEquals ("La tabla debió quedar vacía !!", 0, lista.size ());
 		}
 		catch (Exception e)
@@ -142,8 +122,8 @@ public class TipoBebidaTest
 		}
 		finally
 		{
-			parranderos.limpiarParranderos ();
-    		parranderos.cerrarUnidadPersistencia ();    		
+			aforo.limpiarAforo();
+    		aforo.cerrarUnidadPersistencia ();    		
 		}
 	}
 
@@ -151,13 +131,13 @@ public class TipoBebidaTest
      * Método de prueba de la restricción de unicidad sobre el nombre de TipoBebida
      */
 	@Test
-	public void unicidadTipoBebidaTest() 
+	public void unicidadPARQUEADEROTest() 
 	{
     	// Probar primero la conexión a la base de datos
 		try
 		{
 			log.info ("Probando la restricción de UNICIDAD del nombre del tipo de bebida");
-			parranderos = new AFOROCCANDES (openConfig (CONFIG_TABLAS_A));
+			aforo = new AFOROCCANDES (openConfig (CONFIG_TABLAS_A));
 		}
 		catch (Exception e)
 		{
@@ -175,17 +155,21 @@ public class TipoBebidaTest
 		try
 		{
 			// Lectura de los tipos de bebida con la tabla vacía
-			List <VOPARQUEDAERO> lista = parranderos.darVOTiposBebida();
+			List <VOPARQUEDAERO> lista = aforo.darVOPARQUEADEROS();
 			assertEquals ("No debe haber tipos de bebida creados!!", 0, lista.size ());
 
 			// Lectura de los tipos de bebida con un tipo de bebida adicionado
-			String nombreTipoBebida1 = "Vino tinto";
-			VOPARQUEDAERO tipoBebida1 = parranderos.adicionarTipoBebida (nombreTipoBebida1);
-			lista = parranderos.darVOTiposBebida();
+			String idEspacio="23";
+			String idParqueadero="1";
+			int capacidad=1;
+			Long idRealEspacio=Long.getLong(idEspacio);
+			Long idRealParqueadero=Long.getLong(idParqueadero);
+			VOPARQUEDAERO parqueadero1 = aforo.adicionarParqueadero(idRealEspacio, idRealParqueadero, capacidad);
+			lista = aforo.darVOPARQUEADEROS();
 			assertEquals ("Debe haber un tipo de bebida creado !!", 1, lista.size ());
 
-			VOPARQUEDAERO tipoBebida2 = parranderos.adicionarTipoBebida (nombreTipoBebida1);
-			assertNull ("No puede adicionar dos tipos de bebida con el mismo nombre !!", tipoBebida2);
+			VOPARQUEDAERO parqueadero2 = aforo.adicionarParqueadero(idRealEspacio, idRealParqueadero, capacidad);
+			assertNull ("No puede adicionar dos tipos de bebida con el mismo idEspacio o idParqueadero!!", parqueadero2);
 		}
 		catch (Exception e)
 		{
@@ -198,8 +182,8 @@ public class TipoBebidaTest
 		}    				
 		finally
 		{
-			parranderos.limpiarParranderos ();
-    		parranderos.cerrarUnidadPersistencia ();    		
+			aforo.limpiarAforo();
+    		aforo.cerrarUnidadPersistencia ();    		
 		}
 	}
 

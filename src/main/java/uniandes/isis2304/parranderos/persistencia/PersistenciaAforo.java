@@ -363,7 +363,6 @@ public class PersistenciaAforo
             long idTipoBebida = nextval ();
             long tuplasInsertadas = sqlParqueadero.adicionarParqueadero(pm, idEspacio, id_parqueadero, capacidad);
             tx.commit();
-            
             log.trace ("Inserción de parqueadero: " + idEspacio+ ","+id_parqueadero+": " 
             + tuplasInsertadas + " tuplas insertadas");
             
@@ -1057,7 +1056,7 @@ public class PersistenciaAforo
 	{
 		return sqlVisitante.darVisitantePorNombre(pmf.getPersistenceManager(), nombre);
 	}
-	public VISITANTE darLocalComercialPorCedula(float cedula) 
+	public VISITANTE darVisitantePorCedula(float cedula) 
 	{
 		return sqlVisitante.darVisitantePorCEDULA(pmf.getPersistenceManager(), cedula);
 	}
@@ -1134,7 +1133,7 @@ public class PersistenciaAforo
 	{
 		return sqlLector.darLECTORES(pmf.getPersistenceManager());
 	}
-	public long [] limpiarParranderos ()
+	public long [] limpiarAforo ()
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
         Transaction tx=pm.currentTransaction();

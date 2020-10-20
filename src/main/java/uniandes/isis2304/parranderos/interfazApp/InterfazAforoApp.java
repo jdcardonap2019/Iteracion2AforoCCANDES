@@ -55,7 +55,7 @@ import uniandes.isis2304.parranderos.negocio.VOPARQUEDAERO;
  */
 @SuppressWarnings("serial")
 
-public class InterfazParranderosApp extends JFrame implements ActionListener
+public class InterfazAforoApp extends JFrame implements ActionListener
 {
 	/* ****************************************************************
 	 * 			Constantes
@@ -63,7 +63,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 	/**
 	 * Logger para escribir la traza de la ejecución
 	 */
-	private static Logger log = Logger.getLogger(InterfazParranderosApp.class.getName());
+	private static Logger log = Logger.getLogger(InterfazAforoApp.class.getName());
 	
 	/**
 	 * Ruta al archivo de configuración de la interfaz
@@ -86,7 +86,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
     /**
      * Asociación a la clase principal del negocio.
      */
-    private AFOROCCANDES parranderos;
+    private AFOROCCANDES aforo;
     
 	/* ****************************************************************
 	 * 			Atributos de interfaz
@@ -113,7 +113,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
      * Construye la ventana principal de la aplicación. <br>
      * <b>post:</b> Todos los componentes de la interfaz fueron inicializados.
      */
-    public InterfazParranderosApp( )
+    public InterfazAforoApp( )
     {
         // Carga la configuración de la interfaz desde un archivo JSON
         guiConfig = openConfig ("Interfaz", CONFIG_INTERFAZ);
@@ -126,7 +126,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
         }
         
         tableConfig = openConfig ("Tablas BD", CONFIG_TABLAS);
-        parranderos = new AFOROCCANDES (tableConfig);
+        aforo = new AFOROCCANDES (tableConfig);
         
     	String path = guiConfig.get("bannerPath").getAsString();
         panelDatos = new PanelDatos ( );
@@ -178,7 +178,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
     	if ( guiConfig == null )
     	{
     		log.info ( "Se aplica configuración por defecto" );			
-			titulo = "Parranderos APP Default";
+			titulo = "Aforo APP Default";
 			alto = 300;
 			ancho = 500;
     	}
@@ -237,26 +237,30 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
     }
     
 	/* ****************************************************************
-	 * 			CRUD de TipoBebida
+	 * 			CRUD DE PARQUEADERO
 	 *****************************************************************/
-    /**
-     * Adiciona un tipo de bebida con la información dada por el usuario
-     * Se crea una nueva tupla de tipoBebida en la base de datos, si un tipo de bebida con ese nombre no existía
-     */
-    public void adicionarTipoBebida( )
+    public void adicionarParqueadero( )
     {
     	try 
     	{
-    		String nombreTipo = JOptionPane.showInputDialog (this, "Nombre del tipo de bedida?", "Adicionar tipo de bebida", JOptionPane.QUESTION_MESSAGE);
-    		if (nombreTipo != null)
+    		String id = JOptionPane.showInputDialog (this, "Digite el id del espacio, id del parqueadero y la capacidad separado por comas",
+    				"Adicionar parqueadero", JOptionPane.QUESTION_MESSAGE);
+    		if (id!= null)
     		{
-        		VOPARQUEDAERO tb = parranderos.adicionarTipoBebida (nombreTipo);
+    			String[] datos=id.split(",");
+    			String idEspacio=datos[0];
+    			String idParqueadero=datos[1];
+    			String capacidad=datos[2];
+    			long idRealEspacio=Long.valueOf(idEspacio);
+    			long idRealParqueadero=Long.valueOf(idParqueadero);
+    			int capacidadReal=Integer.parseInt(capacidad);
+        		VOPARQUEDAERO tb = aforo.adicionarParqueadero(idRealEspacio, idRealParqueadero, capacidadReal);
         		if (tb == null)
         		{
-        			throw new Exception ("No se pudo crear un tipo de bebida con nombre: " + nombreTipo);
+        			throw new Exception ("No se pudo crear un parqueadero con id: " + idRealParqueadero);
         		}
-        		String resultado = "En adicionarTipoBebida\n\n";
-        		resultado += "Tipo de bebida adicionado exitosamente: " + tb;
+        		String resultado = "En adicionarParqueadero\n\n";
+        		resultado += "Parqueadero adicionado exitosamente: " + tb;
     			resultado += "\n Operación terminada";
     			panelDatos.actualizarInterfaz(resultado);
     		}
@@ -272,17 +276,13 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 			panelDatos.actualizarInterfaz(resultado);
 		}
     }
-
-    /**
-     * Consulta en la base de datos los tipos de bebida existentes y los muestra en el panel de datos de la aplicación
-     */
-    public void listarTipoBebida( )
+    public void darParqueaderos( )
     {
     	try 
     	{
-			List <VOPARQUEDAERO> lista = parranderos.darVOTiposBebida();
+			List <VOPARQUEDAERO> lista = aforo.darVOPARQUEADEROS();
 
-			String resultado = "En listarTipoBebida";
+			String resultado = "En listar Parqueaderos";
 			resultado +=  "\n" + listarTiposBebida (lista);
 			panelDatos.actualizarInterfaz(resultado);
 			resultado += "\n Operación terminada";
@@ -294,23 +294,18 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 			panelDatos.actualizarInterfaz(resultado);
 		}
     }
-
-    /**
-     * Borra de la base de datos el tipo de bebida con el identificador dado po el usuario
-     * Cuando dicho tipo de bebida no existe, se indica que se borraron 0 registros de la base de datos
-     */
-    public void eliminarTipoBebidaPorId( )
+    public void eliminarParqueaderoPorId( )
     {
     	try 
     	{
-    		String idTipoStr = JOptionPane.showInputDialog (this, "Id del tipo de bedida?", "Borrar tipo de bebida por Id", JOptionPane.QUESTION_MESSAGE);
+    		String idTipoStr = JOptionPane.showInputDialog (this, "Id del tipo del parqueadero?", "Borrar parqueadero por Id", JOptionPane.QUESTION_MESSAGE);
     		if (idTipoStr != null)
     		{
     			long idTipo = Long.valueOf (idTipoStr);
-    			long tbEliminados = parranderos.eliminarTipoBebidaPorId (idTipo);
+    			long tbEliminados = aforo.eliminarParqueaderoPorId(idTipo);
 
-    			String resultado = "En eliminar TipoBebida\n\n";
-    			resultado += tbEliminados + " Tipos de bebida eliminados\n";
+    			String resultado = "En eliminar Parqueadero\n\n";
+    			resultado += tbEliminados + " Parqueaderos eliminados\n";
     			resultado += "\n Operación terminada";
     			panelDatos.actualizarInterfaz(resultado);
     		}
@@ -326,44 +321,6 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 			panelDatos.actualizarInterfaz(resultado);
 		}
     }
-
-    /**
-     * Busca el tipo de bebida con el nombre indicado por el usuario y lo muestra en el panel de datos
-     */
-    public void buscarTipoBebidaPorNombre( )
-    {
-    	try 
-    	{
-    		String nombreTb = JOptionPane.showInputDialog (this, "Nombre del tipo de bedida?", "Buscar tipo de bebida por nombre", JOptionPane.QUESTION_MESSAGE);
-    		if (nombreTb != null)
-    		{
-    			VOPARQUEDAERO tipoBebida = parranderos.darTipoBebidaPorNombre (nombreTb);
-    			String resultado = "En buscar Tipo Bebida por nombre\n\n";
-    			if (tipoBebida != null)
-    			{
-        			resultado += "El tipo de bebida es: " + tipoBebida;
-    			}
-    			else
-    			{
-        			resultado += "Un tipo de bebida con nombre: " + nombreTb + " NO EXISTE\n";    				
-    			}
-    			resultado += "\n Operación terminada";
-    			panelDatos.actualizarInterfaz(resultado);
-    		}
-    		else
-    		{
-    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
-    		}
-		} 
-    	catch (Exception e) 
-    	{
-//			e.printStackTrace();
-			String resultado = generarMensajeError(e);
-			panelDatos.actualizarInterfaz(resultado);
-		}
-    }
-
-
 	/* ****************************************************************
 	 * 			Métodos administrativos
 	 *****************************************************************/
@@ -372,7 +329,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 	 */
 	public void mostrarLogParranderos ()
 	{
-		mostrarArchivo ("parranderos.log");
+		mostrarArchivo ("aforo.log");
 	}
 	
 	/**
@@ -426,7 +383,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 		try 
 		{
     		// Ejecución de la demo y recolección de los resultados
-			long eliminados [] = parranderos.limpiarParranderos();
+			long eliminados [] = aforo.limpiarAforo();
 			
 			// Generación de la cadena de caracteres con la traza de la ejecución de la demo
 			String resultado = "\n\n************ Limpiando la base de datos ************ \n";
@@ -621,7 +578,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 		String evento = pEvento.getActionCommand( );		
         try 
         {
-			Method req = InterfazParranderosApp.class.getMethod ( evento );			
+			Method req = InterfazAforoApp.class.getMethod ( evento );			
 			req.invoke ( this );
 		} 
         catch (Exception e) 
@@ -644,7 +601,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
         	
             // Unifica la interfaz para Mac y para Windows.
             UIManager.setLookAndFeel( UIManager.getCrossPlatformLookAndFeelClassName( ) );
-            InterfazParranderosApp interfaz = new InterfazParranderosApp( );
+            InterfazAforoApp interfaz = new InterfazAforoApp( );
             interfaz.setVisible( true );
         }
         catch( Exception e )

@@ -115,7 +115,7 @@ public class AFOROCCANDES
 	 * Adiciona entradas al log de la aplicación
 	 * @return Una lista de objetos VOTipoBebida con todos los tipos de bebida que conoce la aplicación, llenos con su información básica
 	 */
-	public List<VOPARQUEDAERO> darVOTiposBebida ()
+	public List<VOPARQUEDAERO> darVOPARQUEADEROS()
 	{
 		log.info ("Generando los VO de Parqueaderos:");        
         List<VOPARQUEDAERO> voTipos = new LinkedList<VOPARQUEDAERO> ();
@@ -178,7 +178,7 @@ public class AFOROCCANDES
 	{
 		log.info ("Generando los VO de los baños");       
         List<VOBAÑO> voBaños = new LinkedList<VOBAÑO> ();
-        for (CENTRO_COMERCIAL beb : pp.darBaños ())
+        for (BAÑO beb : pp.darBaños())
         {
         	voBaños.add (beb);
         }
@@ -232,7 +232,7 @@ public class AFOROCCANDES
 	{
         log.info ("Generando los VO de Carnets");
          List<VOCARNET> voBebedores = new LinkedList<VOCARNET> ();
-        for (CARNET bdor : pp.darBebedores ())
+        for (CARNET bdor : pp.darCarnets())
         {
         	voBebedores.add (bdor);
         }
@@ -327,7 +327,7 @@ public class AFOROCCANDES
 	public long eliminarLector (long idLector)
 	{
         log.info ("Eliminando Lector");
-        long resp = pp.eliminarLector (idLector);
+        long resp = pp.eliminarLectorPorId(idLector);
         log.info ("Eliminando Lector: " + resp + " tuplas eliminadas");
         return resp;
 	}
@@ -402,7 +402,7 @@ public class AFOROCCANDES
 	public List<LOCAL_COMERCIAL> darLocalesComerciales ()
 	{
         log.info ("Listando Locales Comerciales");
-        List<LOCAL_COMERCIAL> sirven = pp.darSirven ();	
+        List<LOCAL_COMERCIAL> sirven = pp.darLocalesComerciales();
         log.info ("Listando Locales Comerciales: " + sirven.size() + " Locales Comerciales existentes");
         return sirven;
 	}
@@ -440,7 +440,7 @@ public class AFOROCCANDES
 	public long eliminarVisita (long idCarnet, long idLector, long idEspacio)
 	{
         log.info ("Eliminando visita");
-        long resp = pp.eliminarVisita (idCarnet, idLector);
+        long resp = pp.eliminarVisita(idCarnet, idLector, idEspacio);
         log.info ("Eliminando visita: " + resp + " tuplas eliminadas");
         return resp;
 	}
@@ -459,7 +459,7 @@ public class AFOROCCANDES
 	{
 		log.info ("Generando los VO de Visitan");
 		List<VOVISITA> voVisita = new LinkedList<VOVISITA> ();
-		for (VOVISITA vis: pp.darVisitan ())
+		for (VOVISITA vis: pp.darVisitas())
 		{
 			voVisita.add (vis);
 		}
@@ -474,7 +474,7 @@ public class AFOROCCANDES
 	public VISITANTE adicionarVisitante (float cedula, String nombre, float telefono,String nombre_contacto,float telefono_contacto, String codigo_qr, String correo, Timestamp horario_disponible, String tipo_visitante, long idEspacio)
 	{
         log.info ("Adicionando Visitante: " + cedula);
-        CARNET visitante = pp.adicionarVisitante ( cedula, nombre,  telefono, nombre_contacto, telefono_contacto,  codigo_qr,  correo, horario_disponible,  tipo_visitante,  idEspacio);
+        VISITANTE visitante = pp.adicionarVisitante(cedula, nombre, telefono, nombre_contacto, telefono_contacto, codigo_qr, correo, horario_disponible, tipo_visitante, idEspacio); 
         log.info ("Adicionando bebedor: " + visitante);
         return visitante;
 	}
@@ -501,7 +501,7 @@ public class AFOROCCANDES
 	public VISITANTE darBebedorPorCedula (float cedula)
 	{
         log.info ("Dar información de un visitante con cedula: " + cedula);
-        VISITANTE visitante = pp.darVisitantePorCedula (cedula);
+        VISITANTE visitante = pp.darVisitantePorCedula(cedula);
         log.info ("Buscando visitante con  cedula: " + visitante != null ? visitante : "NO EXISTE");
         return visitante;
 	}
@@ -510,7 +510,7 @@ public class AFOROCCANDES
 	public List<VISITANTE> darVisitantesPorNombre (String nombre)
 	{
         log.info ("Dar información de visitantes por nombre: " + nombre);
-        List<VISITANTE> bebedores = pp.darVisitantesPorNombre (nombre);
+        List<VISITANTE> bebedores = pp.darVisitantePorNombre (nombre);
         log.info ("Dar información de visitantes por nombre: " + bebedores.size() + " bebedores con ese nombre existentes");
         return bebedores;
  	}
@@ -525,7 +525,7 @@ public class AFOROCCANDES
 	{
         log.info ("Generando VO de visitantes por nombre: " + nombre);
         List<VOVISITANTE> voBebedores = new LinkedList<VOVISITANTE> ();
-       for (VISITANTE bdor : pp.darVisitantesPorNombre (nombre))
+       for (VISITANTE bdor : pp.darVisitantePorNombre(nombre))
        {
           	voBebedores.add (bdor);
        }
