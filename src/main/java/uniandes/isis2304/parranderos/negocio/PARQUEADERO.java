@@ -15,7 +15,7 @@
 
 package uniandes.isis2304.parranderos.negocio;
 
-public class PARQUEADERO implements VOPARQUEDAERO
+public class PARQUEADERO implements VOPARQUEADERO
 {
 	/* ****************************************************************
 	 * 			Atributos

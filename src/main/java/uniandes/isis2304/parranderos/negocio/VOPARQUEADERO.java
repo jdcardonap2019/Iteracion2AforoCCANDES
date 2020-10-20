@@ -15,7 +15,7 @@
 
 package uniandes.isis2304.parranderos.negocio;
 
-public interface VOPARQUEDAERO 
+public interface VOPARQUEADERO 
 {
 	/* ****************************************************************
 	 * 			Métodos

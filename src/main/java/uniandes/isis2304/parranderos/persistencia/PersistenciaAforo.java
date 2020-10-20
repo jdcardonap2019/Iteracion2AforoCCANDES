@@ -413,6 +413,7 @@ public class PersistenciaAforo
 	{
 		return sqlParqueadero.darParqueaderoPorId(pmf.getPersistenceManager(), idParqueadero);
 	}
+	
 	public List<PARQUEADERO> darParqueaderos ()
 	{
 		return sqlParqueadero.darParqueaderos(pmf.getPersistenceManager());
@@ -646,7 +647,7 @@ public class PersistenciaAforo
 	/* ****************************************************************
 	 * 			Métodos para manejar la relación ESPACIO
 	 *****************************************************************/
-	public ESPACIO adicionarEspacio(long idEspacio, Timestamp horarioAperturaEmpleados, Timestamp horarioAperturaClientes,
+	public ESPACIO adicionarEspacio( Timestamp horarioAperturaEmpleados, Timestamp horarioAperturaClientes,
 			Timestamp horarioCierreClientes, int aforoActual, int aforoTotal) 
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
@@ -654,6 +655,7 @@ public class PersistenciaAforo
         try
         {
             tx.begin();
+            long idEspacio = nextval ();
             long tuplasInsertadas = sqlEspacio.adicionarEspacio(pm, idEspacio, horarioAperturaEmpleados, horarioAperturaClientes, horarioCierreClientes, aforoActual, aforoTotal);
             tx.commit();
 

@@ -14,7 +14,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
 import uniandes.isis2304.parranderos.negocio.AFOROCCANDES;
-import uniandes.isis2304.parranderos.negocio.VOPARQUEDAERO;
+import uniandes.isis2304.parranderos.negocio.VOPARQUEADERO;
 public class PARQUEADEROTest
 {
 	/* ****************************************************************

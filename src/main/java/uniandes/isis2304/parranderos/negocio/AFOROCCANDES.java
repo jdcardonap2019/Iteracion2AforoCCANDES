@@ -115,20 +115,18 @@ public class AFOROCCANDES
 	 * Adiciona entradas al log de la aplicación
 	 * @return Una lista de objetos VOTipoBebida con todos los tipos de bebida que conoce la aplicación, llenos con su información básica
 	 */
-	public List<VOPARQUEDAERO> darVOPARQUEADEROS()
+
+	public List<VOPARQUEADERO> darVOPARQUEADEROS()
 	{
 		log.info ("Generando los VO de Parqueaderos:");        
-        List<VOPARQUEDAERO> voTipos = new LinkedList<VOPARQUEDAERO> ();
+        List<VOPARQUEADERO> voTipos = new LinkedList<VOPARQUEADERO> ();
         for (PARQUEADERO tb : pp.darParqueaderos ())
         {
         	voTipos.add (tb);
         }
         log.info ("Generando los VO de Parqueaderos: " + voTipos.size() + " existentes");
         return voTipos;
-	}
-
-	
-
+	}	
 	/* ****************************************************************
 	 * 			Métodos para manejar los BANIO
 	 *****************************************************************/
@@ -258,12 +256,12 @@ public class AFOROCCANDES
 	 * @param sedes - El número de sedes que tiene el bar en la ciudad (Mayor que 0)
 	 * @return El objeto Bar adicionado. null si ocurre alguna Excepción
 	 */
-	public ESPACIO adicionarEspacio (long idEspacio, Timestamp horarioAperturaEmpleados, Timestamp horarioAperturaClientes,
+	public ESPACIO adicionarEspacio ( Timestamp horarioAperturaEmpleados, Timestamp horarioAperturaClientes,
 			Timestamp horarioCierreClientes, int aforoActual, int aforoTota)
 	{
-        log.info ("Adicionando Espacio: " + idEspacio);
-        ESPACIO espacio = pp.adicionarEspacio ( idEspacio,  horarioAperturaEmpleados,  horarioAperturaClientes ,horarioCierreClientes, aforoActual,  aforoTota);
-        log.info ("Adicionando Espacior: " + idEspacio);
+        log.info ("Adicionando Espacio con aforo: " + aforoTota );
+        ESPACIO espacio = pp.adicionarEspacio (  horarioAperturaEmpleados,  horarioAperturaClientes ,horarioCierreClientes, aforoActual,  aforoTota);
+        log.info ("Adicionando Espacior: " +aforoTota );
         return espacio;
 	}
 	

@@ -27,6 +27,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.jdo.JDODataStoreException;
@@ -49,7 +53,8 @@ import com.google.gson.stream.JsonReader;
 
 import uniandes.isis2304.parranderos.negocio.AFOROCCANDES;
 import uniandes.isis2304.parranderos.negocio.VOBAÑO;
-import uniandes.isis2304.parranderos.negocio.VOPARQUEDAERO;
+import uniandes.isis2304.parranderos.negocio.VOESPACIO;
+import uniandes.isis2304.parranderos.negocio.VOPARQUEADERO;
 
 /**
  * Clase principal de la interfaz
@@ -341,7 +346,7 @@ public class InterfazAforoApp extends JFrame implements ActionListener
     			String capacidad=datos[1];
     			long idRealEspacio=Long.valueOf(idEspacio);
     			int capacidadReal=Integer.parseInt(capacidad);
-        		VOPARQUEDAERO tb = aforo.adicionarParqueadero(idRealEspacio, capacidadReal);
+        		VOPARQUEADERO tb = aforo.adicionarParqueadero(idRealEspacio, capacidadReal);
         		if (tb == null)
         		{
         			throw new Exception ("No se pudo crear un parqueadero con id espacio: " + idEspacio);
@@ -367,7 +372,7 @@ public class InterfazAforoApp extends JFrame implements ActionListener
     {
     	try 
     	{
-			List <VOPARQUEDAERO> lista = aforo.darVOPARQUEADEROS();
+			List <VOPARQUEADERO> lista = aforo.darVOPARQUEADEROS();
 
 			String resultado = "En listar Parqueaderos";
 			resultado +=  "\n" + listarParqueaderos(lista);
@@ -393,6 +398,105 @@ public class InterfazAforoApp extends JFrame implements ActionListener
 
     			String resultado = "En eliminar Parqueadero\n\n";
     			resultado += tbEliminados + " Parqueaderos eliminados\n";
+    			resultado += "\n Operación terminada";
+    			panelDatos.actualizarInterfaz(resultado);
+    		}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+    }
+    
+    /* ****************************************************************
+	 * 			CRUD DE ESPACIO
+	 *****************************************************************/
+    public void adicionarEspacio( )
+    {
+    	try 
+    	{
+    		String id = JOptionPane.showInputDialog (this, "Digite el horario apertura para empleados, el horario apertura para clientes, horario cierre, aforo total y aforo actual separado por comas",
+    				"Adicionar Espacio (Fecha en formato yyyy-MM-dd HH:mm:ss.SSS)", JOptionPane.QUESTION_MESSAGE);
+    		if (id!= null)
+    		{
+    			String[] datos=id.split(",");
+    			String horarioAperturaEmpleados=datos[0];
+    			String horarioAperturaClientes=datos[1];
+    			String horarioCierreClientes = datos[2];
+    			String aforoActual = datos[3];
+    			String aforoTotal = datos[4];
+    			int aforoTotal1=Integer.parseInt(aforoTotal);
+    			int aforoActual1=Integer.parseInt(aforoActual);
+    			
+    			final String FORMAT = "yyyy-MM-dd HH:mm:ss.SSS";
+    			DateFormat formatter = new SimpleDateFormat(FORMAT);
+    			
+                Date hCC = formatter.parse(horarioCierreClientes);
+                Date hAC= formatter.parse(horarioAperturaClientes);
+                Date hAE = formatter.parse(horarioAperturaEmpleados);
+    			
+                Timestamp  ts1 = new Timestamp(hAE.getTime());
+                Timestamp  ts2 = new Timestamp(hAC.getTime());
+                Timestamp  ts3 = new Timestamp(hCC.getTime());
+                
+        		VOESPACIO tb = aforo.adicionarEspacio(ts1,ts2,ts3,aforoActual1,aforoTotal1);
+        		if (tb == null)
+        		{
+        			throw new Exception ("No se pudo crear Espacio con aforo total: " +aforoTotal);
+        		}
+        		String resultado = "En adicionarParqueadero\n\n";
+        		resultado += "Parqueadero adicionado exitosamente: " + tb;
+    			resultado += "\n Operación terminada";
+    			panelDatos.actualizarInterfaz(resultado);
+    		}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+    }
+    public void darEspacios( )
+    {
+    	try 
+    	{
+			List <VOESPACIO> lista = aforo.darVOBEspacios();
+
+			String resultado = "En listar Parqueaderos";
+			resultado +=  "\n" + listarEspacios(lista);
+			panelDatos.actualizarInterfaz(resultado);
+			resultado += "\n Operación terminada";
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+    }
+    public void eliminarEspacioPorId()
+    {
+    	try 
+    	{
+    		String idTipoStr = JOptionPane.showInputDialog (this, "Id del tipo del Espacio?", "Borrar parqueadero por Id", JOptionPane.QUESTION_MESSAGE);
+    		if (idTipoStr != null)
+    		{
+    			long idTipo = Long.valueOf (idTipoStr);
+    			long tbEliminados = aforo.eliminarEspacioPorId(idTipo);
+
+    			String resultado = "En eliminar Espacio\n\n";
+    			resultado += tbEliminados + " Espacio eliminados\n";
     			resultado += "\n Operación terminada";
     			panelDatos.actualizarInterfaz(resultado);
     		}
@@ -573,11 +677,11 @@ public class InterfazAforoApp extends JFrame implements ActionListener
      * @param lista - La lista con los tipos de bebida
      * @return La cadena con una líea para cada tipo de bebida recibido
      */
-    private String listarParqueaderos(List<VOPARQUEDAERO> lista) 
+    private String listarParqueaderos(List<VOPARQUEADERO> lista) 
     {
     	String resp = "Los parqueaderos existentes son:\n";
     	int i = 1;
-        for (VOPARQUEDAERO tb : lista)
+        for (VOPARQUEADERO tb : lista)
         {
         	resp += i++ + ". " + tb.toString() + "\n";
         }
@@ -593,7 +697,17 @@ public class InterfazAforoApp extends JFrame implements ActionListener
         }
         return resp;
 	}
-
+   
+    private String listarEspacios(List<VOESPACIO> lista) 
+    {
+    	String resp = "Los espacios existentes son:\n";
+    	int i = 1;
+        for (VOESPACIO tb : lista)
+        {
+        	resp += i++ + ". " + tb.toString() + "\n";
+        }
+        return resp;
+    }
     /**
      * Genera una cadena de caracteres con la descripción de la excepcion e, haciendo énfasis en las excepcionsde JDO
      * @param e - La excepción recibida

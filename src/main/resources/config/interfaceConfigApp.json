@@ -14,7 +14,7 @@
 				},
 				{
 					"label": "Listar parqueaderos",
-					"event": "listarParqueaderos"
+					"event": "darParqueaderos"
 				},
 				{
 					"label": "Borrar por Id",
@@ -22,6 +22,23 @@
 				}
 			]
 		},
+		{ "menuTitle": "Espacios",
+			"options":
+			  [
+				  {
+					  "label": "Adicionar Espacio",
+					  "event": "adicionarEspacio"
+				  },
+				  {
+					  "label": "Listar parqueaderos",
+					  "event": "darEspacios"
+				  },
+				  {
+					  "label": "Borrar por Id",
+					  "event": "eliminarEspacioPorId"
+				  }
+			  ]
+		  },
 		{ "menuTitle": "Mantenimiento",
 		  "options":
 			[
