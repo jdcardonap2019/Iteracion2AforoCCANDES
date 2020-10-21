@@ -1,0 +1,3 @@
+
+insert into VISITANTE (CEDULA, NOMBRE, TELEFONO, NOMBRE_CONTACTO, TELEFONO_CONTACTO, CODIGO_QR, CORREO, HORARIO_DISPONIBLE, IDESPACIO,TIPO_VISITANTE)values ('6304894842726358991', 'Garrik Olufsen', '2232486935', 'Boone Cromett', '2707144449', 'http://dummyimage.com/131x181.jpg/cc0000/ffffff', 'bcromett0@europa.eu', to_date('2020-12-14:8:00:00', 'YYYY-MM-DD:HH24:MI:SS'), 22,'Empleado');
+

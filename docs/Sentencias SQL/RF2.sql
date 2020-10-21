@@ -1,0 +1,6 @@
+
+insert into LOCAL_COMERCIAL (ID_LOCAL,IDESPACIO, NOMBRE, NOMBRE_EMPRESA, AREA, TIPO_ESTABLECIMIENTO)values (1,11, 'Hayes LLC', 'Demivee', 222.87, 'Restaurante');
+insert into LOCAL_COMERCIAL (ID_LOCAL,IDESPACIO, NOMBRE, NOMBRE_EMPRESA, AREA, TIPO_ESTABLECIMIENTO)values (2,12, 'Franecki, Hills and Pfeffer', 'Divape', 244.53, 'Tienda de ropa');
+insert into LOCAL_COMERCIAL (ID_LOCAL,IDESPACIO,  NOMBRE, NOMBRE_EMPRESA, AREA, TIPO_ESTABLECIMIENTO)values (3,13, 'Bartell Group', 'Yotz', 275.24, 'Farmacia');
+
+

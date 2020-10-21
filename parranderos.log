@@ -44,3 +44,15 @@ ORA-02291: integrity constraint (ISIS2304C192020.FK_VISITA_CARNET) violated - pa
 20:00:48,543 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Generando los VO de Espacios: 9 espacios existentes
 20:00:50,867 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Generando los VO de Parqueaderos:
 20:00:50,935 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Generando los VO de Parqueaderos: 2 existentes
+20:07:14,260 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Interfaz
+20:07:14,261 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se aplica configuración indicada en el archivo de configuración
+20:07:14,305 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Tablas BD
+20:07:22,910 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Limpiando la BD de AforoCC
+20:07:23,687 (AWT-EventQueue-0) ERROR [uniandes.isis2304.parranderos.persistencia.PersistenciaAforo] - Exception : Error executing SQL query "DELETE FROM ESPACIO".
+ORA-02292: integrity constraint (ISIS2304C192020.FK_PARQUEADERO) violated - child record found
+
+20:07:23,759 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Limpiando la BD de AforoCC: Listo!
+20:17:46,599 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Interfaz
+20:17:46,599 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se aplica configuración indicada en el archivo de configuración
+20:17:46,636 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Tablas BD
+20:17:54,213 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Limpiando la BD de AforoCC
