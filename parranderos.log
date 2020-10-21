@@ -1,47 +1,46 @@
-12:08:26,200 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Adicionando Parqueadero con idEspacio: 2
-12:25:26,689 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Interfaz
-12:25:26,690 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se aplica configuración indicada en el archivo de configuración
-12:25:26,719 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Tablas BD
-12:25:49,672 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Eliminando Parqueadero por id: 6
-12:25:50,138 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Eliminando Parqueaderopor id: 1 tuplas eliminadas
-12:27:00,892 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Adicionando Parqueadero con idEspacio: 1
-12:27:01,126 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Adicionando Parqueadero con idEspacio: uniandes.isis2304.parranderos.negocio.PARQUEADERO@622632cf
-12:27:26,667 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Adicionando Parqueadero con idEspacio: 2
-12:28:47,783 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Interfaz
-12:28:47,784 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se aplica configuración indicada en el archivo de configuración
-12:28:47,809 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Tablas BD
-12:41:09,874 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Interfaz
-12:41:09,877 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se aplica configuración indicada en el archivo de configuración
-12:41:09,932 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Tablas BD
-13:01:21,465 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Interfaz
-13:01:21,465 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se aplica configuración indicada en el archivo de configuración
-13:01:21,489 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Tablas BD
-13:01:28,062 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Generando los VO de Parqueaderos:
-13:01:28,275 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Generando los VO de Parqueaderos: 1 existentes
-14:30:26,486 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Interfaz
-14:30:26,488 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se aplica configuración indicada en el archivo de configuración
-14:30:26,511 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Tablas BD
-14:31:00,590 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Interfaz
-14:31:00,591 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se aplica configuración indicada en el archivo de configuración
-14:31:00,617 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Tablas BD
-14:32:25,756 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Interfaz
-14:32:25,758 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se aplica configuración indicada en el archivo de configuración
-14:32:25,798 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Tablas BD
-14:34:20,532 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Adicionando Espacio con aforo: 13
-14:34:21,212 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Adicionando Espacior: 13
-14:35:18,751 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Adicionando Espacio con aforo: 13
-14:35:18,889 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Adicionando Espacior: 13
-14:38:46,781 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Generando los VO de Bares
-14:38:46,849 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Generando los VO de Espacios: 3 espacios existentes
-14:39:02,955 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Eliminando Parqueadero por id: 28
-14:39:03,033 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Eliminando Parqueaderopor id: 0 tuplas eliminadas
-14:39:18,284 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Eliminando Parqueadero por id: 29
-14:39:18,348 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Eliminando Parqueaderopor id: 0 tuplas eliminadas
-14:40:48,584 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Interfaz
-14:40:48,586 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se aplica configuración indicada en el archivo de configuración
-14:40:48,613 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Tablas BD
-14:41:30,648 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Eliminando Espacio por id: 28
-14:41:31,182 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Eliminando Espacio: 1
-16:32:49,966 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Interfaz
-16:32:49,967 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se aplica configuración indicada en el archivo de configuración
-16:32:50,007 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Tablas BD
+19:53:38,519 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Interfaz
+19:53:38,521 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se aplica configuración indicada en el archivo de configuración
+19:53:38,571 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Tablas BD
+19:54:05,685 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Adicionando visitan [42, 31, 30]
+19:54:06,138 (AWT-EventQueue-0) ERROR [uniandes.isis2304.parranderos.persistencia.PersistenciaAforo] - Exception : Error executing SQL query "INSERT INTO VISITA(FECHAYHORA_OP,TIPO_OP,HORAFIN_OP, IDLECTOR,IDCARNET,IDESPACIO) values (?, ?, ?, ?,?,?)".
+ORA-02291: integrity constraint (ISIS2304C192020.FK_VISITA_CARNET) violated - parent key not found
+
+19:54:06,172 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Adicionando visitan: null tuplas insertadas
+19:55:46,804 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Eliminando visita
+19:55:46,961 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Eliminando visita: 0 tuplas eliminadas
+19:56:24,890 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Interfaz
+19:56:24,892 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se aplica configuración indicada en el archivo de configuración
+19:56:24,966 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Tablas BD
+19:56:44,280 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Interfaz
+19:56:44,282 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se aplica configuración indicada en el archivo de configuración
+19:56:44,317 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Tablas BD
+19:57:00,493 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Eliminando visita
+19:57:00,880 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Eliminando visita: 1 tuplas eliminadas
+19:57:33,940 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Adicionando visitan [42, 32, 29]
+19:57:34,052 (AWT-EventQueue-0) ERROR [uniandes.isis2304.parranderos.persistencia.PersistenciaAforo] - Exception : Error executing SQL query "INSERT INTO VISITA(FECHAYHORA_OP,TIPO_OP,HORAFIN_OP, IDLECTOR,IDCARNET,IDESPACIO) values (?, ?, ?, ?,?,?)".
+ORA-02291: integrity constraint (ISIS2304C192020.FK_VISITA_CARNET) violated - parent key not found
+
+19:57:34,111 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Adicionando visitan: null tuplas insertadas
+19:59:35,421 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Interfaz
+19:59:35,422 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se aplica configuración indicada en el archivo de configuración
+19:59:35,459 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Tablas BD
+19:59:57,366 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Adicionando visitan [32, 42, 29]
+19:59:57,778 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Adicionando visitan: uniandes.isis2304.parranderos.negocio.VISITA@152b2f1e tuplas insertadas
+20:00:22,261 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Eliminando visita
+20:00:22,382 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Eliminando visita: 1 tuplas eliminadas
+20:00:27,628 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Generando los VO de Sirven
+20:00:27,828 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Generando los VO de local comercial: 1 local comerciales existentes
+20:00:29,843 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Generando los VO de los baños
+20:00:29,939 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Generando los VO de las bebidas: 1 existentes
+20:00:32,843 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Generando los VO de Carnets
+20:00:32,929 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Generando los VO de Carnets: 1 Carnets existentes
+20:00:34,667 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Generando los VO de Visitantes
+20:00:34,729 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Generando los VO de Visitantes: 2 visitantes existentes
+20:00:36,803 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Generando los VO de Visitan
+20:00:36,917 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Generando los VO de Visita: 0 Visitas existentes
+20:00:40,810 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Generando los VO de Visitan
+20:00:40,964 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Generando los VO de Visita: 0 Visitas existentes
+20:00:48,403 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Generando los VO de Espacio
+20:00:48,543 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Generando los VO de Espacios: 9 espacios existentes
+20:00:50,867 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Generando los VO de Parqueaderos:
+20:00:50,935 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Generando los VO de Parqueaderos: 2 existentes

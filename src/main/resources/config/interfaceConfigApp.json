@@ -34,7 +34,7 @@
 					  "event": "adicionarEspacio"
 				  },
 				  {
-					  "label": "Listar parqueaderos",
+					  "label": "Listar espacios",
 					  "event": "darEspacios"
 				  },
 				  {

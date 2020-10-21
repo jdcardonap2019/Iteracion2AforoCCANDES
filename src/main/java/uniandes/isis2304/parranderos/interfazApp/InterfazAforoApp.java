@@ -519,7 +519,7 @@ public class InterfazAforoApp extends JFrame implements ActionListener
         		{
         			throw new Exception ("No se pudo crear Espacio con aforo total: " +aforoTotal);
         		}
-        		String resultado = "En adicionarParqueadero\n\n";
+        		String resultado = "En adicionarEspacio\n\n";
         		resultado += "Parqueadero adicionado exitosamente: " + tb;
     			resultado += "\n Operación terminada";
     			panelDatos.actualizarInterfaz(resultado);
@@ -588,7 +588,7 @@ public class InterfazAforoApp extends JFrame implements ActionListener
        {
        	try 
        	{
-       		String id = JOptionPane.showInputDialog (this, "Digite la fecha y hora operacion, el tipo de operacion, horario fin operacion, id lector, id espacio e id carnet actual separado por comas",
+       		String id = JOptionPane.showInputDialog (this, "Digite la fecha y hora operacion, el tipo de operacion, horario fin operacion,  id lector,id carnet e id espacio actual separado por comas",
        				"Adicionar Visitas (Insertar Fechas/Horario en formato yyyy-MM-dd HH:mm:ss.SSS)", JOptionPane.QUESTION_MESSAGE);
        		if (id!= null)
        		{
@@ -596,12 +596,12 @@ public class InterfazAforoApp extends JFrame implements ActionListener
        			String fechaYHoraOp=datos[0];
        			String tipoOp=datos[1];
        			String horaFin = datos[2];
+       			String idCarnet = datos[4];
        			String idLector = datos[3];
-       			String idEspacio = datos[4];
-       			String idCarnet = datos[5];
-       			int idLector1=Integer.parseInt(idLector);
-       			int idEspacio1=Integer.parseInt(idEspacio);
-       			int idCarnet1 = Integer.parseInt(idCarnet);
+       			String idEspacio = datos[5];
+       			long idLector1=Long.valueOf(idLector);
+       			long idEspacio1=Long.valueOf(idEspacio);
+       			long idCarnet1 = Long.valueOf(idCarnet);
        			
        			final String FORMAT = "yyyy-MM-dd HH:mm:ss.SSS";
        			DateFormat formatter = new SimpleDateFormat(FORMAT);
@@ -612,13 +612,13 @@ public class InterfazAforoApp extends JFrame implements ActionListener
                    Timestamp  ts1 = new Timestamp(hOp.getTime());
                    Timestamp  ts2 = new Timestamp(hFin.getTime());
                    
-           		VOVISITA tb = aforo.adicionarVisita(ts1,tipoOp,ts2,idLector1,idEspacio1,idCarnet1);
+           		VOVISITA tb = aforo.adicionarVisita(ts1,tipoOp,ts2,idLector1,idCarnet1,idEspacio1);
            		if (tb == null)
            		{
            			throw new Exception ("No se pudo crear Visita con idLector: " +idLector+",idEspacio: "+idEspacio+"e idCarnet: "+idCarnet);
            		}
            		String resultado = "En adicionarVisita\n\n";
-           		resultado += "Parqueadero adicionado exitosamente: " + tb;
+           		resultado += "Visita adicionado exitosamente: " + tb;
        			resultado += "\n Operación terminada";
        			panelDatos.actualizarInterfaz(resultado);
        		}
@@ -656,13 +656,13 @@ public class InterfazAforoApp extends JFrame implements ActionListener
        {
        	try 
        	{
-       		String idTipoStr = JOptionPane.showInputDialog (this, "Id del tipo del Espacio, Lector y Carnet?", "Borrar visita por Id", JOptionPane.QUESTION_MESSAGE);
+       		String idTipoStr = JOptionPane.showInputDialog (this, "Id del tipo del Lector, Carnet y Espacio?", "Borrar visita por Id", JOptionPane.QUESTION_MESSAGE);
        		if (idTipoStr != null)
        		{
        			String[] datos=idTipoStr.split(",");
-       			String idEspacio1=datos[0];
-       			String idLector2=datos[1];
-       			String idCarnet3= datos[2];
+       			String idEspacio1=datos[2];
+       			String idLector2=datos[0];
+       			String idCarnet3= datos[1];
        			
        			long idEspacio = Long.valueOf(idEspacio1);
        			long idLector = Long.valueOf(idLector2);
@@ -729,7 +729,7 @@ public class InterfazAforoApp extends JFrame implements ActionListener
               			throw new Exception ("No se pudo crear Visitante con cedula:"+cedula);
               		}
               		String resultado = "En adicionarVisitante\n\n";
-              		resultado += "Parqueadero adicionado exitosamente: " + tb;
+              		resultado += "Visitante adicionado exitosamente: " + tb;
           			resultado += "\n Operación terminada";
           			panelDatos.actualizarInterfaz(resultado);
           		}
@@ -833,8 +833,8 @@ public class InterfazAforoApp extends JFrame implements ActionListener
               		{
               			throw new Exception ("No se pudo crear un carnet con la cedula: " + cedulaReal);
               		}
-              		String resultado = "En adicionarBaño\n\n";
-              		resultado += "Baño adicionado exitosamente: " + carnet;
+              		String resultado = "En adicionarCarnet\n\n";
+              		resultado += "Carnet adicionado exitosamente: " + carnet;
           			resultado += "\n Operación terminada";
           			panelDatos.actualizarInterfaz(resultado);
           		}
@@ -973,7 +973,7 @@ public class InterfazAforoApp extends JFrame implements ActionListener
           	try 
           	{
           		String id = JOptionPane.showInputDialog (this, "Digite el id del espacio.",
-          				"Adicionar baño", JOptionPane.QUESTION_MESSAGE);
+          				"Adicionar Lector", JOptionPane.QUESTION_MESSAGE);
           		if (id!= null)
           		{
           			long idRealEspacio=Long.valueOf(id);
@@ -982,8 +982,8 @@ public class InterfazAforoApp extends JFrame implements ActionListener
               		{
               			throw new Exception ("No se pudo crear un lector con idEspacio: " + id);
               		}
-              		String resultado = "En adicionarBaño\n\n";
-              		resultado += "Baño adicionado exitosamente: " + tb;
+              		String resultado = "En adicionarLector\n\n";
+              		resultado += "Lector adicionado exitosamente: " + tb;
           			resultado += "\n Operación terminada";
           			panelDatos.actualizarInterfaz(resultado);
           		}
@@ -1435,7 +1435,7 @@ public class InterfazAforoApp extends JFrame implements ActionListener
 	}
     private String listarLectores(List<VOLECTOR> lista) 
     {
-    	String resp = "Los parqueaderos existentes son:\n";
+    	String resp = "Los Lectores existentes son:\n";
     	int i = 1;
         for (VOLECTOR tb : lista)
         {
@@ -1476,7 +1476,7 @@ public class InterfazAforoApp extends JFrame implements ActionListener
     
     private String listarVisitas(List<VOVISITA> lista) 
     {
-    	String resp = "Los espacios existentes son:\n";
+    	String resp = "Las visitas existentes son:\n";
     	int i = 1;
         for (VOVISITA tb : lista)
         {
@@ -1486,7 +1486,7 @@ public class InterfazAforoApp extends JFrame implements ActionListener
     }
     private String listarVisitantes(List<VOVISITANTE> lista) 
     {
-    	String resp = "Los espacios existentes son:\n";
+    	String resp = "Los visitantes existentes son:\n";
     	int i = 1;
         for (VOVISITANTE tb : lista)
         {
