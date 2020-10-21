@@ -92,5 +92,44 @@ class SQLVISITA
 		q.setResultClass(VISITA.class);
 		return (List<VISITA>) q.execute();
 	}
+	public List<Object> RFC1AdminEstablecimiento (PersistenceManager pm,long idEspacio, Timestamp fechaInicio, Timestamp fechaFin)
+	{
+		String sql = "SELECT Carnet, VISITANTE.CEDULA, VISITANTE.NOMBRE, VISITANTE.TELEFONO, VISITANTE.NOMBRE_CONTACTO, VISITANTE.TELEFONO_CONTACTO, VISITANTE.CORREO";
+        sql += " FROM(SELECT IDCARNET as Carnet ";
+        sql += " FROM  "+pp.darTablaVISITA();
+        sql += " WHERE idespacio=? AND FECHAYHORA_OP BETWEEN ? AND ?) ";
+        sql += " INNER JOIN "+pp.darTablaCARNET()+" ON CARNET.ID_CARNET=Carnet ";
+       	sql	+= " INNER JOIN "+pp.darTablaVISITANTE()+" ON CARNET.CEDULA=VISITANTE.CEDULA";
+       	Query q = pm.newQuery(SQL, sql);
+		q.setParameters(idEspacio, fechaInicio, fechaFin);
+		return q.executeList();
+	}
+	public List<Object> RFC1AdminCentro (PersistenceManager pm, Timestamp fechaInicio, Timestamp fechaFin)
+	{
+		String sql = "SELECT Carnet, xs as IdEspacio, VISITANTE.CEDULA, VISITANTE.NOMBRE, VISITANTE.TELEFONO, VISITANTE.NOMBRE_CONTACTO, VISITANTE.TELEFONO_CONTACTO, VISITANTE.CORREO";
+        sql += " FROM (SELECT IDCARNET as Carnet, IDESPACIO as xs ";
+        sql += " FROM  "+pp.darTablaVISITA();
+        sql += " WHERE FECHAYHORA_OP BETWEEN ? AND ?) ";
+        sql += " INNER JOIN "+pp.darTablaCARNET()+" ON CARNET.ID_CARNET=Carnet ";
+       	sql	+= " INNER JOIN "+pp.darTablaVISITANTE()+" ON CARNET.CEDULA=VISITANTE.CEDULA";
+       	Query q = pm.newQuery(SQL, sql);
+		q.setParameters(fechaInicio, fechaFin);
+		return q.executeList();
+	}
+	public List<Object> RFC2 (PersistenceManager pm, Timestamp fechaInicio, Timestamp fechaFin)
+	{
+		String sql = "SELECT LOCAL_COMERCIAL.idespacio as IdEstablecimiento,local_comercial.nombre, local_comercial.tipo_establecimiento as Tipo,contadorVisitas";
+        sql += " FROM(SELECT IDESPACIO as IDESPACIOXD, COUNT(DISTINCT IDCARNET)as contadorVisitas ";
+        sql += " FROM  "+pp.darTablaVISITA();
+        sql += " WHERE FECHAYHORA_OP BETWEEN ? AND ? ";
+        sql += " GROUP BY IDESPACIO ";
+       	sql	+= " HAVING COUNT(DISTINCT IDCARNET)>0) ";
+       	sql	+= " INNER JOIN "+pp.darTablaLOCAL_COMERCIAL()+" ON IDESPACIOXD=LOCAL_COMERCIAL.idespacio ";
+       	sql	+= " WHERE ROWNUM<=20 ";
+       	sql	+= " ORDER BY contadorVisitas DESC";
+       	Query q = pm.newQuery(SQL, sql);
+		q.setParameters(fechaInicio, fechaFin);
+		return q.executeList();
+	}
 		 	
 }

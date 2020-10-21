@@ -91,4 +91,42 @@ class SQLESPACIO
 		q.setResultClass(ESPACIO.class);
 		return (List<ESPACIO>) q.execute();
 	}
+	public List<Object> RFC3AdminEstablecimiento (PersistenceManager pm,long idEspacio)
+	{
+		String sql = "SELECT *";
+        sql += " FROM(SELECT SUM(aforo_actual) as AforoEnCC ";
+        sql += " FROM  "+pp.darTablaESPACIO()+"),";
+        sql += " (SELECT aforo_actual as AforoEnEstablecimiento ";
+        sql += " FROM "+pp.darTablaESPACIO();
+       	sql	+= " WHERE ID_ESPACIO=?)";
+       	Query q = pm.newQuery(SQL, sql);
+		q.setParameters(idEspacio);
+		return q.executeList();
+	}
+	public List<Object> RFC3AdminCentroPorId(PersistenceManager pm,long idEspacio)
+	{
+		String sql = "SELECT *";
+        sql += " FROM(SELECT SUM(aforo_actual) as AforoEnCC ";
+        sql += " FROM  "+pp.darTablaESPACIO()+"),";
+        sql += " (SELECT aforo_actual as AforoEnEstablecimiento ";
+        sql += " FROM "+pp.darTablaESPACIO();
+       	sql	+= " WHERE ID_ESPACIO=?)";
+       	Query q = pm.newQuery(SQL, sql);
+		q.setParameters(idEspacio);
+		return q.executeList();
+	}
+	public List<Object> RFC3AdminCentroPorTipoEstablecimiento(PersistenceManager pm,String tipo)
+	{
+		String sql = "SELECT AforoEnCC, TipoEspacio, AforoEnEspacio";
+        sql += " FROM(SELECT SUM(aforo_actual) as AforoEnCC ";
+        sql += " FROM  "+pp.darTablaESPACIO()+"),";
+        sql += " (SELECT espacio.aforo_actual as AforoEnEspacio, TipoEspacio ";
+        sql += " FROM(SELECT IDESPACIO as IdEspacio, TIPO_ESTABLECIMIENTO as TipoEspacio ";
+       	sql	+= " FROM "+pp.darTablaLOCAL_COMERCIAL();
+       	sql	+= " WHERE TIPO_ESTABLECIMIENTO=?)";
+       	sql	+= " INNER JOIN "+pp.darTablaESPACIO()+" ON espacio.id_espacio=IdEspacio)";
+       	Query q = pm.newQuery(SQL, sql);
+		q.setParameters(tipo);
+		return q.executeList();
+	}
 }
