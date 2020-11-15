@@ -56,3 +56,6 @@ ORA-02292: integrity constraint (ISIS2304C192020.FK_PARQUEADERO) violated - chil
 20:17:46,599 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se aplica configuración indicada en el archivo de configuración
 20:17:46,636 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Tablas BD
 20:17:54,213 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Limpiando la BD de AforoCC
+22:13:19,912 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Interfaz
+22:13:19,913 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se aplica configuración indicada en el archivo de configuración
+22:13:19,932 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Tablas BD
