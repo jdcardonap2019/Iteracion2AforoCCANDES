@@ -274,10 +274,10 @@ public class AFOROCCANDES
 	 * @return El objeto Bar adicionado. null si ocurre alguna Excepción
 	 */
 	public ESPACIO adicionarEspacio ( Timestamp horarioAperturaEmpleados, Timestamp horarioAperturaClientes,
-			Timestamp horarioCierreClientes, int aforoActual, int aforoTota)
+			Timestamp horarioCierreClientes, int aforoActual, int aforoTota,String estado)
 	{
         log.info ("Adicionando Espacio con aforo: " + aforoTota );
-        ESPACIO espacio = pp.adicionarEspacio (  horarioAperturaEmpleados,  horarioAperturaClientes ,horarioCierreClientes, aforoActual,  aforoTota);
+        ESPACIO espacio = pp.adicionarEspacio (  horarioAperturaEmpleados,  horarioAperturaClientes ,horarioCierreClientes, aforoActual,  aforoTota,estado);
         log.info ("Adicionando Espacior: " +aforoTota );
         return espacio;
 	}
@@ -509,10 +509,10 @@ public class AFOROCCANDES
 	 *****************************************************************/
 
 	
-	public VISITANTE adicionarVisitante (float cedula, String nombre, float telefono,String nombre_contacto,float telefono_contacto, String codigo_qr, String correo, Timestamp horario_disponible, String tipo_visitante, long idEspacio)
+	public VISITANTE adicionarVisitante (float cedula, String nombre, float telefono,String nombre_contacto,float telefono_contacto, String codigo_qr, String correo, Timestamp horario_disponible, String tipo_visitante, long idEspacio,String estado)
 	{
         log.info ("Adicionando Visitante: " + cedula);
-        VISITANTE visitante = pp.adicionarVisitante(cedula, nombre, telefono, nombre_contacto, telefono_contacto, codigo_qr, correo, horario_disponible, tipo_visitante, idEspacio); 
+        VISITANTE visitante = pp.adicionarVisitante(cedula, nombre, telefono, nombre_contacto, telefono_contacto, codigo_qr, correo, horario_disponible, tipo_visitante, idEspacio,estado); 
         log.info ("Adicionando bebedor: " + visitante);
         return visitante;
 	}

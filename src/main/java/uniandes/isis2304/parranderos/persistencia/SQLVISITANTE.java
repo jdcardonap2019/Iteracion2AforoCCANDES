@@ -39,9 +39,9 @@ public class SQLVISITANTE {
 	}
 	
 
-	public long adicionarVisitante (PersistenceManager pm, float cedula, String nombre, float telefono,String nombre_contacto,float telefono_contacto, String codigo_qr, String correo, Timestamp horario_disponible, String tipo_visitante, long idEspacio) 
+	public long adicionarVisitante (PersistenceManager pm, float cedula, String nombre, float telefono,String nombre_contacto,float telefono_contacto, String codigo_qr, String correo, Timestamp horario_disponible, String tipo_visitante, long idEspacio, String estado) 
 	{
-        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaVISITANTE() + "(CEDULA,NOMBRE,TELEFONO,NOMBRE_CONTACTO,TELEFONO_CONTACTO,CODIGO_QR,CORREO,HORARIO_DISPONIBLE,TIPO_VISITANTE,IDESPACIO) values (?, ?, ?, ?,?,?,?,?,?,?)");
+        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaVISITANTE() + "(CEDULA,NOMBRE,TELEFONO,NOMBRE_CONTACTO,TELEFONO_CONTACTO,CODIGO_QR,CORREO,HORARIO_DISPONIBLE,TIPO_VISITANTE,IDESPACIO, ESTADO) values (?, ?, ?, ?,?,?,?,?,?,?,?)");
         q.setParameters( cedula,  nombre,  telefono, nombre_contacto, telefono_contacto, codigo_qr, correo,  horario_disponible,  tipo_visitante,  idEspacio);
         return (long) q.executeUnique();
 	}

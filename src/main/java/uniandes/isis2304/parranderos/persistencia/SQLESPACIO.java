@@ -56,12 +56,12 @@ class SQLESPACIO
 	}
 	
 	public long adicionarEspacio(PersistenceManager pm, long idEspacio, Timestamp horarioAperturaEmpleados, Timestamp horarioAperturaClientes,
-			Timestamp horarioCierreClientes, int aforoActual, int aforoTotal) 
+			Timestamp horarioCierreClientes, int aforoActual, int aforoTotal, String estado) 
 	{
         Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaESPACIO() + "(ID_ESPACIO, HORARIO_APERTURA_EMPLEADOS, "
-        		+ "HORARIO_APERTURA_CLIENTES, HORARIO_CIERRE_CLIENTES, AFORO_ACTUAL, AFORO_TOTAL) values (?, ?, ?, ?, ?, ?)");
+        		+ "HORARIO_APERTURA_CLIENTES, HORARIO_CIERRE_CLIENTES, AFORO_ACTUAL, AFORO_TOTAL, ESTADO) values (?, ?, ?, ?, ?, ?, ?)");
         q.setParameters(idEspacio, horarioAperturaEmpleados, horarioAperturaClientes, horarioCierreClientes,
-        		aforoActual, aforoTotal);
+        		aforoActual, aforoTotal,estado);
         return (long)q.executeUnique();            
 	}
 	

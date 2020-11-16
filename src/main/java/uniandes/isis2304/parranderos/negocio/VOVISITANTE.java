@@ -43,4 +43,10 @@ public interface VOVISITANTE {
 	 * @return the iDESPACIO
 	 */
 	public long getIDESPACIO();
+	/**
+	 * @return the Estado
+	 */
+	public String getESTADO();
+	
+	
 }

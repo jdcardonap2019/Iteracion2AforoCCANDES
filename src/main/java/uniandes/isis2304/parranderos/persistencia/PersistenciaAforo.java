@@ -674,7 +674,7 @@ public class PersistenciaAforo
 	 * 			Métodos para manejar la relación ESPACIO
 	 *****************************************************************/
 	public ESPACIO adicionarEspacio( Timestamp horarioAperturaEmpleados, Timestamp horarioAperturaClientes,
-			Timestamp horarioCierreClientes, int aforoActual, int aforoTotal) 
+			Timestamp horarioCierreClientes, int aforoActual, int aforoTotal, String estado) 
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
         Transaction tx=pm.currentTransaction();
@@ -682,14 +682,14 @@ public class PersistenciaAforo
         {
             tx.begin();
             long idEspacio = nextval ();
-            long tuplasInsertadas = sqlEspacio.adicionarEspacio(pm, idEspacio, horarioAperturaEmpleados, horarioAperturaClientes, horarioCierreClientes, aforoActual, aforoTotal);
+            long tuplasInsertadas = sqlEspacio.adicionarEspacio(pm, idEspacio, horarioAperturaEmpleados, horarioAperturaClientes, horarioCierreClientes, aforoActual, aforoTotal,estado);
             tx.commit();
 
             log.trace ("Inserción de espacio: [" + idEspacio+ ", " 
-            		+ horarioAperturaEmpleados+ ", " + horarioAperturaClientes+ ", " + horarioCierreClientes+ ", " + aforoTotal+ "]. " + tuplasInsertadas + " tuplas insertadas");
+            		+ horarioAperturaEmpleados+ ", " + horarioAperturaClientes+ ", " + horarioCierreClientes+ ", " + aforoTotal+ ", "+ estado+"]. " + tuplasInsertadas + " tuplas insertadas");
 
             return new ESPACIO (idEspacio, horarioAperturaEmpleados, horarioAperturaClientes,
-        			horarioCierreClientes, aforoActual, aforoTotal);
+        			horarioCierreClientes, aforoActual, aforoTotal, estado);
         }
         catch (Exception e)
         {
@@ -996,21 +996,21 @@ public class PersistenciaAforo
 	/* ****************************************************************
 	 * 			Métodos para manejar la relación VISITANTE
 	 *****************************************************************/
-	public VISITANTE adicionarVisitante(float cedula, String nombre, float telefono,String nombre_contacto,float telefono_contacto, String codigo_qr, String correo, Timestamp horario_disponible, String tipo_visitante, long idEspacio) 
+	public VISITANTE adicionarVisitante(float cedula, String nombre, float telefono,String nombre_contacto,float telefono_contacto, String codigo_qr, String correo, Timestamp horario_disponible, String tipo_visitante, long idEspacio, String estado) 
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
         Transaction tx=pm.currentTransaction();
         try
         {
             tx.begin();
-            long tuplasInsertadas = sqlVisitante.adicionarVisitante(pm, cedula, nombre, telefono, nombre_contacto, telefono_contacto, codigo_qr, correo, horario_disponible, tipo_visitante, idEspacio);
+            long tuplasInsertadas = sqlVisitante.adicionarVisitante(pm, cedula, nombre, telefono, nombre_contacto, telefono_contacto, codigo_qr, correo, horario_disponible, tipo_visitante, idEspacio, estado);
             tx.commit();
 
             log.trace ("Inserción de visitante: [" + cedula+ ", " 
-            		+ nombre+ ", " + telefono+ ", " + nombre_contacto+ ", " + telefono_contacto+", " + codigo_qr+ ", " + correo+ ", " + horario_disponible+ ", " + tipo_visitante+", " + idEspacio+  "]. " 
+            		+ nombre+ ", " + telefono+ ", " + nombre_contacto+ ", " + telefono_contacto+", " + codigo_qr+ ", " + correo+ ", " + horario_disponible+ ", " + tipo_visitante+", " + idEspacio+", "+estado+  "]. " 
             		+ tuplasInsertadas + " tuplas insertadas");
 
-            return new VISITANTE (cedula, nombre, telefono, nombre_contacto, telefono_contacto, codigo_qr, correo, horario_disponible, tipo_visitante, idEspacio);
+            return new VISITANTE (cedula, nombre, telefono, nombre_contacto, telefono_contacto, codigo_qr, correo, horario_disponible, tipo_visitante, idEspacio,estado);
         }
         catch (Exception e)
         {

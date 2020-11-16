@@ -49,6 +49,11 @@ public class ESPACIO implements VOESPACIO
 	 * El aforo total del espacio
 	 */
 	private int AFORO_TOTAL;
+	/**
+	 * El aforo total del espacio
+	 */
+	private String ESTADO;
+
 
 	/* ****************************************************************
 	 * 			Métodos
@@ -64,10 +69,11 @@ public class ESPACIO implements VOESPACIO
 		this.HORARIO_APERTURA_EMPLEADOS = new Timestamp(0);
 		this.HORARIO_CIERRE_CLIENTES = new Timestamp(0);
 		this.ID_ESPACIO = 0;
+		this.ESTADO ="";
 	}
 
 	public ESPACIO(long idEspacio, Timestamp horarioAperturaEmpleados, Timestamp horarioAperturaClientes,
-			Timestamp horarioCierreClientes, int aforoActual, int aforoTotal) 
+			Timestamp horarioCierreClientes, int aforoActual, int aforoTotal,String estado) 
 	{		
 		this.ID_ESPACIO = idEspacio;
 		this.HORARIO_APERTURA_EMPLEADOS = horarioAperturaEmpleados;
@@ -75,6 +81,7 @@ public class ESPACIO implements VOESPACIO
 		this.HORARIO_CIERRE_CLIENTES = horarioCierreClientes;
 		this.AFORO_ACTUAL = aforoActual;
 		this.AFORO_TOTAL = aforoTotal;
+		this.ESTADO = estado;
 	}
 
 	/**
@@ -90,7 +97,20 @@ public class ESPACIO implements VOESPACIO
 	public void setID_ESPACIO(long iD_ESPACIO) {
 		ID_ESPACIO = iD_ESPACIO;
 	}
-
+   /**
+    * @return the Estado
+    */
+	public String getESTADO() {
+		return ESTADO;
+	}
+	/**
+	 * 
+	 * @param estado the ESTADO to set
+	 */
+	public void setESTADO(String estado)
+	{
+		ESTADO= estado;
+	}
 	/**
 	 * @return the hORARIO_APERTURA_EMPLEADOS
 	 */

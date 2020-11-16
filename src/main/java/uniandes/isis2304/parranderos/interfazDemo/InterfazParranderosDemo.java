@@ -280,7 +280,7 @@ public class InterfazParranderosDemo extends JFrame implements ActionListener
             Timestamp  ts2 = new Timestamp(hAC.getTime());
             Timestamp  ts3 = new Timestamp(hCC.getTime());
             //
-			VOESPACIO espacio= aforo.adicionarEspacio(ts1, ts2, ts3, 10, 100);
+			VOESPACIO espacio= aforo.adicionarEspacio(ts1, ts2, ts3, 10, 100,"Verde");
 			if (espacio== null)
 			{
 				errorEspacio= true;
@@ -348,7 +348,7 @@ public class InterfazParranderosDemo extends JFrame implements ActionListener
             Timestamp  ts2 = new Timestamp(hAC.getTime());
             Timestamp  ts3 = new Timestamp(hCC.getTime());
             //
-			VOESPACIO espacio= aforo.adicionarEspacio(ts1, ts2, ts3, 10, 100);
+			VOESPACIO espacio= aforo.adicionarEspacio(ts1, ts2, ts3, 10, 100,"Verde");
 			if (espacio== null)
 			{
 				errorEspacio= true;
@@ -422,7 +422,7 @@ public class InterfazParranderosDemo extends JFrame implements ActionListener
             Timestamp  ts2 = new Timestamp(hAC.getTime());
             Timestamp  ts3 = new Timestamp(hCC.getTime());
             //
-			VOESPACIO espacio= aforo.adicionarEspacio(ts1, ts2, ts3, 10, 100);
+			VOESPACIO espacio= aforo.adicionarEspacio(ts1, ts2, ts3, 10, 100,"Verde");
 			if (espacio== null)
 			{
 				errorEspacio= true;
@@ -644,7 +644,7 @@ public class InterfazParranderosDemo extends JFrame implements ActionListener
             Timestamp  ts2 = new Timestamp(hAC.getTime());
             Timestamp  ts3 = new Timestamp(hCC.getTime());
             //
-			VOESPACIO espacio= aforo.adicionarEspacio(ts1, ts2, ts3, 10, 100);
+			VOESPACIO espacio= aforo.adicionarEspacio(ts1, ts2, ts3, 10, 100,"Verde");
 			if (espacio== null)
 			{
 				errorEspacio= true;
@@ -718,7 +718,7 @@ public class InterfazParranderosDemo extends JFrame implements ActionListener
                Timestamp  ts2 = new Timestamp(hAC.getTime());
                Timestamp  ts3 = new Timestamp(hCC.getTime());
                //
-   			VOESPACIO espacio= aforo.adicionarEspacio(ts1, ts2, ts3, 10, 100);
+   			VOESPACIO espacio= aforo.adicionarEspacio(ts1, ts2, ts3, 10, 100,"Verde");
    			if (espacio== null)
    			{
    				errorEspacio= true;
@@ -949,7 +949,7 @@ public class InterfazParranderosDemo extends JFrame implements ActionListener
             Timestamp  ts2 = new Timestamp(hAC.getTime());
             Timestamp  ts3 = new Timestamp(hCC.getTime());
             //
-			VOESPACIO espacio= aforo.adicionarEspacio(ts1, ts2, ts3, 10, 100);
+			VOESPACIO espacio= aforo.adicionarEspacio(ts1, ts2, ts3, 10, 100,"Verde");
 			if (espacio== null)
 			{
 				errorEspacio= true;
@@ -965,7 +965,7 @@ public class InterfazParranderosDemo extends JFrame implements ActionListener
 			String telefonoContacto="3005675642";
 			float telefonoContactoReal=Float.parseFloat(telefonoContacto);
 			VOVISITANTE visitante= aforo.adicionarVisitante(cedulaReal, "Danut", telefonoReal, "Danut Mama", telefonoContactoReal, "http://dummyimage.com/131x181.jpg/cc0000/ffffff", "dadadanut@gmail.com",
-					avaliable, "Administrador_local", espacio.getID_ESPACIO());
+					avaliable, "Administrador_local", espacio.getID_ESPACIO(),"Verde");
    			
    			List <VOESPACIO> listaEspacio= aforo.darVOBEspacios();
    			List <VOVISITANTE> listaVisitantes= aforo.darVOBeVisitantes();
@@ -1497,7 +1497,7 @@ public class InterfazParranderosDemo extends JFrame implements ActionListener
             Timestamp  ts2 = new Timestamp(hAC.getTime());
             Timestamp  ts3 = new Timestamp(hCC.getTime());
             //
-			VOESPACIO espacio= aforo.adicionarEspacio(ts1, ts2, ts3, 10, 100);
+			VOESPACIO espacio= aforo.adicionarEspacio(ts1, ts2, ts3, 10, 100,"Verde");
 			if (espacio== null)
 			{
 				errorEspacio= true;
@@ -1513,7 +1513,7 @@ public class InterfazParranderosDemo extends JFrame implements ActionListener
 			String telefonoContacto="3005675642";
 			float telefonoContactoReal=Float.parseFloat(telefonoContacto);
 			VOVISITANTE visitante= aforo.adicionarVisitante(cedulaReal, "Danut", telefonoReal, "Danut Mama", telefonoContactoReal, "http://dummyimage.com/131x181.jpg/cc0000/ffffff", "dadadanut@gmail.com",
-					avaliable, "Administrador_local", espacio.getID_ESPACIO());
+					avaliable, "Administrador_local", espacio.getID_ESPACIO(),"Verde");
    			//CARNET
 			VOCARNET carnet=aforo.adicionarCarnet(visitante.getCEDULA());
 			
@@ -1587,7 +1587,7 @@ public class InterfazParranderosDemo extends JFrame implements ActionListener
             Timestamp  ts2 = new Timestamp(hAC.getTime());
             Timestamp  ts3 = new Timestamp(hCC.getTime());
             //
-			VOESPACIO espacio= aforo.adicionarEspacio(ts1, ts2, ts3, 10, 100);
+			VOESPACIO espacio= aforo.adicionarEspacio(ts1, ts2, ts3, 10, 100,"Verde");
 			if (espacio== null)
 			{
 				errorEspacio= true;
@@ -1605,7 +1605,7 @@ public class InterfazParranderosDemo extends JFrame implements ActionListener
 			String telefonoContacto="3005675642";
 			float telefonoContactoReal=Float.parseFloat(telefonoContacto);
 			VOVISITANTE visitante= aforo.adicionarVisitante(cedulaReal, "Danut", telefonoReal, "Danut Mama", telefonoContactoReal, "http://dummyimage.com/131x181.jpg/cc0000/ffffff", "dadadanut@gmail.com",
-					avaliable, "Administrador_local", espacio.getID_ESPACIO());
+					avaliable, "Administrador_local", espacio.getID_ESPACIO(),"Verde");
    			//CARNET
 			VOCARNET carnet=aforo.adicionarCarnet(visitante.getCEDULA());
 			//VISITA

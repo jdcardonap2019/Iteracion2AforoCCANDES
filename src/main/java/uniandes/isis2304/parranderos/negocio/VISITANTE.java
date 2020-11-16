@@ -50,6 +50,11 @@ public class VISITANTE implements VOVISITANTE{
 	 * El id del espacio
 	 */
 	private long IDESPACIO;
+	/**
+	 * El Estado del espacio
+	 */
+	private String ESTADO;
+	
 	public VISITANTE() 
 	{
 		this.CEDULA= 0;
@@ -62,11 +67,12 @@ public class VISITANTE implements VOVISITANTE{
 		this.HORARIO_DISPONIBLE = new Timestamp(0);
 		this.TIPO_VISITANTE = "";
 		this.IDESPACIO = 0;
+		this.ESTADO="";
 	}
 
 	public VISITANTE(float cedula, String nombre, float telefono, String nombreContacto,
 			float telefonoContacto,String codigoQR, String correo,Timestamp horarioDisponible,
-			String tipoVisitante, long idEspacio) 
+			String tipoVisitante, long idEspacio,String estado) 
 	{
 		this.CEDULA= cedula;
 		this.NOMBRE = nombre;
@@ -78,6 +84,7 @@ public class VISITANTE implements VOVISITANTE{
 		this.HORARIO_DISPONIBLE = horarioDisponible;
 		this.TIPO_VISITANTE = tipoVisitante;
 		this.IDESPACIO = idEspacio;
+		this.ESTADO = estado;
 	}
 
 	/**
@@ -200,5 +207,18 @@ public class VISITANTE implements VOVISITANTE{
 	public void setIDESPACIO(long iDESPACIO) {
 		IDESPACIO = iDESPACIO;
 	}
-	
+	/**
+	 * @return the ESTADO
+	 */
+	public String getESTADO()
+	{
+		return ESTADO;
+	}
+	/**
+	 * 
+	 * @param estado the ESTADO to set
+	 */
+	public void setESTADO(String estado) {
+		ESTADO=estado; 
+	}
 }

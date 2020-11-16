@@ -47,5 +47,9 @@ public interface VOESPACIO
 	 * @return the aFORO_TOTAL
 	 */
 	public int getAFORO_TOTAL();
+	/**
+	 * @return the Estado 
+	 */
+	public String getESTADO();
 
 }
