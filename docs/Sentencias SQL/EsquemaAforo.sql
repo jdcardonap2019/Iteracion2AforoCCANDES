@@ -1,14 +1,14 @@
---- Sentencias SQL para la creación del esquema de parranderos
+--- Sentencias SQL para la creaciï¿½n del esquema de parranderos
 --- Las tablas tienen prefijo A_ para facilitar su acceso desde SQL Developer
 
 -- USO
--- Copie el contenido de este archivo en una pestaña SQL de SQL Developer
--- Ejecútelo como un script - Utilice el botón correspondiente de la pestaña utilizada
+-- Copie el contenido de este archivo en una pestaï¿½a SQL de SQL Developer
+-- Ejecï¿½telo como un script - Utilice el botï¿½n correspondiente de la pestaï¿½a utilizada
 
--- Creación del secuenciador
+-- Creaciï¿½n del secuenciador
 create sequence centro_comercial_sequence;
 
--- Creaación de la tabla TIPOBEBIDA y especificación de sus restricciones
+-- Creaaciï¿½n de la tabla TIPOBEBIDA y especificaciï¿½n de sus restricciones
 CREATE TABLE CENTRO_COMERCIAL
    ( 
 	NOMBRE VARCHAR2(255 BYTE), 
@@ -23,7 +23,13 @@ CREATE TABLE ESPACIO
   HORARIO_CIERRE_CLIENTES TIMESTAMP NOT NULL,
   AFORO_ACTUAL INT NOT NULL,
   AFORO_TOTAL INT NOT NULL,
+  ESTADO VARCHAR2(255 BYTE),
   CONSTRAINT espacio_pk PRIMARY KEY (ID_ESPACIO));
+
+ALTER TABLE ESPACIO
+ADD CONSTRAINT ck_estado
+CHECK(ESTADO IN ('Desocupado','Verde','Deshabilitado','Rojo','Naranja'))
+ENABLE;
   
  CREATE TABLE LOCAL_COMERCIAL
 (
@@ -51,14 +57,14 @@ ENABLE;
     REFERENCES espacio(ID_ESPACIO)
 ENABLE;
   
-  CREATE TABLE BAÑO(
+  CREATE TABLE BAÃ‘O(
   IDESPACIO NUMBER NOT NULL,
-  ID_BAÑO NUMBER NOT NULL,
+  ID_BAÃ‘O NUMBER NOT NULL,
   NUMERO_SANITARIOS INT NOT NULL,
-  CONSTRAINT baño_pk PRIMARY KEY (ID_BAÑO));
+  CONSTRAINT baÃ±o_pk PRIMARY KEY (ID_BAÃ‘O));
   
-    ALTER TABLE BAÑO
-  ADD CONSTRAINT fk_baño
+    ALTER TABLE BAÃ‘O
+  ADD CONSTRAINT fk_baÃ±o
     FOREIGN KEY (IDESPACIO)
     REFERENCES espacio(ID_ESPACIO)
 ENABLE;
@@ -88,7 +94,7 @@ CREATE TABLE VISITA
   IDLECTOR NUMBER NOT NULL,
   IDCARNET NUMBER NOT NULL,
   IDESPACIO NUMBER NOT NULL,
-  CONSTRAINT visita_pk PRIMARY KEY(IDLECTOR, IDCARNET, IDESPACIO));
+  CONSTRAINT visita_pk PRIMARY KEY(IDLECTOR, IDCARNET, IDESPACIO,TIPO_OP));
   
 ALTER TABLE VISITA
 ADD CONSTRAINT fk_visita_lector
@@ -120,11 +126,17 @@ CREATE TABLE VISITANTE
   HORARIO_DISPONIBLE TIMESTAMP NOT NULL,
   TIPO_VISITANTE VARCHAR2(255 BYTE) NOT NULL,
   IDESPACIO NUMBER NOT NULL,
+  ESTADO VARCHAR2(255 BYTE) NOT NULL,
   CONSTRAINT visitante_pk PRIMARY KEY(CEDULA));
 
 ALTER TABLE VISITANTE
 ADD CONSTRAINT ck_tipo_visitante
     CHECK(TIPO_VISITANTE IN ('Empleado','Vigilancia','Aseo','Mantenimiento','Clientes','Domiciliarios','Administrador_centro','Administrador_local'))
+ENABLE;
+
+ALTER TABLE VISITANTE
+ADD CONSTRAINT ck_estado_visitante
+    CHECK(ESTADO IN ('Positivo', 'Rojo', 'Naranja','Verde'))
 ENABLE;
 
 ALTER TABLE VISITANTE
