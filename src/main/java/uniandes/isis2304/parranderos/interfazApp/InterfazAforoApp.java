@@ -490,7 +490,7 @@ public class InterfazAforoApp extends JFrame implements ActionListener
     {
     	try 
     	{
-    		String id = JOptionPane.showInputDialog (this, "Digite el horario apertura para empleados, el horario apertura para clientes, horario cierre, aforo total y aforo actual separado por comas",
+    		String id = JOptionPane.showInputDialog (this, "Digite el horario apertura para empleados, el horario apertura para clientes, horario cierre, aforo total, aforo actual y el estado separado por comas",
     				"Adicionar Espacio (Insertar Fechas en formato yyyy-MM-dd HH:mm:ss.SSS)", JOptionPane.QUESTION_MESSAGE);
     		if (id!= null)
     		{
@@ -500,6 +500,7 @@ public class InterfazAforoApp extends JFrame implements ActionListener
     			String horarioCierreClientes = datos[2];
     			String aforoActual = datos[3];
     			String aforoTotal = datos[4];
+    			String estado = datos[5];
     			int aforoTotal1=Integer.parseInt(aforoTotal);
     			int aforoActual1=Integer.parseInt(aforoActual);
     			
@@ -514,7 +515,7 @@ public class InterfazAforoApp extends JFrame implements ActionListener
                 Timestamp  ts2 = new Timestamp(hAC.getTime());
                 Timestamp  ts3 = new Timestamp(hCC.getTime());
                 
-        		VOESPACIO tb = aforo.adicionarEspacio(ts1,ts2,ts3,aforoActual1,aforoTotal1);
+        		VOESPACIO tb = aforo.adicionarEspacio(ts1,ts2,ts3,aforoActual1,aforoTotal1,estado);
         		if (tb == null)
         		{
         			throw new Exception ("No se pudo crear Espacio con aforo total: " +aforoTotal);
@@ -694,7 +695,7 @@ public class InterfazAforoApp extends JFrame implements ActionListener
           {
           	try 
           	{
-          		String id = JOptionPane.showInputDialog (this, "Digite la cedula, nombre,telefono, nombre contacto, telefono contacto, codigoQR, correo, horarioDisponibilidad, tipo de visitante e id espacio separado por comas",
+          		String id = JOptionPane.showInputDialog (this, "Digite la cedula, nombre,telefono, nombre contacto, telefono contacto, codigoQR, correo, horarioDisponibilidad, tipo de visitante, id espacio y estado separado por comas",
           				"Adicionar Visitante (Insertar Fechas/Horario en formato yyyy-MM-dd HH:mm:ss.SSS) y tipoVisitante acorde a los tipos de la documentacion", JOptionPane.QUESTION_MESSAGE);
           		if (id!= null)
           		{
@@ -709,6 +710,7 @@ public class InterfazAforoApp extends JFrame implements ActionListener
           			String horarioDisponibilidad=datos[7];
           			String tipoVisitante = datos[8];
           			String idEspacio1 = datos[9];
+          			String estado = datos[10];
 
           			long cedula = Long.valueOf(cedula1);
           			long idEspacio= Long.valueOf(idEspacio1);
@@ -723,7 +725,7 @@ public class InterfazAforoApp extends JFrame implements ActionListener
          			
                      Timestamp  ts1 = new Timestamp(hOp.getTime());
                       
-              		VOVISITANTE tb = aforo.adicionarVisitante(cedula,nombre,telefono,nombreContacto,telefonoContacto,codigoQr,correo,ts1,tipoVisitante,idEspacio);
+              		VOVISITANTE tb = aforo.adicionarVisitante(cedula,nombre,telefono,nombreContacto,telefonoContacto,codigoQr,correo,ts1,tipoVisitante,idEspacio, estado);
               		if (tb == null)
               		{
               			throw new Exception ("No se pudo crear Visitante con cedula:"+cedula);
