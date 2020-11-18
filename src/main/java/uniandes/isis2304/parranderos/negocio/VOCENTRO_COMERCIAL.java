@@ -34,4 +34,6 @@ public interface VOCENTRO_COMERCIAL
 	 * @return the aFORO
 	 */
 	public int getAFORO();
+	@Override
+	public String toString();
 }

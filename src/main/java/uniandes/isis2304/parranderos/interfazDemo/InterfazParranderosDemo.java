@@ -1625,7 +1625,7 @@ public class InterfazParranderosDemo extends JFrame implements ActionListener
    			
 			long lectoresEliminados = aforo.eliminarLector(lector.getID_LECTOR());
 			long espaciosEliminados = aforo.eliminarEspacioPorId(espacio.getID_ESPACIO());
-   			long carnetsEliminados=aforo.eliminarCarnetPorId(carnet.getID_CARNET());
+   			long carnetsEliminados=aforo.eliminarCarnetPorId(carnet.getID_CARNET());	
    			long visitantesEliminados = aforo.eliminarVisitantePorCedula(visitante.getCEDULA());
    			long visitasEliminadas= aforo.eliminarVisita(visita.getIDCARNET(), visita.getIDLECTOR(), visita.getIDESPACIO());
    				

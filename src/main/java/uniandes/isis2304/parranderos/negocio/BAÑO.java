@@ -97,7 +97,9 @@ public class BAÑO implements VOBAÑO
 	public void setNUMERO_SANITARIOS(int nUMERO_SANITARIOS) {
 		NUMERO_SANITARIOS = nUMERO_SANITARIOS;
 	}
-
-
+	@Override
+	public String toString(){
+		return "Baño [idEspacio= "+IDESPACIO+", idBaño= "+ID_BAÑO+", numeroSanitarios= "+NUMERO_SANITARIOS+"]";
+	}
 
 }

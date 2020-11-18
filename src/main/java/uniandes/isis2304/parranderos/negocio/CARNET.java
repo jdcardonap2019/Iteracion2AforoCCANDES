@@ -72,4 +72,8 @@ public class CARNET implements VOCARNET
 	public void setCEDULA(float cEDULA) {
 		CEDULA = cEDULA;
 	}
+	@Override
+	public String toString(){
+		return "Carnet [idCarnet= "+ID_CARNET+", cedula= "+CEDULA+"]";
+	}
 }

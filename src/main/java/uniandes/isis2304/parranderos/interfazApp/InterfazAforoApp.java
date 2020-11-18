@@ -27,6 +27,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -675,6 +676,128 @@ public class InterfazAforoApp extends JFrame implements ActionListener
        			resultado += tbEliminados + " Visita eliminados\n";
        			resultado += "\n Operación terminada";
        			panelDatos.actualizarInterfaz(resultado);
+       		}
+       		else
+       		{
+       			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+       		}
+   		} 
+       	catch (Exception e) 
+       	{
+//   			e.printStackTrace();
+   			String resultado = generarMensajeError(e);
+   			panelDatos.actualizarInterfaz(resultado);
+   		}
+       }
+       public void RFC1AdminEstablecimiento()
+       {
+       	try 
+       	{
+       		String idTipoStr = JOptionPane.showInputDialog (this, "Id del espacio, fecha inicio y fecha fin (fechas formato yyyy-MM-dd HH:mm:ss.SSS)", "Visitantes por espacio - Admin", JOptionPane.QUESTION_MESSAGE);
+       		if (idTipoStr != null)
+       		{
+       			String[] datos=idTipoStr.split(",");
+       			String idEspacio1=datos[0];
+       			String fechaInicio=datos[1];
+       			String fechaFin= datos[2];
+       			//Convertir fechas
+       			final String FORMAT = "yyyy-MM-dd HH:mm:ss.SSS";
+       			DateFormat formatter = new SimpleDateFormat(FORMAT);
+       			
+                   Date hOp = formatter.parse(fechaInicio);
+                   Date hFin= formatter.parse(fechaFin);
+       			
+                   Timestamp  ts1 = new Timestamp(hOp.getTime());
+                   Timestamp  ts2 = new Timestamp(hFin.getTime());
+       			
+                   long idEspacio = Long.valueOf(idEspacio1);
+       			
+       			
+       			List <Object[]> visitantesAtendidos= aforo.RFC1AdminEstablecimiento(idEspacio, ts1, ts2);
+       			String resultado = "Visitas de establecimiento a una fecha dada - Admin";
+       			resultado +=  "\n" + listarObjectRFC1Admin(visitantesAtendidos);
+       			panelDatos.actualizarInterfaz(resultado);
+       			resultado += "\n Operación terminada";
+       		}
+       		else
+       		{
+       			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+       		}
+   		} 
+       	catch (Exception e) 
+       	{
+//   			e.printStackTrace();
+   			String resultado = generarMensajeError(e);
+   			panelDatos.actualizarInterfaz(resultado);
+   		}
+       }
+       public void RFC1AdminCentro()
+       {
+       	try 
+       	{
+       		String idTipoStr = JOptionPane.showInputDialog (this, "Fecha inicio y fecha fin (fechas formato yyyy-MM-dd HH:mm:ss.SSS)", "Visitantes por espacio - Admin", JOptionPane.QUESTION_MESSAGE);
+       		if (idTipoStr != null)
+       		{
+       			String[] datos=idTipoStr.split(",");
+       			String fechaInicio=datos[0];
+       			String fechaFin= datos[1];
+       			//Convertir fechas
+       			final String FORMAT = "yyyy-MM-dd HH:mm:ss.SSS";
+       			DateFormat formatter = new SimpleDateFormat(FORMAT);
+       			
+                   Date hOp = formatter.parse(fechaInicio);
+                   Date hFin= formatter.parse(fechaFin);
+       			
+                   Timestamp  ts1 = new Timestamp(hOp.getTime());
+                   Timestamp  ts2 = new Timestamp(hFin.getTime());
+       			
+       			
+       			
+       			List <Object[]> visitantesAtendidos= aforo.RFC1AdminCentro(ts1, ts2);
+       			String resultado = "Visitas de establecimiento a una fecha dada - AdminCentro";
+       			resultado +=  "\n" + listarObjectRFC1AdminC(visitantesAtendidos);
+       			panelDatos.actualizarInterfaz(resultado);
+       			resultado += "\n Operación terminada";
+       		}
+       		else
+       		{
+       			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+       		}
+   		} 
+       	catch (Exception e) 
+       	{
+//   			e.printStackTrace();
+   			String resultado = generarMensajeError(e);
+   			panelDatos.actualizarInterfaz(resultado);
+   		}
+       }
+       public void RFC2()
+       {
+       	try 
+       	{
+       		String idTipoStr = JOptionPane.showInputDialog (this, "Fecha inicio y fecha fin (fechas formato yyyy-MM-dd HH:mm:ss.SSS)", "Visitantes por espacio - Admin", JOptionPane.QUESTION_MESSAGE);
+       		if (idTipoStr != null)
+       		{
+       			String[] datos=idTipoStr.split(",");
+       			String fechaInicio=datos[0];
+       			String fechaFin= datos[1];
+       			//Convertir fechas
+       			final String FORMAT = "yyyy-MM-dd HH:mm:ss.SSS";
+       			DateFormat formatter = new SimpleDateFormat(FORMAT);
+       			
+                   Date hOp = formatter.parse(fechaInicio);
+                   Date hFin= formatter.parse(fechaFin);
+       			
+                   Timestamp  ts1 = new Timestamp(hOp.getTime());
+                   Timestamp  ts2 = new Timestamp(hFin.getTime());
+       			
+       			
+       			
+       			List <Object[]> establecimientos= aforo.RFC2(ts1, ts2);
+       			String resultado = "Top 20 establecimientos más visitados";
+       			resultado +=  "\n" + listarObjectRFC2(establecimientos);
+       			panelDatos.actualizarInterfaz(resultado);
+       			resultado += "\n Operación terminada";
        		}
        		else
        		{
@@ -1493,6 +1616,54 @@ public class InterfazAforoApp extends JFrame implements ActionListener
         for (VOVISITANTE tb : lista)
         {
         	resp += i++ + ". " + tb.toString() + "\n";
+        }
+        return resp;
+    }
+    private String listarObjectRFC1Admin(List<Object[]> lista) 
+    {
+    	String resp = "Los visitantes atendidos por ese establecimiento (a esas horas) son:\n";
+        for (int i=0;i<lista.size();i++) 
+        {
+        	int indice=i+1;
+        	resp+="------------------\n";
+        	resp+="Visitante #"+indice+"\n";
+        	resp+="------------------\n";
+        	for(int j=0;j<lista.get(i).length;j++)
+        	{
+        		resp +=lista.get(i)[j]+"\n";
+        	}
+        }
+        return resp;
+    }
+    private String listarObjectRFC1AdminC(List<Object[]> lista) 
+    {
+    	String resp = "Los visitantes atendidos (a esas horas) son:\n";
+        for (int i=0;i<lista.size();i++) 
+        {
+        	int indice=i+1;
+        	resp+="------------------\n";
+        	resp+="Visitante #"+indice+"\n";
+        	resp+="------------------\n";
+        	for(int j=0;j<lista.get(i).length;j++)
+        	{
+        		resp +=lista.get(i)[j]+"\n";
+        	}
+        }
+        return resp;
+    }
+    private String listarObjectRFC2(List<Object[]> lista) 
+    {
+    	String resp = "Los 20 establecimientos más populares son:\n";
+        for (int i=0;i<lista.size();i++) 
+        {
+        	int indice=i+1;
+        	resp+="------------------\n";
+        	resp+="Establecimiento #"+indice+"\n";
+        	resp+="------------------\n";
+        	for(int j=0;j<lista.get(i).length;j++)
+        	{
+        		resp +=lista.get(i)[j]+"\n";
+        	}
         }
         return resp;
     }

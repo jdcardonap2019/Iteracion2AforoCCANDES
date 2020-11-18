@@ -32,4 +32,6 @@ public interface VOPARQUEADERO
 	 * @return the cAPACIDAD
 	 */
 	public float getCAPACIDAD();
+	@Override
+	public String toString();
 }

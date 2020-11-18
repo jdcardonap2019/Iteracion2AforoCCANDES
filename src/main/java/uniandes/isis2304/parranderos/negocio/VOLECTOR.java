@@ -31,4 +31,6 @@ public interface VOLECTOR
 	 * @return the iDESPACIO
 	 */
 	public long getIDESPACIO();
+	@Override
+	public String toString();
 }

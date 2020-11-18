@@ -13,4 +13,6 @@ public interface VOBAÑO {
 	 * @return the nUMERO_SANITARIOS
 	 */
 	public int getNUMERO_SANITARIOS(); 
+	@Override
+	public String toString();
 }

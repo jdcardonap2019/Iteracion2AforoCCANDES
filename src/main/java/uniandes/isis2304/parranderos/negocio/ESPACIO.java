@@ -19,6 +19,7 @@ import java.sql.Timestamp;
 
 
 
+
 public class ESPACIO implements VOESPACIO
 {
 	/* ****************************************************************
@@ -70,6 +71,7 @@ public class ESPACIO implements VOESPACIO
 		this.HORARIO_CIERRE_CLIENTES = new Timestamp(0);
 		this.ID_ESPACIO = 0;
 		this.ESTADO ="";
+
 	}
 
 	public ESPACIO(long idEspacio, Timestamp horarioAperturaEmpleados, Timestamp horarioAperturaClientes,
@@ -180,7 +182,13 @@ public class ESPACIO implements VOESPACIO
 	public void setAFORO_TOTAL(int aFORO_TOTAL) {
 		AFORO_TOTAL = aFORO_TOTAL;
 	}
-
-	
-	
+	@Override
+	public String toString() 
+	{
+		String resultado= "Espacio [id=" + ID_ESPACIO + ", horario apertura empleados=" + 
+	HORARIO_APERTURA_EMPLEADOS+ ", horario apertura clientes=" + HORARIO_APERTURA_CLIENTES+ 
+	", horario cierre clientes=" + HORARIO_CIERRE_CLIENTES+ ", aforo actual="+ AFORO_ACTUAL+
+	", aforo total="+ AFORO_TOTAL+", estado="+ ESTADO+ "]";
+		return resultado;
+	}
 }

@@ -50,5 +50,7 @@ public interface VOLOCAL_COMERCIAL
 	 * @return the tIPO_ESTABLECIMIENTO
 	 */
 	public String getTIPO_ESTABLECIMIENTO();
+	@Override
+	public String toString();
 	
 }

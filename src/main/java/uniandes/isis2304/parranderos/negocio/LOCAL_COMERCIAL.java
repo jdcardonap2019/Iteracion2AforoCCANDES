@@ -164,6 +164,10 @@ public class LOCAL_COMERCIAL implements VOLOCAL_COMERCIAL
 	public void setTIPO_ESTABLECIMIENTO(String tIPO_ESTABLECIMIENTO) {
 		TIPO_ESTABLECIMIENTO = tIPO_ESTABLECIMIENTO;
 	}
-
+	@Override
+	public String toString(){
+		return "Local comercial [idEspacio= "+IDESPACIO+", idLocal= "+ID_LOCAL+", nombre= "+NOMBRE+
+				", nombreEmpresa= "+NOMBRE_EMPRESA+", area= "+AREA+", tipo= "+TIPO_ESTABLECIMIENTO+"]";
+	}
 	
 }

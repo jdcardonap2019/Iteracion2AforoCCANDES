@@ -40,6 +40,10 @@
 				  {
 					  "label": "Borrar por Id",
 					  "event": "eliminarEspacioPorId"
+				  },
+				  {
+					  "label": "RFC1Admin - Mostrar todos los visitantes atendidos por un espacio",
+					  "event": "RFC1AdminEstablecimiento"
 				  }
 			  ]
 		  },

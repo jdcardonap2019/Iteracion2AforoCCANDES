@@ -161,6 +161,10 @@ public class VISITA implements VOVISITA
 	public void setIDESPACIO(long iDESPACIO) {
 		IDESPACIO = iDESPACIO;
 	}
-
+	@Override
+	public String toString(){
+		return "Visita [fechaYHoraOperacion= "+FECHAYHORA_OP+", tipoOperacion= "+TIPO_OP+", horaFinOperacion= "+
+	HORAFIN_OP+", idLector= "+IDLECTOR+", idCarnet= "+IDCARNET+", idEspacio= "+IDESPACIO+"]";
+	}
 	
 }

@@ -47,6 +47,8 @@ public interface VOVISITANTE {
 	 * @return the Estado
 	 */
 	public String getESTADO();
+	@Override
+	public String toString();
 	
 	
 }

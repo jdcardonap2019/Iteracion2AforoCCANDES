@@ -40,6 +40,19 @@
 				  {
 					  "label": "Borrar por Id",
 					  "event": "eliminarEspacioPorId"
+				  },
+				  {
+					  "label": "RFC1Admin - Mostrar todos los visitantes atendidos por un espacio",
+					  "event": "RFC1AdminEstablecimiento"
+				  },
+				  {
+					  "label": "RFC1AdminCentro - Mostrar todos los visitantes atendidos en un rango establecido",
+					  "event": "RFC1AdminCentro"
+				  }
+				  ,
+				  {
+					  "label": "RFC2 - Mostrar los 20 establecimientos mas populares en un rango establecido",
+					  "event": "RFC2"
 				  }
 			  ]
 		  },

@@ -35,6 +35,7 @@ public interface VOESPACIO
 	 * @return the hORARIO_APERTURA_CLIENTES
 	 */
 	public Timestamp getHORARIO_APERTURA_CLIENTES();
+
 	/**
 	 * @return the hORARIO_CIERRE_CLIENTES
 	 */
@@ -51,5 +52,8 @@ public interface VOESPACIO
 	 * @return the Estado 
 	 */
 	public String getESTADO();
+	
+	@Override
+	public String toString();
 
 }

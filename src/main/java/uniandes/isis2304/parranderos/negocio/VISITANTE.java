@@ -221,4 +221,19 @@ public class VISITANTE implements VOVISITANTE{
 	public void setESTADO(String estado) {
 		ESTADO=estado; 
 	}
+	@Override
+	public String toString(){
+		return "Visitante [cedula= "+CEDULA
+				+", nombre= "+NOMBRE
+				+", telefono= "+TELEFONO
+				+", nombreContacto= "+NOMBRE_CONTACTO
+				+", telefonoContacto= "+TELEFONO_CONTACTO
+				+", codigoQR= "+CODIGO_QR
+				+", correo= "+CORREO
+				+", horarioDisponible= "+HORARIO_DISPONIBLE
+				+", tipoVisitante= "+TIPO_VISITANTE
+				+", idEspacio= "+IDESPACIO
+				+", estado= "+ESTADO
+				+"]";
+	}
 }

@@ -9,4 +9,6 @@ public interface VOCARNET {
 	 * @return the cEDULA
 	 */
 	public float getCEDULA();
+	@Override
+	public String toString();
 }

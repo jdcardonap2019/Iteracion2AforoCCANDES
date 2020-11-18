@@ -15,6 +15,9 @@
 
 package uniandes.isis2304.parranderos.persistencia;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -94,6 +97,7 @@ class SQLVISITA
 	}
 	public List<Object> RFC1AdminEstablecimiento (PersistenceManager pm,long idEspacio, Timestamp fechaInicio, Timestamp fechaFin)
 	{
+		
 		String sql = "SELECT Carnet, VISITANTE.CEDULA, VISITANTE.NOMBRE, VISITANTE.TELEFONO, VISITANTE.NOMBRE_CONTACTO, VISITANTE.TELEFONO_CONTACTO, VISITANTE.CORREO";
         sql += " FROM(SELECT IDCARNET as Carnet ";
         sql += " FROM  "+pp.darTablaVISITA();
@@ -102,6 +106,7 @@ class SQLVISITA
        	sql	+= " INNER JOIN "+pp.darTablaVISITANTE()+" ON CARNET.CEDULA=VISITANTE.CEDULA";
        	Query q = pm.newQuery(SQL, sql);
 		q.setParameters(idEspacio, fechaInicio, fechaFin);
+		ResultSet x=null;
 		return q.executeList();
 	}
 	public List<Object> RFC1AdminCentro (PersistenceManager pm, Timestamp fechaInicio, Timestamp fechaFin)

@@ -100,6 +100,9 @@ public class PARQUEADERO implements VOPARQUEADERO
 	public void setCAPACIDAD(float cAPACIDAD) {
 		CAPACIDAD = cAPACIDAD;
 	}
-
+	@Override
+	public String toString(){
+		return "Parqueadero [idEspacio= "+IDESPACIO+", idParqueadero= "+ID_PARQUEADERO+", capacidad= "+CAPACIDAD+"]";
+	}
 
 }

@@ -15,6 +15,7 @@
 
 package uniandes.isis2304.parranderos.negocio;
 
+import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
@@ -503,6 +504,27 @@ public class AFOROCCANDES
 		}
 		log.info ("Generando los VO de Visita: " + voVisita.size () + " Visitas existentes");
 		return voVisita;
+	}
+	public List<Object[]> RFC1AdminEstablecimiento(long idEspacio, Timestamp fechaInicio, Timestamp fechaFin)
+	{
+        log.info ("Listando Visitas del establecimiento");
+        List<Object[]> visitas = pp.RFC1AdminEstablecimiento(idEspacio, fechaInicio, fechaFin);	
+        log.info ("Listando Visitas: Listo!");
+        return visitas;
+	}
+	public List<Object[]> RFC1AdminCentro(Timestamp fechaInicio, Timestamp fechaFin)
+	{
+        log.info ("Listando Visitas generales");
+        List<Object[]> visitas = pp.RFC1AdminCentro(fechaInicio, fechaFin);	
+        log.info ("Listando Visitas: Listo!");
+        return visitas;
+	}
+	public List<Object[]> RFC2(Timestamp fechaInicio, Timestamp fechaFin)
+	{
+        log.info ("Listando 20 establecimientos mas populares");
+        List<Object[]> visitas = pp.RFC2(fechaInicio, fechaFin);	
+        log.info ("Listando establecimientos: Listo!");
+        return visitas;
 	}
 	/* ****************************************************************
 	 * 			Métodos para manejar los VISTIANTES

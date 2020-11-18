@@ -52,4 +52,6 @@ public interface VOVISITA
 	 * @return the iDESPACIO
 	 */
 	public long getIDESPACIO();
+	@Override
+	public String toString();
 }

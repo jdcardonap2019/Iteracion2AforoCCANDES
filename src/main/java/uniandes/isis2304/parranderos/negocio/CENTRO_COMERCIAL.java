@@ -80,7 +80,10 @@ public class CENTRO_COMERCIAL implements VOCENTRO_COMERCIAL
 	public void setAFORO(int aFORO) {
 		AFORO = aFORO;
 	}
-
+	@Override
+	public String toString(){
+		return "Nombre= "+NOMBRE+", aforo= "+AFORO;
+	}
 
 
 }

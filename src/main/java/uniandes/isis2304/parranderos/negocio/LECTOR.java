@@ -45,5 +45,9 @@ public class LECTOR implements VOLECTOR{
 	public void setIDESPACIO(long iDESPACIO) {
 		IDESPACIO = iDESPACIO;
 	}
+	@Override
+	public String toString(){
+		return "Lector [idLector= "+ID_LECTOR+", idEspacio= "+IDESPACIO+"]";
+	}
 
 }
