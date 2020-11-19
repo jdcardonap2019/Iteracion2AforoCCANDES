@@ -889,6 +889,45 @@ public class PersistenciaAforo
             pm.close();
         }		
 	}
+	public List<Object[]> RFC4()
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try{
+			tx.begin();
+			List<Object[]> respuesta= new LinkedList<Object []> ();
+			List<Object> resultado=sqlEspacio.RFC4(pm);
+			for(Object xd: resultado)
+			{
+				Object [] datos = (Object []) xd;
+				long idEspacio=((BigDecimal) datos[0]).longValue();
+				int aforoActual= ((BigDecimal) datos [1]).intValue();
+				int aforoTotal= ((BigDecimal) datos [2]).intValue();
+				String estado= (String) datos [3];
+				
+				Object [] resp= new Object[4];
+				resp[0]="[Id espacio: "+idEspacio;
+				resp[1]="Aforo actual: "+aforoActual;
+				resp[2]="Aforo maximo: "+aforoTotal;
+				resp[3]="Estado: "+estado+"]";
+				respuesta.add(resp);
+			}
+			return respuesta;
+		}catch(Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+            return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }		
+	}
 	/* ****************************************************************
 	 * 			Métodos para manejar la relación LOCAL COMERCIAL
 	 *****************************************************************/

@@ -129,4 +129,12 @@ class SQLESPACIO
 		q.setParameters(tipo);
 		return q.executeList();
 	}
+	public List<Object> RFC4(PersistenceManager pm)
+	{
+		String sql = "SELECT ID_ESPACIO, AFORO_ACTUAL, AFORO_TOTAL, ESTADO";
+        sql += " FROM  "+pp.darTablaESPACIO();
+       	sql	+= " WHERE AFORO_ACTUAL<AFORO_TOTAL";
+       	Query q = pm.newQuery(SQL, sql);
+		return q.executeList();
+	}
 }

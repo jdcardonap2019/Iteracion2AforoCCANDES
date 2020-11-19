@@ -338,6 +338,13 @@ public class AFOROCCANDES
         log.info ("Mostando indices: Listo!");
         return visitas;
 	}
+	public List<Object[]> RFC4()
+	{
+        log.info ("Mostrando los espacios del centro comercial con aforo disponible");
+        List<Object[]> visitas = pp.RFC4();	
+        log.info ("Mostando espacios: Listo!");
+        return visitas;
+	}
 	/* ****************************************************************
 	 * 			Métodos para manejar la relación LECTOR
 	 *****************************************************************/

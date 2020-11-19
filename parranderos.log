@@ -50,3 +50,19 @@ ORA-00905: falta una palabra clave
 00:11:06,645 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Mostando informacion: Listo!
 00:11:28,145 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Mostrando informacion de las visitas segun tipo de visitante
 00:11:28,356 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Mostando informacion: Listo!
+00:39:16,443 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Interfaz
+00:39:16,460 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se aplica configuración indicada en el archivo de configuración
+00:39:16,498 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Tablas BD
+00:41:00,595 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Interfaz
+00:41:00,595 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se aplica configuración indicada en el archivo de configuración
+00:41:00,614 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Tablas BD
+00:41:12,127 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Mostrando los espacios del centro comercial con aforo disponible
+00:41:12,709 (AWT-EventQueue-0) ERROR [uniandes.isis2304.parranderos.persistencia.PersistenciaAforo] - Exception : Error con la ejecucion de Query de SQL "SELECT ID_ESPACIO, AFORO_ACTUAL, AFORO_TOTAL, ESTADO FROM  ESPACIO), WHERE AFORO_ACTUAL<AFORO_TOTAL".
+ORA-00933: comando SQL no terminado correctamente
+
+00:41:12,799 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Mostando espacios: Listo!
+00:42:22,729 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Interfaz
+00:42:22,729 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se aplica configuración indicada en el archivo de configuración
+00:42:22,760 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Tablas BD
+00:42:31,866 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Mostrando los espacios del centro comercial con aforo disponible
+00:42:32,655 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Mostando espacios: Listo!

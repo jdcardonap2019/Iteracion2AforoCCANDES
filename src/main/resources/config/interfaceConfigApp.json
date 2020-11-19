@@ -52,6 +52,10 @@
 				  {
 					  "label": "RFC3 - Mostrar los indices de aforo para un tipo de establecimiento y CC- AdminCentro",
 					  "event": "RFC3AdminCentroPorTipo"
+				  },
+				  {
+					  "label": "RFC4 - Mostrar espacios con aforo disponible",
+					  "event": "RFC4"
 				  }
 			  ]
 		  },

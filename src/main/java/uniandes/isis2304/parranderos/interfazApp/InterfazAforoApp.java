@@ -661,6 +661,31 @@ public class InterfazAforoApp extends JFrame implements ActionListener
 			panelDatos.actualizarInterfaz(resultado);
 		}
 	}
+	public void RFC4()
+	{
+		try 
+		{
+			String idTipoStr = JOptionPane.showInputDialog (this, "Digite cualquier letra para ver los espacios con aforo disponible", "Aforos disponibles", JOptionPane.QUESTION_MESSAGE);
+			if (idTipoStr != null)
+			{
+				List<Object[]> informacion= aforo.RFC4();
+				String resultado = "Espacios con aforo disponible";
+				resultado +=  "\n" + listarObjectRFC4(informacion);
+				panelDatos.actualizarInterfaz(resultado);
+				resultado += "\n Operación terminada";
+			}
+			else
+			{
+				panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+			}
+		} 
+		catch (Exception e) 
+		{
+			//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+	}
 	/* ****************************************************************
 	 * 			CRUD DE VISITA
 	 *****************************************************************/
@@ -1868,6 +1893,22 @@ public class InterfazAforoApp extends JFrame implements ActionListener
 		String resp = "Los indices son:\n";
 		for (int i=0;i<lista.size();i++) 
 		{
+			for(int j=0;j<lista.get(i).length;j++)
+			{
+				resp +=lista.get(i)[j]+"\n";
+			}
+		}
+		return resp;
+	}
+	private String listarObjectRFC4(List<Object[]> lista) 
+	{
+		String resp = "Los espacios con aforo disponible son:\n";
+		for (int i=0;i<lista.size();i++) 
+		{
+			int indice=i+1;
+			resp+="------------------\n";
+			resp+="Establecimiento #"+indice+"\n";
+			resp+="------------------\n";
 			for(int j=0;j<lista.get(i).length;j++)
 			{
 				resp +=lista.get(i)[j]+"\n";
