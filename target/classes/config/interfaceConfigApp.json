@@ -42,8 +42,16 @@
 					  "event": "eliminarEspacioPorId"
 				  },
 				  {
-					  "label": "RFC1Admin - Mostrar todos los visitantes atendidos por un espacio",
-					  "event": "RFC1AdminEstablecimiento"
+					  "label": "RFC3 - Mostrar los indices de aforo para un establecimiento y CC- AdminEstablecimiento",
+					  "event": "RFC3AdminEstablecimiento"
+				  },
+				  {
+					  "label": "RFC3 - Mostrar los indices de aforo para un establecimiento y CC- AdminCentro",
+					  "event": "RFC3AdminCentro"
+				  },
+				  {
+					  "label": "RFC3 - Mostrar los indices de aforo para un tipo de establecimiento y CC- AdminCentro",
+					  "event": "RFC3AdminCentroPorTipo"
 				  }
 			  ]
 		  },
@@ -61,6 +69,19 @@
 				  {
 					  "label": "Borrar por Id",
 					  "event": "eliminarVisitaPorId"
+				  },
+				  {
+					  "label": "RFC1Admin - Mostrar todos los visitantes atendidos por un espacio",
+					  "event": "RFC1AdminEstablecimiento"
+				  },
+				  {
+					  "label": "RFC1AdminCentro - Mostrar todos los visitantes atendidos en un rango establecido",
+					  "event": "RFC1AdminCentro"
+				  }
+				  ,
+				  {
+					  "label": "RFC2 - Mostrar los 20 establecimientos mas populares en un rango establecido",
+					  "event": "RFC2"
 				  }
 			  ]
 		  },
@@ -82,6 +103,14 @@
 				  {
 					  "label": "Borrar visitante por Nombre",
 					  "event": "eliminarVisitantesPorNombre"
+				  },
+				  {
+					  "label": "RFC5 - Mostrar el comportamiento por tipo de visitante",
+					  "event": "RFC5PorTipoVisitante"
+				  },
+				  {
+					  "label": "RFC6 - Mostrar el comportamiento de un visitante",
+					  "event": "RFC6"
 				  }
 			  ]
 		  },
@@ -157,6 +186,10 @@
 				{
 					"label": "Dar local comercial por Id",
 					"event": "buscarLocalComercialPorId"
+				},
+				{
+					"label": "RFC5 - Mostrar el comportamiento por tipo de local",
+					"event": "RFC5PorTipoLocal"
 				}
 			  ]
 		  },

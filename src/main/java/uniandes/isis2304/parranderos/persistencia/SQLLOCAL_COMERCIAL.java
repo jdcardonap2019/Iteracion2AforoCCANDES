@@ -15,6 +15,7 @@
 
 package uniandes.isis2304.parranderos.persistencia;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 
@@ -103,6 +104,18 @@ class SQLLOCAL_COMERCIAL
 		q.setResultClass(LOCAL_COMERCIAL.class);
 		return (List<LOCAL_COMERCIAL>) q.executeList();
 	}
-
+	public List<Object> RFC5PorTipoLocal(PersistenceManager pm,String tipo, Timestamp ts1, Timestamp ts2)
+	{
+		String sql = "SELECT IdEspacioXd, nombre, COUNT(VISITA.TIPO_OP) as NumeroVisitas";
+        sql += " FROM (SELECT IDESPACIO as IdEspacioXd, NOMBRE as nombre";
+        sql += " FROM  "+pp.darTablaLOCAL_COMERCIAL();
+        sql += " WHERE TIPO_ESTABLECIMIENTO=?)";
+        sql += " INNER JOIN "+pp.darTablaVISITA()+" ON IdEspacioXd=visita.idespacio";
+       	sql	+= " WHERE visita.fechayhora_op BETWEEN ? AND ?";
+       	sql	+= " GROUP BY IdEspacioXd, nombre";
+       	Query q = pm.newQuery(SQL, sql);
+		q.setParameters(tipo, ts1, ts2);
+		return q.executeList();
+	}
 
 }

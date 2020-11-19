@@ -91,24 +91,24 @@ class SQLESPACIO
 		q.setResultClass(ESPACIO.class);
 		return (List<ESPACIO>) q.execute();
 	}
-	public List<Object> RFC3AdminEstablecimiento (PersistenceManager pm,long idEspacio)
+	public List<Object> RFC3AdminEstablecimiento(PersistenceManager pm,long idEspacio)
 	{
-		String sql = "SELECT *";
-        sql += " FROM(SELECT SUM(aforo_actual) as AforoEnCC ";
+		String sql = "SELECT AforoEnCC/AforoMaximo as IndiceAforoEnCC, IdEspacio, AforoEnEstablecimiento/AforoMaximoXd as AforoEnEspacio";
+        sql += " FROM(SELECT SUM(aforo_actual) as AforoEnCC, SUM(aforo_total) as AforoMaximo";
         sql += " FROM  "+pp.darTablaESPACIO()+"),";
-        sql += " (SELECT aforo_actual as AforoEnEstablecimiento ";
+        sql += " (SELECT ID_ESPACIO as IdEspacio, aforo_actual as AforoEnEstablecimiento, aforo_total as AforoMaximoXd";
         sql += " FROM "+pp.darTablaESPACIO();
        	sql	+= " WHERE ID_ESPACIO=?)";
        	Query q = pm.newQuery(SQL, sql);
 		q.setParameters(idEspacio);
 		return q.executeList();
 	}
-	public List<Object> RFC3AdminCentroPorId(PersistenceManager pm,long idEspacio)
+	public List<Object> RFC3AdminCentroPorIdEspacio(PersistenceManager pm,long idEspacio)
 	{
-		String sql = "SELECT *";
-        sql += " FROM(SELECT SUM(aforo_actual) as AforoEnCC ";
+		String sql = "SELECT AforoEnCC/AforoMaximo as IndiceAforoEnCC, IdEspacio, AforoEnEstablecimiento/AforoMaximoXd as AforoEnEspacio";
+        sql += " FROM(SELECT SUM(aforo_actual) as AforoEnCC, SUM(aforo_total) as AforoMaximo";
         sql += " FROM  "+pp.darTablaESPACIO()+"),";
-        sql += " (SELECT aforo_actual as AforoEnEstablecimiento ";
+        sql += " (SELECT ID_ESPACIO as IdEspacio, aforo_actual as AforoEnEstablecimiento, aforo_total as AforoMaximoXd";
         sql += " FROM "+pp.darTablaESPACIO();
        	sql	+= " WHERE ID_ESPACIO=?)";
        	Query q = pm.newQuery(SQL, sql);
@@ -117,14 +117,14 @@ class SQLESPACIO
 	}
 	public List<Object> RFC3AdminCentroPorTipoEstablecimiento(PersistenceManager pm,String tipo)
 	{
-		String sql = "SELECT AforoEnCC, TipoEspacio, AforoEnEspacio";
-        sql += " FROM(SELECT SUM(aforo_actual) as AforoEnCC ";
+		String sql = "SELECT AforoEnCC/AforoMaximo as IndiceAforoEnCC,TipoEspacio,  AforoActualEspacio/AforoTotalEspacio as IndiceTipoEstablecimiento";
+        sql += " FROM(SELECT SUM(aforo_actual) as AforoEnCC, SUM(aforo_total) as AforoMaximo";
         sql += " FROM  "+pp.darTablaESPACIO()+"),";
-        sql += " (SELECT espacio.aforo_actual as AforoEnEspacio, TipoEspacio ";
+        sql += " (SELECT TipoEspacio, SUM(espacio.aforo_actual) as AforoActualEspacio, SUM(espacio.aforo_total) as AforoTotalEspacio";
         sql += " FROM(SELECT IDESPACIO as IdEspacio, TIPO_ESTABLECIMIENTO as TipoEspacio ";
        	sql	+= " FROM "+pp.darTablaLOCAL_COMERCIAL();
        	sql	+= " WHERE TIPO_ESTABLECIMIENTO=?)";
-       	sql	+= " INNER JOIN "+pp.darTablaESPACIO()+" ON espacio.id_espacio=IdEspacio)";
+       	sql	+= " INNER JOIN "+pp.darTablaESPACIO()+" ON espacio.id_espacio=IdEspacio group by TipoEspacio)";
        	Query q = pm.newQuery(SQL, sql);
 		q.setParameters(tipo);
 		return q.executeList();

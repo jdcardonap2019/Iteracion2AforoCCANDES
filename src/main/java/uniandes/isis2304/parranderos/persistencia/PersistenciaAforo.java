@@ -17,8 +17,11 @@ package uniandes.isis2304.parranderos.persistencia;
 
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -32,6 +35,8 @@ import org.apache.log4j.Logger;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+
+import oracle.sql.TIMESTAMP;
 import uniandes.isis2304.parranderos.negocio.BAÑO;
 import uniandes.isis2304.parranderos.negocio.CARNET;
 import uniandes.isis2304.parranderos.negocio.ESPACIO;
@@ -773,6 +778,117 @@ public class PersistenciaAforo
 	{
 		return sqlEspacio.darEspaciosPorAforo(pmf.getPersistenceManager(), aforoTotal);
 	}
+	public List<Object[]> RFC3AdminEstablecimiento(long idEspacio)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try{
+			tx.begin();
+			List<Object[]> respuesta= new LinkedList<Object []> ();
+			List<Object> resultado=sqlEspacio.RFC3AdminEstablecimiento(pm, idEspacio);
+			for(Object xd: resultado)
+			{
+				Object [] datos = (Object []) xd;
+				float indiceAforoEnCentroComercial= ((BigDecimal) datos [0]).floatValue();
+				long idEspacioXd= ((BigDecimal) datos [1]).longValue();
+				float indiceAforoEspacio= ((BigDecimal) datos [2]).floatValue();
+				
+				Object [] resp= new Object[3];
+				resp[0]="Indice total Aforo del centro comercial: "+indiceAforoEnCentroComercial+"%";
+				resp[1]="Id espacio: "+idEspacioXd;
+				resp[2]="Indice del establecimiento: "+indiceAforoEspacio+"%";
+				respuesta.add(resp);
+			}
+			return respuesta;
+		}catch(Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+            return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }		
+	}
+	public List<Object[]> RFC3AdminCentro(long idEspacio)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try{
+			tx.begin();
+			List<Object[]> respuesta= new LinkedList<Object []> ();
+			List<Object> resultado=sqlEspacio.RFC3AdminCentroPorIdEspacio(pm, idEspacio);
+			for(Object xd: resultado)
+			{
+				Object [] datos = (Object []) xd;
+				float indiceAforoEnCentroComercial= ((BigDecimal) datos [0]).floatValue();
+				long idEspacioXd= ((BigDecimal) datos [1]).longValue();
+				float indiceAforoEspacio= ((BigDecimal) datos [2]).floatValue();
+				
+				Object [] resp= new Object[3];
+				resp[0]="Indice total Aforo del centro comercial: "+indiceAforoEnCentroComercial+"%";
+				resp[1]="Id espacio: "+idEspacioXd;
+				resp[2]="Indice del establecimiento: "+indiceAforoEspacio+"%";
+				respuesta.add(resp);
+			}
+			return respuesta;
+		}catch(Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+            return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }		
+	}
+	public List<Object[]> RFC3AdminCentroPorTipo(String tipo)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try{
+			tx.begin();
+			List<Object[]> respuesta= new LinkedList<Object []> ();
+			List<Object> resultado=sqlEspacio.RFC3AdminCentroPorTipoEstablecimiento(pm, tipo);
+			for(Object xd: resultado)
+			{
+				Object [] datos = (Object []) xd;
+				float indiceAforoEnCentroComercial= ((BigDecimal) datos [0]).floatValue();
+				String tipoEspacio= (String) datos [1];
+				float indiceAforoEspacio= ((BigDecimal) datos [2]).floatValue();
+				
+				Object [] resp= new Object[3];
+				resp[0]="Indice total Aforo del centro comercial: "+indiceAforoEnCentroComercial+"%";
+				resp[1]="Tipo espacio: "+tipoEspacio;
+				resp[2]="Indice del establecimiento: "+indiceAforoEspacio+"%";
+				respuesta.add(resp);
+			}
+			return respuesta;
+		}catch(Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+            return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }		
+	}
 	/* ****************************************************************
 	 * 			Métodos para manejar la relación LOCAL COMERCIAL
 	 *****************************************************************/
@@ -874,6 +990,45 @@ public class PersistenciaAforo
 	{
 		return sqlLocalComercial.darLocalComercialPorId(pmf.getPersistenceManager(), idLocal);
 	}
+	public List<Object[]> RFC5PorTipoLocal(String tipo, Timestamp fechaInicio, Timestamp fechaFin)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try{
+			tx.begin();
+			List<Object []> respuesta = new LinkedList <Object []> ();
+			List<Object> locales=sqlLocalComercial.RFC5PorTipoLocal(pm, tipo, fechaInicio, fechaFin);
+			for(Object local: locales)
+			{
+				Object [] datos = (Object []) local;
+				long idEspacio= ((BigDecimal) datos [0]).longValue ();;
+				String nombreEstablecimiento= (String) datos [1];
+				int contadorVisitas= ((BigDecimal) datos [2]).intValue();
+				
+				Object [] resp = new Object [3];
+				resp[0]="[Id Espacio: "+idEspacio;
+				resp[1]=nombreEstablecimiento;
+				resp[2]=contadorVisitas;
+				
+				respuesta.add(resp);
+			}
+			return respuesta;
+		}catch(Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+            return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }		
+	}
+
 	/* ****************************************************************
 	 * 			Métodos para manejar la relación VISITA
 	 *****************************************************************/
@@ -1071,6 +1226,7 @@ public class PersistenciaAforo
 				
 				respuesta.add(resp);
 			}
+			
 			return respuesta;
 		}catch(Exception e)
         {
@@ -1228,6 +1384,174 @@ public class PersistenciaAforo
 	{
 		return sqlVisitante.darVisitantes(pmf.getPersistenceManager());
 	}	
+	@SuppressWarnings("deprecation")
+	public List<Object[]> RFC5PorTipoVisitante(String tipo, Timestamp ts1, Timestamp ts2)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try{
+			tx.begin();
+			List<Object[]> respuesta= new LinkedList<Object []> ();
+			List<Object> resultado=sqlVisitante.RFC5PorTipoVisitante(pm, tipo, ts1, ts2);
+			for(Object xd: resultado)
+			{
+				Object [] datos = (Object []) xd;
+				long cedulaVisitante= ((BigDecimal) datos [0]).longValue();
+				String nombreVisitante= (String) datos [1];
+				TIMESTAMP fechaYHoraOp= (TIMESTAMP) datos [2];
+				String TipoOperacion= (String) datos [3];
+				TIMESTAMP horaFinOp= (TIMESTAMP) datos [4];
+				long idEspacio= ((BigDecimal) datos [5]).longValue();
+				//Convertir fecha inicial a Date de Java
+				String xdd=fechaYHoraOp.stringValue();
+				final String FORMAT = "yyyy-MM-dd HH:mm:ss.SSS";
+      			DateFormat formatter = new SimpleDateFormat(FORMAT);
+      			java.util.Date  w=formatter.parse(xdd);
+      			//Convertir fecha inicial a Date de Java
+				String xdd2=horaFinOp.stringValue();
+      			java.util.Date  w2=formatter.parse(xdd2);
+				//Obtener minutos, horas y segundos fecha inicio
+      			int horas=w.getHours();
+      			int minutos=w.getMinutes();
+      			int segundos=w.getSeconds();
+      			//Obtener minutos, horas y segundos fecha inicio				
+      			int horas2=w2.getHours();
+      			int minutos2=w2.getMinutes();
+      			int segundos2=w2.getSeconds();
+      			//Operaciones
+      			int horasTotal=0;
+      			int minutosTotal=0;
+      			int segundosTotal=0;
+      			if(segundos2<segundos)
+      			{
+      				segundosTotal=(segundos2+60)-segundos;
+      				minutosTotal--;
+      			}else{
+      				segundosTotal=segundos2-segundos;
+      			}
+      			if(minutos2<minutos)
+      			{
+      				minutosTotal+=(minutos2+60)-minutos;
+      				horasTotal--;
+      			}else{
+      				minutosTotal+=minutos2-minutos;
+      			}
+      			horasTotal+=horas2-horas;
+      			//
+      			
+      			Object [] resp= new Object[9];
+				resp[0]="[Cedula: "+cedulaVisitante;
+				resp[1]="Nombre: "+nombreVisitante;
+				resp[2]="Fecha inicio visita: "+fechaYHoraOp;
+				resp[3]="Tipo operacoin: "+TipoOperacion;
+				resp[4]="Fecha fin visita: "+horaFinOp;
+				resp[5]="Id del espacio visitado: "+idEspacio;
+				resp[6]=horasTotal;
+				resp[7]=minutosTotal;
+				resp[8]=segundosTotal;
+				respuesta.add(resp);
+			}
+			return respuesta;
+		}catch(Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+            return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }		
+	}
+	@SuppressWarnings("deprecation")
+	public List<Object[]> RFC6(long cedula, Timestamp ts1, Timestamp ts2)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try{
+			tx.begin();
+			List<Object[]> respuesta= new LinkedList<Object []> ();
+			List<Object> resultado=sqlVisitante.RFC6(pm, cedula, ts1, ts2);
+			for(Object xd: resultado)
+			{
+				Object [] datos = (Object []) xd;
+				long cedulaVisitante= ((BigDecimal) datos [0]).longValue();
+				String nombreVisitante= (String) datos [1];
+				TIMESTAMP fechaYHoraOp= (TIMESTAMP) datos [2];
+				String TipoOperacion= (String) datos [3];
+				TIMESTAMP horaFinOp= (TIMESTAMP) datos [4];
+				long idEspacio= ((BigDecimal) datos [5]).longValue();
+				String nombreEstabecimiento= (String) datos [6];
+				//Convertir fecha inicial a Date de Java
+				String xdd=fechaYHoraOp.stringValue();
+				final String FORMAT = "yyyy-MM-dd HH:mm:ss.SSS";
+      			DateFormat formatter = new SimpleDateFormat(FORMAT);
+      			java.util.Date  w=formatter.parse(xdd);
+      			//Convertir fecha inicial a Date de Java
+				String xdd2=horaFinOp.stringValue();
+      			java.util.Date  w2=formatter.parse(xdd2);
+				//Obtener minutos, horas y segundos fecha inicio
+      			int horas=w.getHours();
+      			int minutos=w.getMinutes();
+      			int segundos=w.getSeconds();
+      			//Obtener minutos, horas y segundos fecha inicio				
+      			int horas2=w2.getHours();
+      			int minutos2=w2.getMinutes();
+      			int segundos2=w2.getSeconds();
+      			//Operaciones
+      			int horasTotal=0;
+      			int minutosTotal=0;
+      			int segundosTotal=0;
+      			if(segundos2<segundos)
+      			{
+      				segundosTotal=(segundos2+60)-segundos;
+      				minutosTotal--;
+      			}else{
+      				segundosTotal=segundos2-segundos;
+      			}
+      			if(minutos2<minutos)
+      			{
+      				minutosTotal+=(minutos2+60)-minutos;
+      				horasTotal--;
+      			}else{
+      				minutosTotal+=minutos2-minutos;
+      			}
+      			horasTotal+=horas2-horas;
+      			//
+      			
+      			Object [] resp= new Object[10];
+				resp[0]="[Cedula: "+cedulaVisitante;
+				resp[1]="Nombre: "+nombreVisitante;
+				resp[2]="Fecha inicio visita: "+fechaYHoraOp;
+				resp[3]="Tipo operacoin: "+TipoOperacion;
+				resp[4]="Fecha fin visita: "+horaFinOp;
+				resp[5]="Id del espacio visitado: "+idEspacio;
+				resp[6]="Nombre establecimiento: "+nombreEstabecimiento;
+				resp[7]=horasTotal;
+				resp[8]=minutosTotal;
+				resp[9]=segundosTotal;
+				respuesta.add(resp);
+			}
+			return respuesta;
+		}catch(Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+            return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }		
+	}
 	/* ****************************************************************
 	 * 			Métodos para manejar la relación LECTOR
 	 *****************************************************************/

@@ -317,9 +317,27 @@ public class AFOROCCANDES
 		log.info ("Generando los VO de Espacios: " + voEspacios.size () + " espacios existentes");
 		return voEspacios;
 	}
-
-
-
+	public List<Object[]> RFC3AdminEstablecimiento(long idEspacio)
+	{
+        log.info ("Mostrando los indices del centro comercial y establecimiento elegido");
+        List<Object[]> visitas = pp.RFC3AdminEstablecimiento(idEspacio);	
+        log.info ("Mostando indices: Listo!");
+        return visitas;
+	}
+	public List<Object[]> RFC3AdminCentro(long idEspacio)
+	{
+        log.info ("Mostrando los indices del centro comercial y establecimiento elegido");
+        List<Object[]> visitas = pp.RFC3AdminCentro(idEspacio);	
+        log.info ("Mostando indices: Listo!");
+        return visitas;
+	}
+	public List<Object[]> RFC3AdminCentroPorTipo(String tipo)
+	{
+        log.info ("Mostrando los indices del centro comercial y tipo de establecimiento elegido");
+        List<Object[]> visitas = pp.RFC3AdminCentroPorTipo(tipo);	
+        log.info ("Mostando indices: Listo!");
+        return visitas;
+	}
 	/* ****************************************************************
 	 * 			Métodos para manejar la relación LECTOR
 	 *****************************************************************/
@@ -463,6 +481,14 @@ public class AFOROCCANDES
 		log.info ("Generando los VO de local comercial: " + voLocalComercial.size () + " local comerciales existentes");
 		return voLocalComercial;
 	}
+	public List<Object[]> RFC5PorTipoLocal(String tipo, Timestamp ts1, Timestamp ts2)
+	{
+        log.info ("Mostrando informacion de las visitas segun tipo de local");
+        List<Object[]> visitas = pp.RFC5PorTipoLocal(tipo, ts1, ts2);
+        log.info ("Mostando informacion: Listo!");
+        return visitas;
+	}
+	
 	/* ****************************************************************
 	 * 			Métodos para manejar la relación VISITA
 	 *****************************************************************/
@@ -614,7 +640,20 @@ public class AFOROCCANDES
         log.info ("Generando los VO de Visitantes: " + voBebedores.size() + " visitantes existentes");
        return voBebedores;
 	}
-	
+	public List<Object[]> RFC5PorTipoVisitante(String tipo, Timestamp ts1, Timestamp ts2)
+	{
+        log.info ("Mostrando informacion de las visitas segun tipo de visitante");
+        List<Object[]> visitas = pp.RFC5PorTipoVisitante(tipo, ts1, ts2);
+        log.info ("Mostando informacion: Listo!");
+        return visitas;
+	}
+	public List<Object[]> RFC6(long cedula, Timestamp ts1, Timestamp ts2)
+	{
+        log.info ("Mostrando informacion de las visitas por visitante");
+        List<Object[]> visitas = pp.RFC6(cedula, ts1, ts2);
+        log.info ("Mostando informacion: Listo!");
+        return visitas;
+	}
 	
 	/* ****************************************************************
 	 * 			Métodos para administración

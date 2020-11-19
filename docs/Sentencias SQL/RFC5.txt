@@ -1,0 +1,16 @@
+--RFC5 por TIPO DE VISITANTE
+SELECT CedulaVis, nombre, VISITA.FECHAYHORA_OP, VISITA.TIPO_OP, VISITA.HORAFIN_OP, visita.idespacio
+FROM (SELECT CEDULA as CedulaVis, NOMBRE as nombre
+      FROM VISITANTE
+      WHERE TIPO_VISITANTE=?) 
+INNER JOIN CARNET ON carnet.cedula=CedulaVis
+INNER JOIN VISITA ON CARNET.ID_CARNET=IDCARNET
+WHERE visita.fechayhora_op BETWEEN ? AND ?;
+--RFC5 por TIPO DE LOCAL
+SELECT IdEspacioXd, nombre, COUNT(VISITA.TIPO_OP) as NumeroVisitas
+FROM (SELECT IDESPACIO as IdEspacioXd, NOMBRE as nombre
+      FROM LOCAL_COMERCIAL
+      WHERE TIPO_ESTABLECIMIENTO=?) 
+INNER JOIN VISITA ON IdEspacioXd=visita.idespacio
+WHERE visita.fechayhora_op BETWEEN ? AND ?
+GROUP BY IdEspacioXd, nombre;

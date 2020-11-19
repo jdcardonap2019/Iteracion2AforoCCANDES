@@ -1,0 +1,9 @@
+--RFC6 
+SELECT cedulaXd, nombreOP, visita.fechayhora_op, visita.tipo_op, visita.horafin_op, visita.idespacio, LOCAL_COMERCIAL.NOMBRE
+FROM (SELECT CEDULA as cedulaXd, NOMBRE as nombreOP
+      FROM VISITANTE
+      WHERE CEDULA=?) 
+INNER JOIN CARNET ON carnet.cedula=cedulaXd
+INNER JOIN VISITA ON carnet.id_carnet=VISITA.IDCARNET
+INNER JOIN LOCAL_COMERCIAL ON VISITA.IDESPACIO=LOCAL_COMERCIAL.IDESPACIO
+WHERE visita.fechayhora_op BETWEEN ? AND ?;
