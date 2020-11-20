@@ -63,6 +63,27 @@
 
 			  ]
 			},
+			{ "menuTitle": "RFs",
+				"options":
+				  [
+					{
+						"label": "RF8- Cambio de estado del visitante",
+						"event": "RF8"
+					},
+					{
+						"label": "RF9- Cambio de estado del espacio",
+						"event": "RF9"
+					},
+					{
+						"label": "RF11- Deshabilitar el espacio",
+						"event": "RF11"
+					},
+					{
+						"label": "RF12- Habilitar el espacio",
+						"event": "RF12"
+					}	
+				  ]
+				},
 		{ "menuTitle": "Parqueaderos",
 		  "options":
 			[

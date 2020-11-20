@@ -928,6 +928,69 @@ public class PersistenciaAforo
             pm.close();
         }		
 	}
+	public void RF9(String estado, long id)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try{
+			tx.begin();
+			sqlEspacio.RF9RegistrarCambioDeEstado(pm, estado, id);
+		}catch(Exception e)
+        {
+      	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }		
+	}
+	public void RF11(String estado, long id)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try{
+			tx.begin();
+			sqlEspacio.RF11DeshabilitarTipoDeEspacio(pm, estado, id);
+		}catch(Exception e)
+        {
+      	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }		
+	}
+	public void RF12( long id)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try{
+			tx.begin();
+			sqlEspacio.RF12RehabilitarTipoDeEspacio(pm, id);
+		}catch(Exception e)
+        {
+      	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }		
+	}
 	/* ****************************************************************
 	 * 			Métodos para manejar la relación LOCAL COMERCIAL
 	 *****************************************************************/
@@ -1706,6 +1769,27 @@ public class PersistenciaAforo
 //        	e.printStackTrace();
         	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
             return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }		
+	}
+	public void RF8(String estado, long cedula)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try{
+			tx.begin();
+			sqlVisitante.RF8RegistrarCambioDeEstado(pm, estado, cedula);
+		}catch(Exception e)
+        {
+      	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
         }
         finally
         {

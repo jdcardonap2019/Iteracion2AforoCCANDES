@@ -137,4 +137,41 @@ class SQLESPACIO
        	Query q = pm.newQuery(SQL, sql);
 		return q.executeList();
 	}
+	public void RF9RegistrarCambioDeEstado(PersistenceManager pm,String estado,long id)
+	{
+		String sql = "UPDATE ";
+        sql += pp.darTablaESPACIO();
+        sql += " SET ESTADO=?";
+        sql += " WHERE ID_ESPACIO=?";
+       	Query q = pm.newQuery(SQL, sql);
+		q.setParameters(estado,id);
+	}
+	public void RF11DeshabilitarTipoDeEspacio(PersistenceManager pm,String estado,long id)
+	{
+		int aforo =0;
+		String sql = "UPDATE ";
+        sql += pp.darTablaVISITANTE();
+        sql += " SET ESTADO=?,";
+        sql+= " AFORO_ACTUAL=?";
+        sql += " WHERE ID_ESPACIO=?";
+       	Query q = pm.newQuery(SQL, sql);
+		q.setParameters(estado,aforo,id);
+	}
+	public void RF12RehabilitarTipoDeEspacio(PersistenceManager pm,long id)
+	{
+		String sql = "UPDATE ";
+        sql += pp.darTablaVISITANTE();
+        sql += "SET ESTADO='Verde',";
+        sql += " WHERE ID_ESPACIO=?";
+       	Query q = pm.newQuery(SQL, sql);
+		q.setParameters(id);
+		String sql2= "UPDATE ";
+		sql2+= pp.darTablaVISITA();
+		sql2+=" SET HORAFIN_OP =GETDATE()";
+		sql2+=" WHERE ID_ESPACIO=?";
+		sql2+=" AND FECHAYHORA_OP<CONVERT(DATE,GETDATE())";
+		sql2+=" AND TIPO_OP='Entrada'";
+		Query q2 =pm.newQuery(SQL,sql2);
+		q2.setParameters(id);
+	}
 }
