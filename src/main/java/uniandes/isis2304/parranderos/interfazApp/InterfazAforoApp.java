@@ -914,6 +914,81 @@ public class InterfazAforoApp extends JFrame implements ActionListener
 			panelDatos.actualizarInterfaz(resultado);
 		}
 	}
+	public void RFC7()
+	{
+		try 
+		{
+			String idTipoStr = JOptionPane.showInputDialog (this, "Fecha inicial, fecha final (fechas formato yyyy-MM-dd HH:mm:ss.SSS) y tipo establecimiento"
+					, "Operacion CC Andes", JOptionPane.QUESTION_MESSAGE);
+			if (idTipoStr != null)
+			{
+				String[] datos=idTipoStr.split(",");
+				String fechaInicio=datos[0];
+				String fechaFin= datos[1];
+				String tipo= datos[2];
+				//Convertir fechas
+				final String FORMAT = "yyyy-MM-dd HH:mm:ss.SSS";
+				DateFormat formatter = new SimpleDateFormat(FORMAT);
+
+				Date hOp = formatter.parse(fechaInicio);
+				Date hFin= formatter.parse(fechaFin);
+
+				Timestamp  ts1 = new Timestamp(hOp.getTime());
+				Timestamp  ts2 = new Timestamp(hFin.getTime());
+				
+				List <Object[]> visitantes= aforo.RFC7(ts1,ts2,tipo);
+				String resultado = "Datos:";
+				resultado +=  "\n" + listarObjectRFC7(visitantes);
+				panelDatos.actualizarInterfaz(resultado);
+				resultado += "\n Operación terminada";
+			}
+			else
+			{
+				panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+			}
+		} 
+		catch (Exception e) 
+		{
+			//   			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+	}
+	public void RFC9()
+	{
+		try 
+		{
+			String idTipoStr = JOptionPane.showInputDialog (this, "Fecha en la que quiere saber los contactos entre visitantes (de esta fecha hasta 10 dias antes)"
+					, "Visitantes en contacto ", JOptionPane.QUESTION_MESSAGE);
+			if (idTipoStr != null)
+			{
+				//Convertir fechas
+				final String FORMAT = "yyyy-MM-dd HH:mm:ss.SSS";
+				DateFormat formatter = new SimpleDateFormat(FORMAT);
+
+				Date hOp = formatter.parse(idTipoStr);
+
+				Timestamp  ts1 = new Timestamp(hOp.getTime());
+
+				//
+				List <Object[]> visitantes= aforo.RFC9(ts1);
+				String resultado = "Visitantes en contacto:";
+				resultado +=  "\n" + listarObjectRFC9(visitantes);
+				panelDatos.actualizarInterfaz(resultado);
+				resultado += "\n Operación terminada";
+			}
+			else
+			{
+				panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+			}
+		} 
+		catch (Exception e) 
+		{
+			//   			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+	}
 	/* ****************************************************************
 	 * 			CRUD DE VISITANTE
 	 *****************************************************************/
@@ -1595,6 +1670,31 @@ public class InterfazAforoApp extends JFrame implements ActionListener
 			panelDatos.actualizarInterfaz(resultado);
 		}
 	}
+	public void RFC8()
+	{
+		try 
+		{
+			String idTipoStr = JOptionPane.showInputDialog (this, "Nombre del local comercial", "Clientes frecuentes local- Admin", JOptionPane.QUESTION_MESSAGE);
+			if (idTipoStr != null)
+			{
+				List <Object[]> locales= aforo.RFC8(idTipoStr);
+				String resultado = "Clientes frecuentes del local:";
+				resultado +=  "\n" + listarObjectRFC8(locales);
+				panelDatos.actualizarInterfaz(resultado);
+				resultado += "\n Operación terminada";
+			}
+			else
+			{
+				panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+			}
+		} 
+		catch (Exception e) 
+		{
+			//      			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+	}
 	/* ****************************************************************
 	 * 			Métodos administrativos
 	 *****************************************************************/
@@ -2085,6 +2185,70 @@ public class InterfazAforoApp extends JFrame implements ActionListener
 		}
 		return resp;
 
+	}
+	private String listarObjectRFC7(List<Object[]> lista) 
+	{
+		String resp = "Analizando la operación de AFORO CC- ANDES:\n";
+		int aforoT=(Integer)lista.get(0)[1];
+		for (int i=0;i<lista.size();i++) 
+		{
+			if(aforoT==(Integer)lista.get(i)[1])
+			{
+				resp+="------------------\n";
+				resp+="Fecha de Mayor influencia\n";
+				resp+="------------------\n";
+			}
+			for(int j=0;j<lista.get(i).length;j++)
+			{
+				resp +=lista.get(i)[j]+"\n";
+			}
+		}
+		return resp;
+	}
+	private String listarObjectRFC8(List<Object[]> lista) 
+	{
+		String resp = "Los usuarios mas frecuentes son:\n";
+		for (int i=0;i<lista.size();i++) 
+		{
+			int indice=i+1;
+			resp+="------------------\n";
+			resp+="Visitante #"+indice+"\n";
+			resp+="------------------\n";
+			for(int j=0;j<lista.get(i).length;j++)
+			{
+				resp +=lista.get(i)[j]+"\n";
+			}
+		}
+		return resp;
+	}
+	private String listarObjectRFC9(List<Object[]> lista) 
+	{
+		String xd="0";
+		long idEspacioInicial=Long.parseLong(xd);
+		String resp = "Los visitantes en contacto en el mismo lugar a la misma hora fueron:\n";
+		for (int i=0;i<lista.size();i++) 
+		{ 
+			long idEspacioActual=(long)lista.get(i)[6];
+			if(idEspacioInicial!=idEspacioActual)
+			{
+				idEspacioInicial=idEspacioActual;
+				resp+="|-----------------------------------------------------------------------|\n";
+				resp+="|-----------------------------------------------------------------------|\n";
+				resp+="|ESPACIO CON ID: "+idEspacioInicial+"                                                        |\n";
+				resp+="|-----------------------------------------------------------------------|\n";
+				resp+="|-----------------------------------------------------------------------|\n";
+			}
+			int indice=i+1;
+			resp+="------------------\n";
+			resp+="Visitante #"+indice+"\n";
+			resp+="------------------\n";
+			for(int j=0;j<lista.get(i).length;j++)
+			{
+				resp+=j==6?"Id del espacio visitado: ":"";
+				resp +=lista.get(i)[j]+"\n";
+			}
+		}
+		return resp;
 	}
 	/**
 	 * Genera una cadena de caracteres con la descripción de la excepcion e, haciendo énfasis en las excepcionsde JDO

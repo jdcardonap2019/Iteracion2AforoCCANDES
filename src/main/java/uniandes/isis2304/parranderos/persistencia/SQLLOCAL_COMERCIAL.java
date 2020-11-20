@@ -117,5 +117,23 @@ class SQLLOCAL_COMERCIAL
 		q.setParameters(tipo, ts1, ts2);
 		return q.executeList();
 	}
+	public List<Object> RFC8(PersistenceManager pm,String nombreRestaurante	)
+	{
+		String sql = "SELECT VISITANTE.NOMBRE, VISITANTE.TELEFONO, VISITANTE.CORREO, idCarnetUsuario, numVisitasEseMes, mes";
+        sql += " FROM(SELECT aidi, name, mes, idCarnetUsuario, numVisitasEseMes";
+        sql += " FROM(SELECT aidi, name, EXTRACT(MONTH FROM CAST(FECHAYHORA_OP as DATE)) as mes, VISITA.IDCARNET as idCarnetUsuario, COUNT(VISITA.FECHAYHORA_OP) as numVisitasEseMes";
+        sql += " FROM(SELECT IDESPACIO as aidi, NOMBRE as name";
+        sql += " FROM  "+pp.darTablaLOCAL_COMERCIAL();
+        sql += " WHERE NOMBRE=?)";
+        sql += " INNER JOIN "+pp.darTablaVISITA()+" ON VISITA.IDESPACIO=aidi";
+       	sql	+= " GROUP BY VISITA.IDCARNET, EXTRACT(MONTH FROM CAST(FECHAYHORA_OP as DATE)), aidi, name)";
+       	sql	+= " WHERE numVisitasEseMes>=3)";
+       	sql	+= " INNER JOIN CARNET ON CARNET.ID_CARNET=idCarnetUsuario";
+       	sql	+= " INNER JOIN VISITANTE ON CARNET.CEDULA=VISITANTE.CEDULA AND NOT VISITANTE.TIPO_VISITANTE='Mantenimiento' AND NOT VISITANTE.TIPO_VISITANTE='Domiciliarios'";
+       	sql	+= " GROUP BY VISITANTE.NOMBRE, VISITANTE.TELEFONO, VISITANTE.CORREO, idCarnetUsuario, numVisitasEseMes, mes";
+       	Query q = pm.newQuery(SQL, sql);
+		q.setParameters(nombreRestaurante);
+		return q.executeList();
+	}
 
 }

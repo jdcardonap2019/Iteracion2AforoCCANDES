@@ -495,6 +495,13 @@ public class AFOROCCANDES
         log.info ("Mostando informacion: Listo!");
         return visitas;
 	}
+	public List<Object[]> RFC8(String nombre)
+	{
+        log.info ("Mostrando informacion de los clientes frecuentes del local");
+        List<Object[]> visitas = pp.RFC8(nombre);
+        log.info ("Mostando informacion: Listo!");
+        return visitas;
+	}
 	
 	/* ****************************************************************
 	 * 			Métodos para manejar la relación VISITA
@@ -557,6 +564,20 @@ public class AFOROCCANDES
         log.info ("Listando 20 establecimientos mas populares");
         List<Object[]> visitas = pp.RFC2(fechaInicio, fechaFin);	
         log.info ("Listando establecimientos: Listo!");
+        return visitas;
+	}
+	public List<Object[]> RFC7(Timestamp fecha1,Timestamp fecha2,String tipo)
+	{
+        log.info ("Analizar la operacion de AFORO-CCANDES");
+        List<Object[]> visitas = pp.RFC7(fecha1, fecha2, tipo);	
+        log.info ("Listando visitantes: Listo!");
+        return visitas;
+	}
+	public List<Object[]> RFC9(Timestamp fechaInicio)
+	{
+        log.info ("Mostrando los contactos entre visitantes en la fecha dada");
+        List<Object[]> visitas = pp.RFC9(fechaInicio);	
+        log.info ("Listando visitantes: Listo!");
         return visitas;
 	}
 	/* ****************************************************************

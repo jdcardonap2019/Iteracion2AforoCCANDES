@@ -5,6 +5,64 @@
 	"bannerPath": "./src/main/resources/config/logo.png",
 	"menuBar":
 	[
+		{ "menuTitle": "RFCs",
+			"options":
+			  [
+				{
+					"label": "RFC1Admin - Mostrar todos los visitantes atendidos por un espacio",
+					"event": "RFC1AdminEstablecimiento"
+				},
+				{
+					"label": "RFC1AdminCentro - Mostrar todos los visitantes atendidos en un rango establecido",
+					"event": "RFC1AdminCentro"
+				},
+				{
+					"label": "RFC2 - Mostrar los 20 establecimientos mas populares en un rango establecido",
+					"event": "RFC2"
+				},
+				{
+					"label": "RFC3 - Mostrar los indices de aforo para un establecimiento y CC- AdminEstablecimiento",
+					"event": "RFC3AdminEstablecimiento"
+				},
+				{
+					"label": "RFC3 - Mostrar los indices de aforo para un establecimiento y CC- AdminCentro",
+					"event": "RFC3AdminCentro"
+				},
+				{
+					"label": "RFC3 - Mostrar los indices de aforo para un tipo de establecimiento y CC- AdminCentro",
+					"event": "RFC3AdminCentroPorTipo"
+				},
+				{
+					"label": "RFC4 - Mostrar espacios con aforo disponible",
+					"event": "RFC4"
+				},
+				{
+					"label": "RFC5 - Mostrar el comportamiento por tipo de visitante",
+					"event": "RFC5PorTipoVisitante"
+				},
+				{
+					"label": "RFC5 - Mostrar el comportamiento por tipo de local",
+					"event": "RFC5PorTipoLocal"
+				},
+				{
+					"label": "RFC6 - Mostrar el comportamiento de un visitante",
+					"event": "RFC6"
+				},
+				{
+					"label": "RFC7 - Analizar operacion de Aforo CC-Andes",
+					"event": "RFC7"
+				},
+				{
+					"label": "RFC8 - Clientes mas frecuentes de un local",
+					"event": "RFC8"
+				},
+				{
+					"label": "RFC9 - Mostrar los visitantes que tuvieron contacto con otros a una hora dada ",
+					"event": "RFC9"
+				}
+
+			  ]
+		  },
 		{ "menuTitle": "Parqueaderos",
 		  "options":
 			[
@@ -40,22 +98,6 @@
 				  {
 					  "label": "Borrar por Id",
 					  "event": "eliminarEspacioPorId"
-				  },
-				  {
-					  "label": "RFC3 - Mostrar los indices de aforo para un establecimiento y CC- AdminEstablecimiento",
-					  "event": "RFC3AdminEstablecimiento"
-				  },
-				  {
-					  "label": "RFC3 - Mostrar los indices de aforo para un establecimiento y CC- AdminCentro",
-					  "event": "RFC3AdminCentro"
-				  },
-				  {
-					  "label": "RFC3 - Mostrar los indices de aforo para un tipo de establecimiento y CC- AdminCentro",
-					  "event": "RFC3AdminCentroPorTipo"
-				  },
-				  {
-					  "label": "RFC4 - Mostrar espacios con aforo disponible",
-					  "event": "RFC4"
 				  }
 			  ]
 		  },
@@ -73,19 +115,6 @@
 				  {
 					  "label": "Borrar por Id",
 					  "event": "eliminarVisitaPorId"
-				  },
-				  {
-					  "label": "RFC1Admin - Mostrar todos los visitantes atendidos por un espacio",
-					  "event": "RFC1AdminEstablecimiento"
-				  },
-				  {
-					  "label": "RFC1AdminCentro - Mostrar todos los visitantes atendidos en un rango establecido",
-					  "event": "RFC1AdminCentro"
-				  }
-				  ,
-				  {
-					  "label": "RFC2 - Mostrar los 20 establecimientos mas populares en un rango establecido",
-					  "event": "RFC2"
 				  }
 			  ]
 		  },
@@ -107,14 +136,6 @@
 				  {
 					  "label": "Borrar visitante por Nombre",
 					  "event": "eliminarVisitantesPorNombre"
-				  },
-				  {
-					  "label": "RFC5 - Mostrar el comportamiento por tipo de visitante",
-					  "event": "RFC5PorTipoVisitante"
-				  },
-				  {
-					  "label": "RFC6 - Mostrar el comportamiento de un visitante",
-					  "event": "RFC6"
 				  }
 			  ]
 		  },
@@ -190,11 +211,6 @@
 				{
 					"label": "Dar local comercial por Id",
 					"event": "buscarLocalComercialPorId"
-				},
-				{
-					"label": "RFC5 - Mostrar el comportamiento por tipo de local",
-					"event": "RFC5PorTipoLocal"
-				}
 			  ]
 		  },
 		  { "menuTitle": "Baño",

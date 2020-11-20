@@ -136,5 +136,73 @@ class SQLVISITA
 		q.setParameters(fechaInicio, fechaFin);
 		return q.executeList();
 	}
+	public List<Object> RFC7(PersistenceManager pm, Timestamp fecha1,Timestamp fecha2, String tipo)
+	{
+		String sql = "(SELECT A.flecho as flechin,B.SumaTotalAforoMaximo";
+        sql += " FROM(SELECT flecho, jjjj, establi, idEsXd, SUM(numVisitas) as Sumavisitas";
+        sql += " FROM(SELECT idEsXd, flecho, numVisitas, LOCAL_COMERCIAL.NOMBRE as jjjj, LOCAL_COMERCIAL.TIPO_ESTABLECIMIENTO as establi";
+        sql += " FROM(SELECT IDESPACIO as idEsXd, FECHAYHORA_OP as flecho, COUNT(TIPO_OP) as NumVisitas";
+        sql += " FROM "+pp.darTablaVISITA();
+       	sql	+= " WHERE FECHAYHORA_OP BETWEEN ? AND ?";
+      	sql	+= " GROUP BY IDESPACIO, FECHAYHORA_OP)";
+       	sql	+= " INNER JOIN "+pp.darTablaLOCAL_COMERCIAL() +" ON LOCAL_COMERCIAL.IDESPACIO=idEsXd AND LOCAL_COMERCIAL.TIPO_ESTABLECIMIENTO=?)";
+       	sql	+= " GROUP BY flecho,  jjjj, establi, idEsXd";
+       	sql	+= " ORDER BY SUM(numVisitas) DESC)A,";
+       	sql	+= " (SELECT SUM(cd) as SumaTotalAforoMaximo";
+       	sql += " FROM(SELECT ID_ESPACIO as idd, AFORO_TOTAL as cd";
+        sql += " FROM "+pp.darTablaESPACIO()+")";
+        sql += " INNER JOIN "+pp.darTablaLOCAL_COMERCIAL()+" ON LOCAL_COMERCIAL.IDESPACIO=idd AND local_comercial.tipo_establecimiento=?) B";
+        sql += " WHERE ROWNUM<2)UNION";
+        sql += " (SELECT A.flecho2 as flechin2, b.noventaporcientoaforomaximo as XD2";
+       	sql	+= " FROM(SELECT flecho2, jjjj2, establi2, idEsXd2, SUM(numVisitas2) as Sumavisitas2";
+      	sql	+= " FROM(SELECT idEsXd2, flecho2, numVisitas2, LOCAL_COMERCIAL.NOMBRE as jjjj2, LOCAL_COMERCIAL.TIPO_ESTABLECIMIENTO as establi2";
+       	sql	+= " FROM(SELECT IDESPACIO as idEsXd2, FECHAYHORA_OP as flecho2, COUNT(TIPO_OP) as NumVisitas2";
+       	sql	+= " FROM "+pp.darTablaVISITA();
+       	sql	+= " WHERE FECHAYHORA_OP BETWEEN ? AND ?";
+       	sql	+= " GROUP BY IDESPACIO, FECHAYHORA_OP)";
+       	sql += " INNER JOIN "+pp.darTablaLOCAL_COMERCIAL()+" ON LOCAL_COMERCIAL.IDESPACIO=idEsXd2 AND LOCAL_COMERCIAL.TIPO_ESTABLECIMIENTO=?)";
+        sql += " GROUP BY flecho2,  jjjj2, establi2, idEsXd2";
+        sql += " ORDER BY SUM(numVisitas2) DESC)A,";
+        sql += " (SELECT SUM(cd)*0.9 as NoventaPorcientoAforoMaximo";
+        sql += " FROM(SELECT ID_ESPACIO as idd, AFORO_TOTAL as cd";
+       	sql	+= " FROM "+pp.darTablaESPACIO()+")";
+      	sql	+= " INNER JOIN "+pp.darTablaLOCAL_COMERCIAL()+" ON LOCAL_COMERCIAL.IDESPACIO=idd AND local_comercial.tipo_establecimiento=?) B";
+       	sql	+= " WHERE A.SumaVisitas2>b.noventaporcientoaforomaximo AND ROWNUM<2)UNION";
+       	sql	+= " (SELECT A.flecho3 as flechin3, b.diezporcientoaforomaximo as XD3";
+       	sql	+= " FROM(SELECT flecho3, jjjj3, establi3, idEsXd3, SUM(numVisitas3) as Sumavisitas3";
+       	sql	+= " FROM(SELECT idEsXd3, flecho3, numVisitas3, LOCAL_COMERCIAL.NOMBRE as jjjj3, LOCAL_COMERCIAL.TIPO_ESTABLECIMIENTO as establi3";
+       	sql += " FROM(SELECT IDESPACIO as idEsXd3, FECHAYHORA_OP as flecho3, COUNT(TIPO_OP) as NumVisitas3";
+        sql += " FROM "+pp.darTablaVISITA();
+        sql += " WHERE FECHAYHORA_OP BETWEEN ? AND ?";
+        sql += " GROUP BY IDESPACIO, FECHAYHORA_OP)";
+        sql += " INNER JOIN "+pp.darTablaLOCAL_COMERCIAL()+" ON LOCAL_COMERCIAL.IDESPACIO=idEsXd3 AND LOCAL_COMERCIAL.TIPO_ESTABLECIMIENTO=?)";
+       	sql	+= " GROUP BY flecho3,  jjjj3, establi3, idEsXd3";
+      	sql	+= " ORDER BY SUM(numVisitas3) ASC)A,";
+       	sql	+= " (SELECT SUM(cd)*0.1 as DiezPorcientoAforoMaximo";
+       	sql	+= " FROM(SELECT ID_ESPACIO as idd, AFORO_TOTAL as cd";
+       	sql	+= " FROM "+pp.darTablaESPACIO()+")";
+       	sql	+= " INNER JOIN "+pp.darTablaLOCAL_COMERCIAL()+" ON LOCAL_COMERCIAL.IDESPACIO=idd AND local_comercial.tipo_establecimiento=?) B";
+        sql += " WHERE A.SumaVisitas3<b.diezporcientoaforomaximo AND ROWNUM<2)";
+       	Query q = pm.newQuery(SQL, sql);
+		q.setParameters(fecha1, fecha2, tipo, tipo,fecha1, fecha2, tipo, tipo,fecha1, fecha2, tipo, tipo );
+		return (List)q.executeList();
+	}
+	public List<Object> RFC9(PersistenceManager pm, Timestamp fecha)
+	{
+		String sql = "SELECT fecha, usuarioCarnet, VISITANTE.NOMBRE, VISITANTE.TELEFONO, VISITANTE.CORREO, op, espacio";
+        sql += " FROM(SELECT visitaxs.IDESPACIO espacio, visitaxs.FECHAYHORA_OP fecha, visitaxs.IDCARNET as usuarioCarnet, visitaxs.tipo_op as op";
+        sql += " FROM "+pp.darTablaVISITA()+" visitaxs, (SELECT * FROM "+pp.darTablaVISITA()+") visita2";
+        sql += " WHERE visitaxs.IDESPACIO=visita2.IDESPACIO";
+        sql += " AND visitaxs.fechayhora_op=visita2.fechayhora_op";
+       	sql	+= " AND NOT visitaxs.idcarnet=visita2.idcarnet";
+      	sql	+= " AND visitaxs.fechayhora_op BETWEEN ?-10 AND ?)";
+       	sql	+= " INNER JOIN "+pp.darTablaCARNET()+" ON CARNET.ID_CARNET=usuarioCarnet";
+       	sql	+= " INNER JOIN "+pp.darTablaVISITANTE()+" ON CARNET.CEDULA=VISITANTE.CEDULA";
+       	sql	+= " GROUP BY fecha,usuarioCarnet,VISITANTE.NOMBRE, VISITANTE.TELEFONO, VISITANTE.CORREO, op, espacio";
+       	sql	+= " ORDER BY espacio ASC";
+       	Query q = pm.newQuery(SQL, sql);
+		q.setParameters(fecha, fecha);
+		return q.executeList();
+	}
 		 	
 }

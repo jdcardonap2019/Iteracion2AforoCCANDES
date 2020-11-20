@@ -1,68 +1,44 @@
-23:14:14,352 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Interfaz
-23:14:14,353 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se aplica configuración indicada en el archivo de configuración
-23:14:14,374 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Tablas BD
-23:14:26,111 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Mostrando informacion de las visitas segun tipo de local
-23:14:26,735 (AWT-EventQueue-0) ERROR [uniandes.isis2304.parranderos.persistencia.PersistenciaAforo] - Exception : Error con la ejecucion de Query de SQL "SELECT IdEspacioXd, nombre, COUNT(VISITA.TIPO_OP) as NumeroVisitas FROM  LOCAL_COMERCIAL WHERE TIPO_ESTABLECIMIENTO=?) INNER JOIN VISITA IdEspacioXd=visita.idespacio WHERE visita.fechayhora_op BETWEEN ? AND ? GROUP BY IdEspacioXd, nombre".
-ORA-00933: comando SQL no terminado correctamente
+00:32:19,494 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Interfaz
+00:32:19,494 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se aplica configuración indicada en el archivo de configuración
+00:32:19,516 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Tablas BD
+00:32:54,723 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Listando Visitas del establecimiento
+00:32:55,297 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Listando Visitas: Listo!
+00:33:28,446 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Listando Visitas generales
+00:33:28,602 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Listando Visitas: Listo!
+00:33:52,496 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Listando 20 establecimientos mas populares
+00:33:52,603 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Listando establecimientos: Listo!
+00:34:21,312 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Mostrando los indices del centro comercial y establecimiento elegido
+00:34:21,417 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Mostando indices: Listo!
+00:34:31,051 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Mostrando los indices del centro comercial y establecimiento elegido
+00:34:31,168 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Mostando indices: Listo!
+00:34:35,476 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Mostrando los indices del centro comercial y establecimiento elegido
+00:34:35,608 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Mostando indices: Listo!
+00:34:46,143 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Mostrando los indices del centro comercial y tipo de establecimiento elegido
+00:34:46,258 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Mostando indices: Listo!
+00:34:55,932 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Mostrando los espacios del centro comercial con aforo disponible
+00:34:56,158 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Mostando espacios: Listo!
+00:35:12,075 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Mostrando informacion de las visitas segun tipo de visitante
+00:35:12,197 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Mostando informacion: Listo!
+00:35:53,694 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Mostrando informacion de las visitas segun tipo de local
+00:35:53,828 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Mostando informacion: Listo!
+00:36:15,964 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Mostrando informacion de las visitas por visitante
+00:36:16,076 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Mostando informacion: Listo!
+00:36:39,129 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Analizar la operacion de AFORO-CCANDES
+00:36:39,191 (AWT-EventQueue-0) ERROR [uniandes.isis2304.parranderos.persistencia.PersistenciaAforo] - Exception : java.lang.Boolean cannot be cast to java.util.List
 
-23:14:26,819 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Mostando informacion: Listo!
-23:16:27,138 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Interfaz
-23:16:27,139 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se aplica configuración indicada en el archivo de configuración
-23:16:27,204 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Tablas BD
-23:16:45,634 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Mostrando informacion de las visitas segun tipo de local
-23:16:46,191 (AWT-EventQueue-0) ERROR [uniandes.isis2304.parranderos.persistencia.PersistenciaAforo] - Exception : Error con la ejecucion de Query de SQL "SELECT IdEspacioXd, nombre, COUNT(VISITA.TIPO_OP) as NumeroVisitas FROM (SELECT IDESPACIO as IdEspacioXd, NOMBRE as nombre FROM  LOCAL_COMERCIAL WHERE TIPO_ESTABLECIMIENTO=?) INNER JOIN VISITA IdEspacioXd=visita.idespacio WHERE visita.fechayhora_op BETWEEN ? AND ? GROUP BY IdEspacioXd, nombre".
-ORA-00905: falta una palabra clave
-
-23:16:46,302 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Mostando informacion: Listo!
-23:18:22,045 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Interfaz
-23:18:22,046 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se aplica configuración indicada en el archivo de configuración
-23:18:22,073 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Tablas BD
-23:18:31,509 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Mostrando informacion de las visitas segun tipo de local
-23:18:32,350 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Mostando informacion: Listo!
-00:01:15,159 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Interfaz
-00:01:15,161 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se aplica configuración indicada en el archivo de configuración
-00:01:15,196 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Tablas BD
-00:04:31,289 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Interfaz
-00:04:31,290 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se aplica configuración indicada en el archivo de configuración
-00:04:31,319 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Tablas BD
-00:04:58,151 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Mostrando informacion de las visitas por visitante
-00:04:58,864 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Mostando informacion: Listo!
-00:05:35,197 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Interfaz
-00:05:35,197 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se aplica configuración indicada en el archivo de configuración
-00:05:35,224 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Tablas BD
-00:05:47,904 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Mostrando informacion de las visitas por visitante
-00:05:48,527 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Mostando informacion: Listo!
-00:06:22,286 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Interfaz
-00:06:22,288 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se aplica configuración indicada en el archivo de configuración
-00:06:22,335 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Tablas BD
-00:06:32,888 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Mostrando informacion de las visitas por visitante
-00:06:33,581 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Mostando informacion: Listo!
-00:08:49,337 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Interfaz
-00:08:49,338 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se aplica configuración indicada en el archivo de configuración
-00:08:49,360 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Tablas BD
-00:09:15,933 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Interfaz
-00:09:15,933 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se aplica configuración indicada en el archivo de configuración
-00:09:15,955 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Tablas BD
-00:10:38,528 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Interfaz
-00:10:38,529 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se aplica configuración indicada en el archivo de configuración
-00:10:38,551 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Tablas BD
-00:11:06,081 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Mostrando informacion de las visitas por visitante
-00:11:06,645 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Mostando informacion: Listo!
-00:11:28,145 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Mostrando informacion de las visitas segun tipo de visitante
-00:11:28,356 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Mostando informacion: Listo!
-00:39:16,443 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Interfaz
-00:39:16,460 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se aplica configuración indicada en el archivo de configuración
-00:39:16,498 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Tablas BD
-00:41:00,595 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Interfaz
-00:41:00,595 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se aplica configuración indicada en el archivo de configuración
-00:41:00,614 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Tablas BD
-00:41:12,127 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Mostrando los espacios del centro comercial con aforo disponible
-00:41:12,709 (AWT-EventQueue-0) ERROR [uniandes.isis2304.parranderos.persistencia.PersistenciaAforo] - Exception : Error con la ejecucion de Query de SQL "SELECT ID_ESPACIO, AFORO_ACTUAL, AFORO_TOTAL, ESTADO FROM  ESPACIO), WHERE AFORO_ACTUAL<AFORO_TOTAL".
-ORA-00933: comando SQL no terminado correctamente
-
-00:41:12,799 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Mostando espacios: Listo!
-00:42:22,729 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Interfaz
-00:42:22,729 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se aplica configuración indicada en el archivo de configuración
-00:42:22,760 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Tablas BD
-00:42:31,866 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Mostrando los espacios del centro comercial con aforo disponible
-00:42:32,655 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Mostando espacios: Listo!
+00:36:39,276 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Listando visitantes: Listo!
+00:36:48,058 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Mostrando informacion de los clientes frecuentes del local
+00:36:48,172 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Mostando informacion: Listo!
+00:37:15,719 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Mostrando los contactos entre visitantes en la fecha dada
+00:37:15,844 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Listando visitantes: Listo!
+00:39:08,243 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - NO se encontró un archivo de configuración válido
+00:39:14,288 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se aplica configuración por defecto
+00:39:14,290 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Tablas BD
+00:39:20,609 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - NO se encontró un archivo de configuración válido
+00:39:22,639 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se aplica configuración por defecto
+00:39:22,643 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Tablas BD
+00:41:29,704 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Interfaz
+00:41:29,704 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se aplica configuración indicada en el archivo de configuración
+00:41:29,720 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Tablas BD
+00:41:48,709 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Mostrando informacion de las visitas segun tipo de local
+00:41:49,274 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.AFOROCCANDES] - Mostando informacion: Listo!

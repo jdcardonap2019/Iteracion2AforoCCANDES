@@ -1067,7 +1067,49 @@ public class PersistenciaAforo
             pm.close();
         }		
 	}
-
+	public List<Object[]> RFC8(String nombre)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try{
+			tx.begin();
+			List<Object []> respuesta = new LinkedList <Object []> ();
+			List<Object> locales=sqlLocalComercial.RFC8(pm, nombre);
+			for(Object local: locales)
+			{
+				Object [] datos = (Object []) local;
+				String nombreVisitante= (String) datos [0];
+				float telefono= ((BigDecimal) datos [1]).floatValue ();;
+				String correo= (String) datos [2];
+				long idCarnetUsuario= ((BigDecimal) datos [3]).longValue ();;
+				int contadorVisitas= ((BigDecimal) datos [4]).intValue();
+				int mes= ((BigDecimal) datos [5]).intValue();
+				
+				Object [] resp = new Object [5];
+				resp[0]="[Nombre: "+nombreVisitante;
+				resp[1]="Telefono: "+telefono;
+				resp[2]="Correo: "+correo;
+				resp[3]="Id Carnet en ese momento: "+idCarnetUsuario;
+				resp[4]="Numero de visitas en el mes "+mes+" : "+contadorVisitas+"]";
+				
+				respuesta.add(resp);
+			}
+			return respuesta;
+		}catch(Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+            return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }		
+	}
 	/* ****************************************************************
 	 * 			Métodos para manejar la relación VISITA
 	 *****************************************************************/
@@ -1303,6 +1345,89 @@ public class PersistenciaAforo
 				resp[1]="Nombre establecimiento: "+nombreEstablecimiento;
 				resp[2]="Tipo establecimiento: "+tipoEstablecimiento;
 				resp[3]="Numero visitas: "+contadorVisitas;
+				
+				respuesta.add(resp);
+			}
+			return respuesta;
+		}catch(Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+            return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }		
+	}
+	public List<Object[]> RFC7(Timestamp fecha1,Timestamp fecha2, String tipo)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try{
+			tx.begin();
+			List<Object []> respuesta = new LinkedList <Object []> ();
+			List<Object> visitantes=sqlVisita.RFC7(pm, fecha1,fecha2,tipo);
+			for(Object visitante: visitantes)
+			{
+				Object [] datos = (Object []) visitante;
+				TIMESTAMP fechaXd= ((TIMESTAMP) datos [0]);
+				int datoNumerico=((BigDecimal)datos[1]).intValue();
+				
+				Object [] resp = new Object [2];
+				resp[0]="[Fecha: "+fechaXd+" ]";
+				resp[1]=datoNumerico;
+				
+				
+				respuesta.add(resp);
+			}
+			return respuesta;
+		}catch(Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+            return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }		
+	}
+	public List<Object[]> RFC9(Timestamp fecha)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try{
+			tx.begin();
+			List<Object []> respuesta = new LinkedList <Object []> ();
+			List<Object> visitantes=sqlVisita.RFC9(pm, fecha);
+			for(Object visitante: visitantes)
+			{
+				Object [] datos = (Object []) visitante;
+				TIMESTAMP fechaXd= ((TIMESTAMP) datos [0]);
+				long idCarnet= ((BigDecimal) datos [1]).longValue();
+				String nombre= (String) datos [2];
+				float telefono= ((BigDecimal) datos [3]).floatValue();
+				String correo= (String) datos [4];
+				String operacion= (String) datos [5];
+				long idEspacio= ((BigDecimal) datos [6]).longValue();
+				
+				Object [] resp = new Object [7];
+				resp[0]="[Fecha: "+fechaXd;
+				resp[1]="Id carnet: "+idCarnet;
+				resp[2]="Nombre visitante: "+nombre;
+				resp[3]="Telefono visitante: "+telefono;
+				resp[4]="Correo visitante: "+correo;
+				resp[5]="Tipo operacion: "+operacion;
+				resp[6]=idEspacio;
 				
 				respuesta.add(resp);
 			}
