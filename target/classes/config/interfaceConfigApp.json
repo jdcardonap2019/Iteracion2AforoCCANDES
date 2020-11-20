@@ -62,7 +62,7 @@
 				}
 
 			  ]
-		  },
+			},
 		{ "menuTitle": "Parqueaderos",
 		  "options":
 			[
@@ -211,6 +211,7 @@
 				{
 					"label": "Dar local comercial por Id",
 					"event": "buscarLocalComercialPorId"
+				}
 			  ]
 		  },
 		  { "menuTitle": "Baño",
