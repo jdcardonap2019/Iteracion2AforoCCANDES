@@ -345,6 +345,26 @@ public class AFOROCCANDES
         log.info ("Mostando espacios: Listo!");
         return visitas;
 	}
+	public void RF9(String estado, long id)
+	{
+        log.info ("Registrando el cambio de estado del espacio ");
+         pp.RF9(estado, id);
+        log.info ("Listo!");
+	}
+	public void RF11(String estado, long id)
+	{
+        log.info ("Registrando el cambio de estado del espacio ");
+         pp.RF11(estado, id);
+        log.info ("Listo!");
+	}
+	public void RF12(long id)
+	{
+        log.info ("Registrando el cambio de estado del espacio ");
+         pp.RF12( id);
+        log.info ("Listo!");
+	}
+	
+	
 	/* ****************************************************************
 	 * 			Métodos para manejar la relación LECTOR
 	 *****************************************************************/

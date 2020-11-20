@@ -686,6 +686,90 @@ public class InterfazAforoApp extends JFrame implements ActionListener
 			panelDatos.actualizarInterfaz(resultado);
 		}
 	}
+	public void RF9()
+	{
+		try 
+		{
+			String idTipoStr = JOptionPane.showInputDialog (this, "Insertar id del espacio y el estado a cambiar separados por comas", "Registrar cambio de estado de un Espacio", JOptionPane.QUESTION_MESSAGE);
+			if (idTipoStr != null)
+			{
+				String[] datos=idTipoStr.split(",");
+				String id=datos[0];
+				String estado=datos[1];
+				long idEspacio = Long.valueOf(id);
+				aforo.RF9(estado, idEspacio);
+				String resultado = "Registro exitoso!";
+				resultado += "\n Operación terminada";
+				panelDatos.actualizarInterfaz(resultado);
+			}
+			else
+			{
+				panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+			}
+		} 
+		catch (Exception e) 
+		{
+			//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+	}
+	public void RF11()
+	{
+		try 
+		{
+			String idTipoStr = JOptionPane.showInputDialog (this, "Insertar id del espacio y 'Deshabilitar'  separados por comas para deshabilitar el espacio", "Deshabilitar un espacio", JOptionPane.QUESTION_MESSAGE);
+			if (idTipoStr != null)
+			{
+				String[] datos=idTipoStr.split(",");
+				String id=datos[0];
+				String estado=datos[1];
+				long idEspacio = Long.valueOf(id);
+				aforo.RF11(estado, idEspacio);
+				String resultado = "Registro exitoso!";
+				resultado += "\n Operación terminada";
+				panelDatos.actualizarInterfaz(resultado);
+			}
+			else
+			{
+				panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+			}
+		} 
+		catch (Exception e) 
+		{
+			//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+	}
+	public void RF12()
+	{
+		try 
+		{
+			String idTipoStr = JOptionPane.showInputDialog (this, "Insertar id del espacio y el estado a cambiar separados por comas", "Registrar cambio de estado de un Espacio", JOptionPane.QUESTION_MESSAGE);
+			if (idTipoStr != null)
+			{
+				String[] datos=idTipoStr.split(",");
+				String id=datos[0];
+				String estado=datos[1];
+				long idEspacio = Long.valueOf(id);
+				aforo.RF11(estado, idEspacio);
+				String resultado = "Registro exitoso!";
+				resultado += "\n Operación terminada";
+				panelDatos.actualizarInterfaz(resultado);
+			}
+			else
+			{
+				panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+			}
+		} 
+		catch (Exception e) 
+		{
+			//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+	}
 	/* ****************************************************************
 	 * 			CRUD DE VISITA
 	 *****************************************************************/
@@ -1198,6 +1282,35 @@ public class InterfazAforoApp extends JFrame implements ActionListener
 			panelDatos.actualizarInterfaz(resultado);
 		}
 	}
+	public void RF8()
+	{
+		try 
+		{
+			String idTipoStr = JOptionPane.showInputDialog (this, "Insertar cedula del visitante y el estado a cambiar separados por comas", "Registrar cambio de estado de un Espacio", JOptionPane.QUESTION_MESSAGE);
+			if (idTipoStr != null)
+			{
+				String[] datos=idTipoStr.split(",");
+				String id=datos[0];
+				String estado=datos[1];
+				long idEspacio = Long.valueOf(id);
+				aforo.RF11(estado, idEspacio);
+				String resultado = "Registro exitoso!";
+				resultado += "\n Operación terminada";
+				panelDatos.actualizarInterfaz(resultado);
+			}
+			else
+			{
+				panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+			}
+		} 
+		catch (Exception e) 
+		{
+			//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+	}
+	/* *
 	/* ****************************************************************
 	 * 			CRUD DE CARNET
 	 *****************************************************************/

@@ -115,33 +115,15 @@ public class SQLVISITANTE {
 		return q.executeList();
 	}
 
-	/**
-	 * Crea y ejecuta la sentencia SQL para encontrar la información de LOS BEBEDORES Y DE SUS VISITAS REALIZADAS de la 
-	 * base de datos de Parranderos
-	 * @param pm - El manejador de persistencia
-	 * @param idBebedor - El identificador del bebedor
-	 * @return Una lista de arreglos de objetos, de tamaño 7. Los elementos del arreglo corresponden a los datos de 
-	 * los bares visitados y los datos propios de la visita:
-	 * 		(id, nombre, ciudad, presupuesto, cantsedes) de los bares y (fechavisita, horario) de las visitas
-	 */
-	/*public List<Object []> darVisitasRealizadas (PersistenceManager pm, long idBebedor)
+	public void RF8RegistrarCambioDeEstado(PersistenceManager pm,String estado,long cedula)
 	{
-        String sql = "SELECT bar.id, bar.nombre, bar.ciudad, bar.presupuesto, bar.cantsedes, vis.fechavisita, vis.horario";
-        sql += " FROM ";
-        sql += pp.darTablaBebedor () + " bdor, ";
-        sql += pp.darTablaVisitan () + " vis, ";
-        sql += pp.darTablaBar () + " bar ";
-       	sql	+= " WHERE ";
-       	sql += "bdor.id = ?";
-       	sql += " AND bdor.id = vis.idbebedor";
-       	sql += " AND vis.idbar = bar.id";
-		Query q = pm.newQuery(SQL, sql);
-		q.setParameters(idBebedor);
-		return q.executeList();
+		String sql = "UPDATE ";
+        sql += pp.darTablaVISITANTE();
+        sql += " SET ESTADO=?";
+        sql += " WHERE CEDULA=?";
+       	Query q = pm.newQuery(SQL, sql);
+		q.setParameters(estado,cedula);
 	}
-	*/
-
-
 
 	
 
