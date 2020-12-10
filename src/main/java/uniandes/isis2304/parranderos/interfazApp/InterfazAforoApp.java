@@ -334,6 +334,108 @@ public class InterfazAforoApp extends JFrame implements ActionListener
 			panelDatos.actualizarInterfaz(resultado);
 		}
 	}
+	public void RFC10()
+	{
+		try 
+		{
+			String idTipoStr = JOptionPane.showInputDialog (this, "Fecha inicial, fecha final, id del establecimiento, característica de ordenamiento"
+					, "Visitantes en contacto ", JOptionPane.QUESTION_MESSAGE);
+			if (idTipoStr != null)
+			{
+				String[] datos=idTipoStr.split(",");
+				String fechaInicio=datos[0];
+				String fechaFin= datos[1];
+				String id= datos[2];
+				Long idE=Long.parseLong(id);
+				String consulta=datos[3];
+				//Convertir fechas
+				final String FORMAT = "yyyy-MM-dd HH:mm:ss.SSS";
+				DateFormat formatter = new SimpleDateFormat(FORMAT);
+
+				Date hOp = formatter.parse(fechaInicio);
+				Date hFin= formatter.parse(fechaFin);
+
+				Timestamp  ts1 = new Timestamp(hOp.getTime());
+				Timestamp  ts2 = new Timestamp(hFin.getTime());
+				
+				List <Object[]> visitantes= aforo.RFC10(idE, ts1, ts2, consulta);
+				String resultado = "Datos:";
+				resultado +=  "\n" + listarObjectRFC10(visitantes);
+				panelDatos.actualizarInterfaz(resultado);
+				resultado += "\n Operación terminada";
+
+			}
+			else
+			{
+				panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+			}
+		} 
+		catch (Exception e) 
+		{
+			//   			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+	}
+	public void RFC11()
+	{
+		try 
+		{
+			String idTipoStr = JOptionPane.showInputDialog (this, "Fecha inicial, fecha final, id del establecimiento, característica de ordenamiento"
+					, "Visitantes en contacto ", JOptionPane.QUESTION_MESSAGE);
+			if (idTipoStr != null)
+			{
+				String[] datos=idTipoStr.split(",");
+				String fechaInicio=datos[0];
+				String fechaFin= datos[1];
+				String id= datos[2];
+				Long idE=Long.parseLong(id);
+				String consulta=datos[3];
+				//Convertir fechas
+				final String FORMAT = "yyyy-MM-dd HH:mm:ss.SSS";
+				DateFormat formatter = new SimpleDateFormat(FORMAT);
+
+				Date hOp = formatter.parse(fechaInicio);
+				Date hFin= formatter.parse(fechaFin);
+
+				Timestamp  ts1 = new Timestamp(hOp.getTime());
+				Timestamp  ts2 = new Timestamp(hFin.getTime());
+				
+				List <Object[]> visitantes= aforo.RFC11(idE, ts1, ts2, consulta);
+				String resultado = "Datos:";
+				resultado +=  "\n" + listarObjectRFC10(visitantes);
+				panelDatos.actualizarInterfaz(resultado);
+				resultado += "\n Operación terminada";
+
+			}
+			else
+			{
+				panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+			}
+		} 
+		catch (Exception e) 
+		{
+			//   			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+	}
+	private String listarObjectRFC10(List<Object[]> lista) 
+	{
+		String resp = "Los visitantes que entraton al establecimiento entre esas horas fueron:\n";
+		for (int i=0;i<lista.size();i++) 
+		{ 
+			int indice=i+1;
+			resp+="------------------\n";
+			resp+="Visitante #"+indice+"\n";
+			resp+="------------------\n";
+			for(int j=0;j<lista.get(i).length;j++)
+			{
+				resp +=lista.get(i)[j]+"\n";
+			}
+		}
+		return resp;
+	}
 	public void buscarBañoPorId( )
 	{
 		try 

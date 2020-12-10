@@ -59,8 +59,15 @@
 				{
 					"label": "RFC9 - Mostrar los visitantes que tuvieron contacto con otros a una hora dada ",
 					"event": "RFC9"
+				},
+                {
+					"label": "RFC10 - Consultar visitas",
+					"event": "RFC10"
+				},
+				{
+					"label": "RFC11 - Consultar visitas",
+					"event": "RFC11"
 				}
-
 			  ]
 			},
 			{ "menuTitle": "RFs",

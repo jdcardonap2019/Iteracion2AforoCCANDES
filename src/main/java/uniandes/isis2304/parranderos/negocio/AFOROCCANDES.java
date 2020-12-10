@@ -702,7 +702,20 @@ public class AFOROCCANDES
         log.info ("Mostando informacion: Listo!");
         return visitas;
 	}
-	
+	public List<Object[]> RFC10( Long id_local, Timestamp fechaInicio, Timestamp fechaFin, String ordenar)
+	{
+        log.info ("Mostrando informacion de los visitantes en el establecimiento entre las fechas");
+        List<Object[]> visitas = pp.RFC10(id_local, fechaInicio, fechaFin, ordenar);
+        log.info ("Mostando informacion: Listo!");
+        return visitas;
+	}
+	public List<Object[]> RFC11( Long id_local, Timestamp fechaInicio, Timestamp fechaFin, String ordenar)
+	{
+        log.info ("Mostrando informacion de los visitantes en el establecimiento entre las fechas");
+        List<Object[]> visitas = pp.RFC11(id_local, fechaInicio, fechaFin, ordenar);;
+        log.info ("Mostando informacion: Listo!");
+        return visitas;
+	}
 	/* ****************************************************************
 	 * 			Métodos para administración
 	 *****************************************************************/

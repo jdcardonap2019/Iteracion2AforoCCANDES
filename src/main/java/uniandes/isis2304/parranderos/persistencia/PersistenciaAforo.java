@@ -1862,6 +1862,96 @@ public class PersistenciaAforo
 	            pm.close();
 	        }
 	}
+	public List<Object[]> RFC10( Long id_local, Timestamp fechaInicio, Timestamp fechaFin, String ordenar)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try{
+			tx.begin();
+			List<Object []> respuesta = new LinkedList <Object []> ();
+			List<Object> visitantes=sqlVisitante.RFC10(pm, id_local, fechaInicio, fechaFin, ordenar);
+			for(Object visitante: visitantes)
+			{
+				Object [] datos	 = (Object []) visitante;
+				Long cedula= ((BigDecimal) datos [0]).longValue();
+				String nombre=((String)datos[1]);
+				Float telefono=((BigDecimal)datos[2]).floatValue();
+				String nombre2=((String)datos[3]);
+				Float telefono2=((BigDecimal)datos[4]).floatValue();
+				String correo=((String)datos[5]);
+				
+				Object [] resp = new Object [6];
+				resp[0]="[Cedula: "+cedula+" ]";
+				resp[1]="[Nombre: "+nombre+" ]";
+				resp[2]="[Telefono: "+telefono+" ]";
+				resp[3]="[Nombre contacto: "+nombre2+" ]";
+				resp[4]="[Telefono contacto: "+telefono2+" ]";
+				resp[5]="[Correo: "+correo+" ]";
+				
+				
+				respuesta.add(resp);
+			}
+			return respuesta;
+		}catch(Exception e)
+        {
+      	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }		
+	}
+	public List<Object[]> RFC11( Long id_local, Timestamp fechaInicio, Timestamp fechaFin, String ordenar)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try{
+			tx.begin();
+			List<Object []> respuesta = new LinkedList <Object []> ();
+			List<Object> visitantes=sqlVisitante.RFC10(pm, id_local, fechaInicio, fechaFin, ordenar);
+			for(Object visitante: visitantes)
+			{
+				Object [] datos	 = (Object []) visitante;
+				Long cedula= ((BigDecimal) datos [0]).longValue();
+				String nombre=((String)datos[1]);
+				Float telefono=((BigDecimal)datos[2]).floatValue();
+				String nombre2=((String)datos[3]);
+				Float telefono2=((BigDecimal)datos[4]).floatValue();
+				String correo=((String)datos[5]);
+				
+				Object [] resp = new Object [6];
+				resp[0]="[Cedula: "+cedula+" ]";
+				resp[1]="[Nombre: "+nombre+" ]";
+				resp[2]="[Telefono: "+telefono+" ]";
+				resp[3]="[Nombre contacto: "+nombre2+" ]";
+				resp[4]="[Telefono contacto: "+telefono2+" ]";
+				resp[5]="[Correo: "+correo+" ]";
+				
+				
+				respuesta.add(resp);
+			}
+			return respuesta;
+		}catch(Exception e)
+        {
+      	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }		
+	}
 	public LECTOR darLectorPorId(long id) 
 	{
 		return sqlLector.darLectorPorId(pmf.getPersistenceManager(), id);

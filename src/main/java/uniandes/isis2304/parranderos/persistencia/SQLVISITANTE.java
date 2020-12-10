@@ -126,6 +126,43 @@ public class SQLVISITANTE {
 	}
 
 	
+	public List<Object> RFC10(PersistenceManager pm, Long id_local, Timestamp fechaInicio, Timestamp fechaFin, String ordenar)
+	{ 
+		String sql = "SELECT SELECT  VISITANTE.CEDULA, VISITANTE.NOMBRE, VISITANTE.TELEFONO, VISITANTE.NOMBRE_CONTACTO, VISITANTE.TELEFONO_CONTACTO, VISITANTE.CORREO";
+		sql +=" FROM(SELECT DISTINCT(IDCARNET)";
+		sql+=" FROM "+pp.darTablaVISITANTE();
+		sql+=" WHERE FECHAYHORA_OP BETWEEN ? AND ?";
+		sql+=" AND TIPO_OP='Entrada'";
+		sql+=" AND IDESPACIO=?)";
+		sql+=" INNER JOIN "+pp.darTablaCARNET()+" ON CARNET.ID_CARNET=IDCARNET";
+		sql+=" INNER JOIN "+pp.darTablaVISITANTE()+" VISITANTE.CEDULA=CARNET.CEDULA";
+		if(ordenar !="" && ordenar !=null) 
+		{
+			sql+="ORDER BY "+ ordenar;
+		}		
 
+		Query q = pm.newQuery(SQL, sql);
+		q.setParameters(fechaInicio,fechaFin,id_local);
+		return q.executeList();
+	}
+
+	public List<Object> RFC11(PersistenceManager pm, Long id_local, String fechaInicio, String fechaFin, String ordenar)
+	{ 
+		String sql = "SELECT SELECT  VISITANTE.CEDULA, VISITANTE.NOMBRE, VISITANTE.TELEFONO, VISITANTE.NOMBRE_CONTACTO, VISITANTE.TELEFONO_CONTACTO, VISITANTE.CORREO";
+		sql +=" FROM(SELECT DISTINCT(IDCARNET)";
+		sql+=" FROM "+pp.darTablaVISITANTE();
+		sql+=" WHERE FECHAYHORA_OP BETWEEN ? AND ?";
+		sql+=" AND TIPO_OP='Salida'";
+		sql+=" AND IDESPACIO=?)";
+		sql+=" INNER JOIN "+pp.darTablaCARNET()+" ON CARNET.ID_CARNET=IDCARNET";
+		sql+=" INNER JOIN "+pp.darTablaVISITANTE()+" VISITANTE.CEDULA=CARNET.CEDULA";
+		if(ordenar !="" && ordenar !=null) 
+		{
+			sql+="ORDER BY "+ ordenar;
+		}		
+		Query q = pm.newQuery(SQL, sql);
+		q.setParameters(fechaInicio,fechaFin,id_local);
+		return q.executeList();
+	}
 
 }
