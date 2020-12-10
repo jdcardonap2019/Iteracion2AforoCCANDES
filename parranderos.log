@@ -51,3 +51,6 @@
 11:38:34,773 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Interfaz
 11:38:34,774 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se aplica configuración indicada en el archivo de configuración
 11:38:34,809 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Tablas BD
+09:57:41,326 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Interfaz
+09:57:41,327 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se aplica configuración indicada en el archivo de configuración
+09:57:41,371 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAforoApp] - Se encontró un archivo de configuración válido: Tablas BD
