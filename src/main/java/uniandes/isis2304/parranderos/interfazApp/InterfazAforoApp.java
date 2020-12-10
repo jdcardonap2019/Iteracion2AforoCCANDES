@@ -338,7 +338,7 @@ public class InterfazAforoApp extends JFrame implements ActionListener
 	{
 		try 
 		{
-			String idTipoStr = JOptionPane.showInputDialog (this, "Fecha inicial, fecha final, id del establecimiento, característica de ordenamiento"
+			String idTipoStr = JOptionPane.showInputDialog (this, "Fecha inicial, fecha final, id del establecimiento, orden"
 					, "Visitantes en contacto ", JOptionPane.QUESTION_MESSAGE);
 			if (idTipoStr != null)
 			{
@@ -346,8 +346,8 @@ public class InterfazAforoApp extends JFrame implements ActionListener
 				String fechaInicio=datos[0];
 				String fechaFin= datos[1];
 				String id= datos[2];
+				String ordenar=datos[3];
 				Long idE=Long.parseLong(id);
-				String consulta=datos[3];
 				//Convertir fechas
 				final String FORMAT = "yyyy-MM-dd HH:mm:ss.SSS";
 				DateFormat formatter = new SimpleDateFormat(FORMAT);
@@ -358,7 +358,7 @@ public class InterfazAforoApp extends JFrame implements ActionListener
 				Timestamp  ts1 = new Timestamp(hOp.getTime());
 				Timestamp  ts2 = new Timestamp(hFin.getTime());
 				
-				List <Object[]> visitantes= aforo.RFC10(idE, ts1, ts2, consulta);
+				List <Object[]> visitantes= aforo.RFC10(idE, ts1, ts2, ordenar);
 				String resultado = "Datos:";
 				resultado +=  "\n" + listarObjectRFC10(visitantes);
 				panelDatos.actualizarInterfaz(resultado);
@@ -422,7 +422,7 @@ public class InterfazAforoApp extends JFrame implements ActionListener
 	}
 	private String listarObjectRFC10(List<Object[]> lista) 
 	{
-		String resp = "Los visitantes que entraton al establecimiento entre esas horas fueron:\n";
+		String resp = "Los visitantes que entraton al establecimiento entre esas fechas fueron:\n";
 		for (int i=0;i<lista.size();i++) 
 		{ 
 			int indice=i+1;
@@ -436,6 +436,23 @@ public class InterfazAforoApp extends JFrame implements ActionListener
 		}
 		return resp;
 	}
+	private String listarObjectRFC11(List<Object[]> lista) 
+	{
+		String resp = "Los visitantes que no entraton al establecimiento entre esas fechas fueron:\n";
+		for (int i=0;i<lista.size();i++) 
+		{ 
+			int indice=i+1;
+			resp+="------------------\n";
+			resp+="Visitante #"+indice+"\n";
+			resp+="------------------\n";
+			for(int j=0;j<lista.get(i).length;j++)
+			{
+				resp +=lista.get(i)[j]+"\n";
+			}
+		}
+		return resp;
+	}
+
 	public void buscarBañoPorId( )
 	{
 		try 

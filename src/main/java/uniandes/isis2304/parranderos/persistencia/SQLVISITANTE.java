@@ -128,40 +128,44 @@ public class SQLVISITANTE {
 	
 	public List<Object> RFC10(PersistenceManager pm, Long id_local, Timestamp fechaInicio, Timestamp fechaFin, String ordenar)
 	{ 
-		String sql = "SELECT SELECT  VISITANTE.CEDULA, VISITANTE.NOMBRE, VISITANTE.TELEFONO, VISITANTE.NOMBRE_CONTACTO, VISITANTE.TELEFONO_CONTACTO, VISITANTE.CORREO";
+		String sql = "SELECT  VISITANTE.CEDULA, VISITANTE.NOMBRE, VISITANTE.TELEFONO, VISITANTE.NOMBRE_CONTACTO, VISITANTE.TELEFONO_CONTACTO, VISITANTE.CORREO";
 		sql +=" FROM(SELECT DISTINCT(IDCARNET)";
-		sql+=" FROM "+pp.darTablaVISITANTE();
+		sql+=" FROM "+pp.darTablaVISITA();
 		sql+=" WHERE FECHAYHORA_OP BETWEEN ? AND ?";
 		sql+=" AND TIPO_OP='Entrada'";
 		sql+=" AND IDESPACIO=?)";
 		sql+=" INNER JOIN "+pp.darTablaCARNET()+" ON CARNET.ID_CARNET=IDCARNET";
-		sql+=" INNER JOIN "+pp.darTablaVISITANTE()+" VISITANTE.CEDULA=CARNET.CEDULA";
-		if(ordenar !="" && ordenar !=null) 
+		sql+=" INNER JOIN "+pp.darTablaVISITANTE()+" ON VISITANTE.CEDULA=CARNET.CEDULA";		
+		if(ordenar.contains("CEDULA") || ordenar.contains("NOMBRE") ||
+				ordenar.contains("TELEFONO") || ordenar.contains("NOMBRE_CONTACTO") || 
+				ordenar.contains("TELEFONO_CONTACTO") || ordenar.contains("CORREO")) 
 		{
-			sql+="ORDER BY "+ ordenar;
-		}		
-
+			sql+=" ORDER BY "+ ordenar;
+		}	
 		Query q = pm.newQuery(SQL, sql);
 		q.setParameters(fechaInicio,fechaFin,id_local);
 		return q.executeList();
 	}
 
-	public List<Object> RFC11(PersistenceManager pm, Long id_local, String fechaInicio, String fechaFin, String ordenar)
+	public List<Object> RFC11(PersistenceManager pm, Long id_local, Timestamp fechaInicio, Timestamp fechaFin, String ordenar)
 	{ 
-		String sql = "SELECT SELECT  VISITANTE.CEDULA, VISITANTE.NOMBRE, VISITANTE.TELEFONO, VISITANTE.NOMBRE_CONTACTO, VISITANTE.TELEFONO_CONTACTO, VISITANTE.CORREO";
+		String sql = "SELECT  VISITANTE.CEDULA, VISITANTE.NOMBRE, VISITANTE.TELEFONO, VISITANTE.NOMBRE_CONTACTO, VISITANTE.TELEFONO_CONTACTO, VISITANTE.CORREO";
 		sql +=" FROM(SELECT DISTINCT(IDCARNET)";
-		sql+=" FROM "+pp.darTablaVISITANTE();
+		sql+=" FROM "+pp.darTablaVISITA();
 		sql+=" WHERE FECHAYHORA_OP BETWEEN ? AND ?";
-		sql+=" AND TIPO_OP='Salida'";
+		sql+=" AND TIPO_OP='Entrada'";
 		sql+=" AND IDESPACIO=?)";
-		sql+=" INNER JOIN "+pp.darTablaCARNET()+" ON CARNET.ID_CARNET=IDCARNET";
-		sql+=" INNER JOIN "+pp.darTablaVISITANTE()+" VISITANTE.CEDULA=CARNET.CEDULA";
-		if(ordenar !="" && ordenar !=null) 
+		sql+=" RIGHT JOIN "+pp.darTablaCARNET()+" ON CARNET.ID_CARNET=IDCARNET";
+		sql+=" INNER JOIN "+pp.darTablaVISITANTE()+" ON VISITANTE.CEDULA=CARNET.CEDULA";
+		sql+=" WHERE IDCARNET IS NULL";
+		if(ordenar.contains("CEDULA") || ordenar.contains("NOMBRE") ||
+				ordenar.contains("TELEFONO") || ordenar.contains("NOMBRE_CONTACTO") || 
+				ordenar.contains("TELEFONO_CONTACTO") || ordenar.contains("CORREO")) 
 		{
-			sql+="ORDER BY "+ ordenar;
+			sql+=" ORDER BY "+ ordenar;
 		}		
 		Query q = pm.newQuery(SQL, sql);
-		q.setParameters(fechaInicio,fechaFin,id_local);
+		q.setParameters(fechaInicio,fechaFin,id_local,fechaInicio,fechaFin,id_local);
 		return q.executeList();
 	}
 

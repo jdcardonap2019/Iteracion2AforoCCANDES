@@ -1862,7 +1862,7 @@ public class PersistenciaAforo
 	            pm.close();
 	        }
 	}
-	public List<Object[]> RFC10( Long id_local, Timestamp fechaInicio, Timestamp fechaFin, String ordenar)
+	public List<Object[]> RFC10( Long id_local, Timestamp fechaInicio, Timestamp fechaFin,String ordenar)
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
@@ -1881,11 +1881,11 @@ public class PersistenciaAforo
 				String correo=((String)datos[5]);
 				
 				Object [] resp = new Object [6];
-				resp[0]="[Cedula: "+cedula+" ]";
-				resp[1]="[Nombre: "+nombre+" ]";
-				resp[2]="[Telefono: "+telefono+" ]";
-				resp[3]="[Nombre contacto: "+nombre2+" ]";
-				resp[4]="[Telefono contacto: "+telefono2+" ]";
+				resp[0]="[Cedula: "+cedula;
+				resp[1]="[Nombre: "+nombre;
+				resp[2]="[Telefono: "+telefono;
+				resp[3]="[Nombre contacto: "+nombre2;
+				resp[4]="[Telefono contacto: "+telefono2;
 				resp[5]="[Correo: "+correo+" ]";
 				
 				
@@ -1914,7 +1914,7 @@ public class PersistenciaAforo
 		try{
 			tx.begin();
 			List<Object []> respuesta = new LinkedList <Object []> ();
-			List<Object> visitantes=sqlVisitante.RFC10(pm, id_local, fechaInicio, fechaFin, ordenar);
+			List<Object> visitantes=sqlVisitante.RFC11(pm, id_local, fechaInicio, fechaFin, ordenar);
 			for(Object visitante: visitantes)
 			{
 				Object [] datos	 = (Object []) visitante;
